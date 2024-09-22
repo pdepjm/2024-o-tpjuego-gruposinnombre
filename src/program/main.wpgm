@@ -1,0 +1,83 @@
+import wollok.game.*
+
+import pepita.*
+//Hay que hacer todos los imports, que serían los includes
+
+
+program PepitaGame {
+	game.title("Minijuegos")
+	game.height(8)
+	game.width(10)
+	game.cellSize(40)
+
+	var juegoActual = 0
+
+	game.addVisual(pepita)
+
+	keyboard.w().onPressDo({ pepita.up(1) })
+	keyboard.a().onPressDo({ pepita.left(1) })
+	keyboard.s().onPressDo({ pepita.down(1) })
+	keyboard.d().onPressDo({ pepita.right(1) })
+
+
+	game.start()
+
+	if(juegoActual == 1)
+	{
+		keyboard.w().onPressDo(
+		{
+			const nuevaPosicionY = cabeza.y() + 1
+			const nuevaPosicionX = cabeza.x()
+			const paredes = mapaJuego1.paredes()
+			if(paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)}))
+			{
+			}
+			else
+			{
+				cabeza.up(1)
+			}
+		})
+		keyboard.a().onPressDo(
+		{ 
+			const nuevaPosicionY = cabeza.y() 
+			const nuevaPosicionX = cabeza.x() - 1
+			const paredes = mapaJuego1.paredes()
+			if(paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)}))
+			{
+			}
+			else
+			{
+				cabeza.left(1)
+			}
+		})
+		keyboard.s().onPressDo(
+		{ 
+			const nuevaPosicionY = cabeza.y() -1
+			const nuevaPosicionX = cabeza.x()
+			const paredes = mapaJuego1.paredes()
+			if(paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)}))
+			{
+			}
+			else
+			{
+				cabeza.down(1)
+			}
+		})
+		keyboard.d().onPressDo(
+		{ 
+			const nuevaPosicionY = cabeza.y() 
+			const nuevaPosicionX = cabeza.x() + 1
+			const paredes = mapaJuego1.paredes()
+			if(paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)}))
+			{
+			}
+			else
+			{
+				cabeza.right(1)
+			}
+		})
+	}
+}
+
+
+
