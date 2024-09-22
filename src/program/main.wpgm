@@ -4,7 +4,7 @@ import pepita.*
 //Hay que hacer todos los imports, que serían los includes
 
 
-program PepitaGame {
+program miniJuego{
 	game.title("Minijuegos")
 	game.height(8)
 	game.width(10)
@@ -20,10 +20,12 @@ program PepitaGame {
 	keyboard.d().onPressDo({ pepita.right(1) })
 
 
-	game.start()
+
 
 	if(juegoActual == 1)
-	{
+	{	
+		//Manejo de teclas para el nivel 1. Contempla respetar los límites del mapa
+
 		keyboard.w().onPressDo(
 		{
 			const nuevaPosicionY = cabeza.y() + 1
@@ -34,7 +36,7 @@ program PepitaGame {
 			}
 			else
 			{
-				cabeza.up(1)
+				cabeza.moverse(arriba)
 			}
 		})
 		keyboard.a().onPressDo(
@@ -47,7 +49,7 @@ program PepitaGame {
 			}
 			else
 			{
-				cabeza.left(1)
+				cabeza.moverse(izquierda)
 			}
 		})
 		keyboard.s().onPressDo(
@@ -60,7 +62,7 @@ program PepitaGame {
 			}
 			else
 			{
-				cabeza.down(1)
+				cabeza.moverse(abajo)
 			}
 		})
 		keyboard.d().onPressDo(
@@ -73,10 +75,27 @@ program PepitaGame {
 			}
 			else
 			{
-				cabeza.right(1)
+				cabeza.moverse(derecha)
 			}
 		})
+
+		//Manejo de colisiones de la cabeza de la serpiente con manzanas
+
+		game.whenCollideDo(cabeza, 
+		{
+			manzana => 
+			manzana.desaparecer()
+			var resultado = partida.sumarManzana()
+			cabeza.crecer()
+			if(resultado)
+			{
+				juegoActual == 2
+			}
+		})
+
 	}
+
+	game.start()
 }
 
 
