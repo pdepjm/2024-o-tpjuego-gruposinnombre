@@ -6,91 +6,109 @@ import pepita.*
 
 program miniJuego{
 	game.title("Minijuegos")
+
+	
 	game.height(8)
+	
 	game.width(10)
+	
 	game.cellSize(40)
 
 	var juegoActual = 0
 
-	game.addVisual(pepita)
-
-	keyboard.w().onPressDo({ pepita.up(1) })
-	keyboard.a().onPressDo({ pepita.left(1) })
-	keyboard.s().onPressDo({ pepita.down(1) })
-	keyboard.d().onPressDo({ pepita.right(1) })
-
-
-
-
 	if(juegoActual == 1)
 	{	
 		//Manejo de teclas para el nivel 1. Contempla respetar los límites del mapa
-
-		keyboard.w().onPressDo(
-		{
+		keyboard.w().onPressDo
+		({
 			const nuevaPosicionY = cabeza.y() + 1
+			
 			const nuevaPosicionX = cabeza.x()
+			
 			const paredes = mapaJuego1.paredes()
-			if(paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)}))
+			
+			if((paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)})).negate())
 			{
-			}
-			else
-			{
+				
 				cabeza.moverse(arriba)
+
 			}
+
 		})
-		keyboard.a().onPressDo(
-		{ 
+
+		keyboard.a().onPressDo
+		({ 
+			
 			const nuevaPosicionY = cabeza.y() 
+			
 			const nuevaPosicionX = cabeza.x() - 1
+			
 			const paredes = mapaJuego1.paredes()
-			if(paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)}))
+			
+			if((paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)})).negate())
 			{
-			}
-			else
-			{
+				
 				cabeza.moverse(izquierda)
+
 			}
+
 		})
-		keyboard.s().onPressDo(
-		{ 
+
+		keyboard.s().onPressDo
+		({ 
+			
 			const nuevaPosicionY = cabeza.y() -1
+			
 			const nuevaPosicionX = cabeza.x()
+			
 			const paredes = mapaJuego1.paredes()
-			if(paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)}))
+			
+			if((paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)})).negate())
 			{
-			}
-			else
-			{
+				
 				cabeza.moverse(abajo)
+
 			}
+
 		})
-		keyboard.d().onPressDo(
-		{ 
+		
+		keyboard.d().onPressDo
+		({ 
+			
 			const nuevaPosicionY = cabeza.y() 
+			
 			const nuevaPosicionX = cabeza.x() + 1
+			
 			const paredes = mapaJuego1.paredes()
-			if(paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)}))
+			
+			if((paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)})).negate())
 			{
-			}
-			else
-			{
+				
 				cabeza.moverse(derecha)
+
 			}
+		
 		})
 
 		//Manejo de colisiones de la cabeza de la serpiente con manzanas
-
 		game.whenCollideDo(cabeza, 
 		{
+			
 			manzana => 
+			
 			manzana.desaparecer()
+			
 			var resultado = partida.sumarManzana()
+			
 			cabeza.crecer()
+			
 			if(resultado)
 			{
+				
 				juegoActual == 2
+
 			}
+			
 		})
 
 	}
