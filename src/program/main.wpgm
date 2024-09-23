@@ -108,7 +108,7 @@ program miniJuego{
 				juegoActual == 2
 
 			}
-			
+
 		})
 
 	}

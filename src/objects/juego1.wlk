@@ -59,9 +59,13 @@ object cabeza {
     
     var property position = game.center()
   
+    var property posicionProximoCuerpo = position
+
     method moverse(direccion)
     {
         
+        posicionProximoCuerpo = cuerpos.last.position()
+
         var viejaPosicion = position
 
         var nuevaViejaPosicion
@@ -110,20 +114,16 @@ object cabeza {
 
     method crecer()
     {
-    
-        cuerpos.add(new Cuerpo())
+
+        cuerpos.add(new Cuerpo(posicionProximoCuerpo))
 
     }
   
 }
 
-class Cuerpo {
+class Cuerpo 
+{
     
     var property position
 
-    method seguirSiguiente()
-    {
-        
-    }
-  
 }
