@@ -1,117 +1,101 @@
 import wollok.game.*
-
-import pepita.*
-//Hay que hacer todos los imports, que serían los includes
-
+import src.objects.juego1.*
 
 program miniJuego{
 	game.title("Minijuegos")
 
-	
 	game.height(8)
 	
 	game.width(10)
 	
 	game.cellSize(40)
 
-	var juegoActual = 0
+	partida1.iniciar()
 
-	if(juegoActual == 1)
-	{	
-		//Manejo de teclas para el nivel 1. Contempla respetar los límites del mapa
-		keyboard.w().onPressDo
-		({
-			const nuevaPosicionY = cabeza.y() + 1
-			
-			const nuevaPosicionX = cabeza.x()
-			
-			const paredes = mapaJuego1.paredes()
-			
-			if((paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)})).negate())
-			{
-				
-				cabeza.moverse(arriba)
-
-			}
-
-		})
-
-		keyboard.a().onPressDo
-		({ 
-			
-			const nuevaPosicionY = cabeza.y() 
-			
-			const nuevaPosicionX = cabeza.x() - 1
-			
-			const paredes = mapaJuego1.paredes()
-			
-			if((paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)})).negate())
-			{
-				
-				cabeza.moverse(izquierda)
-
-			}
-
-		})
-
-		keyboard.s().onPressDo
-		({ 
-			
-			const nuevaPosicionY = cabeza.y() -1
-			
-			const nuevaPosicionX = cabeza.x()
-			
-			const paredes = mapaJuego1.paredes()
-			
-			if((paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)})).negate())
-			{
-				
-				cabeza.moverse(abajo)
-
-			}
-
-		})
+	keyboard.w().onPressDo
+	({
+		const nuevaPosicionY = cabeza.position().y() + 1
 		
-		keyboard.d().onPressDo
-		({ 
-			
-			const nuevaPosicionY = cabeza.y() 
-			
-			const nuevaPosicionX = cabeza.x() + 1
-			
-			const paredes = mapaJuego1.paredes()
-			
-			if((paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)})).negate())
-			{
-				
-				cabeza.moverse(derecha)
-
-			}
+		const nuevaPosicionX = cabeza.position().x()
 		
-		})
+		const paredes = mapaJuego1.paredes()
+			
+		if((paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)})).negate())
+		{
+				
+			cabeza.moverse("arriba")
+
+		}
+
+	})
+
+	keyboard.a().onPressDo
+	({ 
+			
+		const nuevaPosicionY = cabeza.position().y() 
+		
+		const nuevaPosicionX = cabeza.position().x() - 1
+			
+		const paredes = mapaJuego1.paredes()
+			
+		if((paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)})).negate())
+		{
+				
+			cabeza.moverse("izquierda")
+
+		}
+
+	})
+
+	keyboard.s().onPressDo
+	({ 
+			
+		const nuevaPosicionY = cabeza.position().y() -1
+			
+		const nuevaPosicionX = cabeza.position().x()
+			
+		const paredes = mapaJuego1.paredes()
+			
+		if((paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)})).negate())
+		{
+				
+			cabeza.moverse("abajo")
+
+		}
+
+	})
+		
+	keyboard.d().onPressDo
+	({ 
+			
+		const nuevaPosicionY = cabeza.position().y() 
+			
+		const nuevaPosicionX = cabeza.position().x() + 1
+			
+		const paredes = mapaJuego1.paredes()
+			
+		if((paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)})).negate())
+		{
+				
+			cabeza.moverse("derecha")
+
+		}
+		
+	})
 
 		//Manejo de colisiones de la cabeza de la serpiente con manzanas
-		game.whenCollideDo(cabeza, 
-		{
+	game.whenCollideDo(cabeza, 
+	{
 			
-			manzana => 
+		manzana => 
 			
-			manzana.desaparecer()
+		manzana.desaparecer()
 			
-			var resultado = partida.sumarManzana()
+		partida1.sumarManzana()
 			
-			cabeza.crecer()
+		cabeza.crecer()
 			
-			if(resultado)
-			{
-				
-				juegoActual == 2
-
-			}
-
-		})
-
-	}
+	})
 
 	game.start()
 }
