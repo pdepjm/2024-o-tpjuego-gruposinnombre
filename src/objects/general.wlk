@@ -1,17 +1,49 @@
 import wollok.game.*
 
 class Pared {
-    
-    var property  position
    
+    const x
+   
+    const y
+
     var imagen
-   
+       
+    var property  position = game.at(x,y)
+
     method image() = imagen
+
+    method iniciarPared()
+    {
+        game.whenCollideDo(self, {personaje => personaje.interactuarPared(self)})
+    }
+
+    
+
+}
+
+object managerPared
+{
+    method iniciar(paredes)
+    {
+        paredes.foreach
+        ({
+            pared =>
+
+            pared.iniciarPared()
+
+            game.addVisual(pared)
+
+        })
+    }
 }
 
 class Manzana {
 
-    var property position
+    const x
+
+    const y
+
+    var property position = game.at(x,y)
 
     var imagen
 
@@ -23,85 +55,30 @@ class Manzana {
         game.removeVisual(self)
 
     }
+    
+    method iniciar()
+    {
+        game.whenCollideDo(self, {personaje => personaje.interactuarManzana(self)})
+    }
 
 }
 
-object cabeza {
-    
-    const cuerpos = []
-    
-    var property position = game.center()
-  
-    var posicionProximoCuerpo = position
-
-    method moverse(direccion)
-    {
-        
-        posicionProximoCuerpo = cuerpos.last().position()
-
-        var viejaPosicion = position
-
-        var nuevaViejaPosicion
-    
-        if(direccion == "derecha")
-        {
-
-            position = game.at(position.x() + 1, position.y())
-
-        }
-        
-        else if(direccion == "izquierda")
-        {
-            
-            position = game.at(position.x() -1, position.y())
-
-        }
-        
-        else if(direccion == "arriba")
-        {
-            
-            position = game.at(position.x(), position.y() + 1)
-
-        }
-
-        else if(direccion == "abajo")
-        {
-            
-            position = game.at(position.x(), position.y() - 1)
-
-        }
-        
-        cuerpos.foreach
-        ({
-            cuerpo =>
-
-            nuevaViejaPosicion = cuerpo.position()
-
-            cuerpo.position(viejaPosicion)
-
-            viejaPosicion = nuevaViejaPosicion
-
-        })
-
-    }
-
-    method crecer()
-    {
-
-        cuerpos.add(new Cuerpo(position = posicionProximoCuerpo, imagen =))
-
-    }
-  
-}
-
-class Cuerpo 
+object partida
 {
-    
-    var property position 
+    var partidaActual = partida1
 
-    var imagen
+    var personajeActual = cabeza
 
-    method image() = imagen
+    method nuevaPartida(partida)
+    {
+        partidaActual = partida
+    }
 
+    method personaje() = personajeActual
+
+    method paredes() = partidaActual.paredesPartida()
 }
+
+
+
 

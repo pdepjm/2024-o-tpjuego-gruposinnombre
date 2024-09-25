@@ -14,90 +14,102 @@ program miniJuego{
 	partida1.iniciar()
 
 	keyboard.w().onPressDo
-	({
-		const nuevaPosicionY = cabeza.position().y() + 1
+	    ({
+		    const nuevaPosicionY = cabeza.position().y() + 1
 		
-		const nuevaPosicionX = cabeza.position().x()
+		    const nuevaPosicionX = cabeza.position().x()
 		
-		const paredes = mapaJuego1.paredes()
+		    const paredes = partida.paredes()
 			
-		if((paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)})).negate())
-		{
-				
-			cabeza.moverse("arriba")
+            //ACA SE VERIFICA SI AL MOVERSE CHOCA CON UNA PARED
+		    if((paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)})).negate())
+		    {
+				//SI NO CHOCA, SE MUEVE A LA SIGUIENTE POSICION
+		    	partida.personaje().moverse("arriba")
 
-		}
+		    }
+			else
+			{
+				//SI CHOCA, ESTA INTERACTUANDO CON PARED
+				partida.personaje().interactuarPared()
+			}
 
-	})
 
-	keyboard.a().onPressDo
-	({ 
+	    })
+
+	    keyboard.a().onPressDo
+	    ({ 
 			
-		const nuevaPosicionY = cabeza.position().y() 
+		    const nuevaPosicionY = cabeza.position().y() 
 		
-		const nuevaPosicionX = cabeza.position().x() - 1
+		    const nuevaPosicionX = cabeza.position().x() - 1
 			
-		const paredes = mapaJuego1.paredes()
+		    const paredes = partida.paredes()
 			
-		if((paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)})).negate())
-		{
-				
-			cabeza.moverse("izquierda")
+            //ACA SE VERIFICA SI AL MOVERSE CHOCA CON UNA PARED
+		    if((paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)})).negate())
+		    {
+				//SI NO CHOCA, SE MUEVE A LA SIGUIENTE POSICION
+		    	partida.personaje().moverse("izquierda")
 
-		}
+		    }
+			else
+			{
+				//SI CHOCA, ESTA INTERACTUANDO CON PARED
+				partida.personaje().interacturaPared()
+			}
 
-	})
+	    })
 
-	keyboard.s().onPressDo
-	({ 
+	    keyboard.s().onPressDo
+	    ({ 
 			
-		const nuevaPosicionY = cabeza.position().y() -1
+		    const nuevaPosicionY = cabeza.position().y() -1
 			
-		const nuevaPosicionX = cabeza.position().x()
+		    const nuevaPosicionX = cabeza.position().x()
 			
-		const paredes = mapaJuego1.paredes()
+		    const paredes = partida.paredes()
 			
-		if((paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)})).negate())
-		{
-				
-			cabeza.moverse("abajo")
+            //ACA SE VERIFICA SI AL MOVERSE CHOCA CON UNA PARED
+		    if((paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)})).negate())
+		    {
+				//SI NO CHOCA, SE MUEVE A LA SIGUIENTE POSICION
+		    	partida.personaje().moverse("abajo")
 
-		}
+		    }
+			else
+			{
+				//SI CHOCA, ESTA INTERACTUANDO CON PARED
+				partida.personaje().interacturaPared()
+			}
 
-	})
+
+	    })
 		
-	keyboard.d().onPressDo
-	({ 
+	    keyboard.d().onPressDo
+	    ({ 
 			
-		const nuevaPosicionY = cabeza.position().y() 
+		    const nuevaPosicionY = cabeza.position().y() 
 			
-		const nuevaPosicionX = cabeza.position().x() + 1
+		    const nuevaPosicionX = cabeza.position().x() + 1
 			
-		const paredes = mapaJuego1.paredes()
+		    const paredes = partida.paredes()
 			
-		if((paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)})).negate())
-		{
-				
-			cabeza.moverse("derecha")
+            //ACA SE VERIFICA SI AL MOVERSE CHOCA CON UNA PARED
+		    if((paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)})).negate())
+		    {
+				//SI NO CHOCA, SE MUEVE A LA SIGUIENTE POSICION
+		    	partida.personaje().moverse("derecha")
 
-		}
-		
-	})
+		    }
+			else
+			{
+				//SI CHOCA, ESTA INTERACTUANDO CON PARED
+				partida.personaje().interacturaPared()
+			}
 
-		//Manejo de colisiones de la cabeza de la serpiente con manzanas
-	game.whenCollideDo(cabeza, 
-	{
-			
-		manzana => 
-			
-		manzana.desaparecer()
-			
-		partida1.sumarManzana()
-			
-		cabeza.crecer()
-			
-	})
 
+	    })
 	game.start()
 }
 
