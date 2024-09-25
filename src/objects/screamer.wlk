@@ -11,24 +11,26 @@ object partida4
     game.width(50)
     game.cellSize(90)
     game.ground("negro.png")
-    pared1.iniciar()
+    managerParedes.iniciar()
     personaje.iniciar()
     manzanaScreamer.iniciar()
     }
 }
 
-object pared1 {
-  var property position = game.at(40, 20)
+class Paredd{ //doble d para que no se pise con la ya hecha
+  const x
+  const y
+  const property position = game.at(x, y)
   method image()= "pared.png"
-  method iniciar() {
-  game.addVisual(self)
-  }
   
+  method iniciar() {
+    game.addVisual(self)
+    }
+
+ method interactuar() {
+    personaje.resetPosition()
+  }
 } 
-/*provisoriamente esta creado el objeto pared, se que son muchas y conviene una clase, pero me tiraba error 
-al crearla e implementarla ya que el personaje tendria que hacer un  game.whenCollideDo con cada pared, o con la clase
-de todas formas sigo averiguando como arreglarlo pero dejo el objeto pared1 para ver que la funcionalidad que si el personaje 
-impacta resetee su posicion*/
 
 
 object manzanaScreamer {
@@ -37,9 +39,12 @@ object manzanaScreamer {
   method iniciar() {
     game.addVisual(self)
   }
+
+   method interactuar() {
+    personaje.ponerScreamer()
+  }
 } 
-/*creo el objeto manzana ya que si bien para el juego uno tenemos una class, esta se comporta distinto, 
-tiene como metodo spawnear el screamer*/
+
 
 object personaje {
   var property position = game.at(48, 0)
@@ -48,8 +53,8 @@ object personaje {
   method iniciar() 
   {
     game.addVisualCharacter(self)
-    game.whenCollideDo(pared1, {personaje => personaje.resetPosition()})
-    game.whenCollideDo(manzanaScreamer, {personaje => personaje.ponerScreamer()} )
+    game.whenCollideDo(self, {objeto => objeto.interactuar()})
+   
   }
 
  method resetPosition() 
@@ -75,5 +80,31 @@ object prueba {
   }
 
 } 
+
 /*prueba es la foto de messi, el personaje al impactar con la manzana lanza el prueba.iniciar, ahora le puse
-que spawnee en unas coordenadas, pero el objetivo es que rellene toda la pantalla*/ 
+que spawnee en unas coordenadas, pero el objetivo es que rellene toda la pantalla*/
+
+object managerParedes {
+  const paredes = 
+[ new Paredd(x = 0 , y = 0), 
+  new Paredd(x = 0 , y = 0), 
+  new Paredd(x = 0 , y = 0),
+  new Paredd(x = 0 , y = 0),
+  new Paredd(x = 0 , y = 0),
+  new Paredd(x = 0 , y = 0),
+  new Paredd(x = 0 , y = 0),
+  new Paredd(x = 0 , y = 0),
+  new Paredd(x = 0 , y = 0),
+  new Paredd(x = 0 , y = 0),
+  new Paredd(x = 0 , y = 0),
+  new Paredd(x = 0 , y = 0),
+  new Paredd(x = 0 , y = 0),
+  new Paredd(x = 0 , y = 0),
+  new Paredd(x = 0 , y = 0) ]
+
+  method iniciar() {
+    paredes.forEach({pared=> pared.iniciar()})
+
+  }
+  
+}
