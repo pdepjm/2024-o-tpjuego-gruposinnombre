@@ -1,4 +1,8 @@
 import wollok.game.*
+import juego1.*
+import juego2.*
+import juego3.*
+import screamer.*
 
 class Pared {
    
@@ -14,9 +18,16 @@ class Pared {
 
     method iniciarPared()
     {
+        
         game.whenCollideDo(self, {personaje => personaje.interactuarPared(self)})
+
+        game.addVisual(self)
     }
 
+    method finalizarPared()
+    {
+        game.removeVisual(self)
+    }
     
 
 }
@@ -31,7 +42,16 @@ object managerPared
 
             pared.iniciarPared()
 
-            game.addVisual(pared)
+        })
+    }
+
+    method finalizar(paredes)
+    {
+        paredes.foreach
+        ({
+            pared =>
+
+            pared.finalizarPared()
 
         })
     }
@@ -59,6 +79,8 @@ class Manzana {
     method iniciar()
     {
         game.whenCollideDo(self, {personaje => personaje.interactuarManzana(self)})
+        
+        game.addVisual(self)
     }
 
 }
@@ -67,7 +89,7 @@ object partida
 {
     var partidaActual = partida1
 
-    var personajeActual = cabeza
+    var personajeActual = partidaActual.personaje()
 
     method nuevaPartida(partida)
     {
