@@ -7,6 +7,8 @@ object partida1
    
     const objetivoManzanas = 5
 
+    const manzanasEnMapa = []
+
     //Mapa completo de 10x8 delimitado por paredes sin paredes en el medio
     const paredes = 
   [new Pared(x = 0 , y = 0, imagen = "imagen"), 
@@ -60,13 +62,42 @@ object partida1
         managerPared.iniciar(paredes)
 
         game.addVisual(cabeza)
+
+        cabeza.position(game.center())
         //CUal es mi background
         //Cambiar la imagen de la manzana
     }
 
     method terminar()
     {
-        //Elimino todos mis objetos
+        
+        game.removeVisual(cabeza)
+
+        managerPared.finalizar(paredes)
+
+        cabeza.destruirCuerpos()
+
+        manzanasEnMapa.foreach
+        ({
+
+            manzana => 
+            
+            manzana.desaparecer()
+
+            manzanasEnMapa.remove(manzana)
+
+        })
+
+    }
+
+    method reiniciar()
+    {
+        self.terminar()
+
+        manzanasActuales = 0
+
+        self.iniciar()
+
     }
 
     method sumarManzana()
@@ -79,18 +110,15 @@ object partida1
            
             //En este caso se debería pasar de nivel
             self.terminar()
+
             partida.nuevaPartida(partida2)
+
             partida2.iniciar()
 
 
-        }
-        
-        else
-        {
-
-            return 0
 
         }
+
     }
 
     method personaje() = cabeza
@@ -106,6 +134,22 @@ object cabeza {
     var property position = game.center()
   
     var posicionProximoCuerpo = position
+
+    method destruirCuerpos()
+    {
+
+        cuerpos.forEach
+        ({
+            
+            cuerpo =>
+
+            game.removeVisual(cuerpo)
+
+            cuerpos.remove(cuerpo)
+
+        })
+
+    }
 
     method moverse(direccion)
     {
@@ -175,9 +219,17 @@ object cabeza {
 
     method crecer()
     {
+        var nuevoCuerpo = new Cuerpo(position = posicionProximoCuerpo, imagen = "imagen")
 
-        cuerpos.add(new Cuerpo(position = posicionProximoCuerpo, imagen = "imagen"))
+        nuevoCuerpo.iniciar()
 
+        cuerpos.add(nuevoCuerpo)
+
+    }
+
+    method interactuarCuerpo()
+    {
+        partida1.reiniciar()
     }
   
 }
@@ -190,5 +242,12 @@ class Cuerpo
     var imagen
 
     method image() = imagen
+
+    method iniciar()
+    {
+        game.whenCollideDo(self, {personaje => personaje.interactuarCuerpo()})
+        
+        game.addVisual(self)
+    }
 
 }
