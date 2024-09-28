@@ -6,116 +6,70 @@ program miniJuego{
 
 	game.title("Minijuegos")
 
-	keyboard.enter().onPressDo
-	({
+	keyboard.enter().onPressDo( {partida1.iniciar()} )
 
-		partida1.iniciar()
-
-	})
-
-	keyboard.w().onPressDo
-	({
+	keyboard.w().onPressDo({
 		const nuevaPosicionY = partida.personaje().position().y() + 1
-		
-		const nuevaPosicionX = partida.personaje().position().x()
-		
+		const nuevaPosicionX = partida.personaje().position().x()		
 		const paredes = partida.paredes()
 			
         //ACA SE VERIFICA SI AL MOVERSE CHOCA CON UNA PARED
-		if((paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)})).negate())
-		{
+		if((paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)})).negate()){
 			//SI NO CHOCA, SE MUEVE A LA SIGUIENTE POSICION
 			partida.personaje().moverse("arriba")
-
 		}
-		else
-		{
+		else{
 			//SI CHOCA, ESTA INTERACTUANDO CON PARED
 			partida.personaje().interactuarPared()
 		}
-
 	})
 
-	keyboard.a().onPressDo
-	({ 
-			
+	keyboard.a().onPressDo({ 
 		const nuevaPosicionY = partida.personaje().position().y() 
-		
 		const nuevaPosicionX = partida.personaje().position().x() - 1
-			
 		const paredes = partida.paredes()
 			
         //ACA SE VERIFICA SI AL MOVERSE CHOCA CON UNA PARED
-		if((paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)})).negate())
-		{
-			
+		if((paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)})).negate()){
 			//SI NO CHOCA, SE MUEVE A LA SIGUIENTE POSICION
 			partida.personaje().moverse("izquierda")
 
-		}
-		
-		else
-		{
-			
+		} else {
 			//SI CHOCA, ESTA INTERACTUANDO CON PARED
 			partida.personaje().interactuarPared()
-
 		}
-
 	})
 
-	keyboard.s().onPressDo
-	({ 
-			
+	keyboard.s().onPressDo({ 
 		const nuevaPosicionY = partida.personaje().position().y() -1
-			
 		const nuevaPosicionX = partida.personaje().position().x()
-			
 		const paredes = partida.paredes()
 			
         //ACA SE VERIFICA SI AL MOVERSE CHOCA CON UNA PARED
-		    if((paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)})).negate())
-		    {
-				//SI NO CHOCA, SE MUEVE A LA SIGUIENTE POSICION
-		    	partida.personaje().moverse("abajo")
-
-		    }
-			else
-			{
-				//SI CHOCA, ESTA INTERACTUANDO CON PARED
-				partida.personaje().interactuarPared()
-			}
-
-
-	    })
+		if((paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)})).negate()){
+			//SI NO CHOCA, SE MUEVE A LA SIGUIENTE POSICION
+			partida.personaje().moverse("abajo")
+		} else {
+			//SI CHOCA, ESTA INTERACTUANDO CON PARED
+			partida.personaje().interactuarPared()
+		}
+	})
 		
-	keyboard.d().onPressDo
-	({ 
-		
-		const nuevaPosicionY = partida.personaje().position().y() 
-			
-		const nuevaPosicionX = partida.personaje().position().x() + 1
-			
+	keyboard.d().onPressDo({ 
+
+		const nuevaPosicionY = partida.personaje().position().y() 			
+		const nuevaPosicionX = partida.personaje().position().x() + 1			
 		const paredes = partida.paredes()
 			
         //ACA SE VERIFICA SI AL MOVERSE CHOCA CON UNA PARED
-		if((paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)})).negate())
-		{
-
+		if((paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)})).negate()){
 			//SI NO CHOCA, SE MUEVE A LA SIGUIENTE POSICION
 		    partida.personaje().moverse("derecha")
-
-		}
-
-		else
-		{
-			
+		} else {
 			//SI CHOCA, ESTA INTERACTUANDO CON PARED
 			partida.personaje().interactuarPared()
 		}
-
 	})
-
 	game.start()
 }
 
