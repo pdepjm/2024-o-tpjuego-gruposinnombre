@@ -57,9 +57,11 @@ object partida1
 	
 	    game.cellSize(40)
 
+        partida.nuevaPartida(self)
+
         game.ground("imagen")
 
-        managerPared.iniciar(paredes)
+        self.iniciarParedes()
 
         game.addVisual(cabeza)
 
@@ -68,12 +70,22 @@ object partida1
         //Cambiar la imagen de la manzana
     }
 
+    method finalizarParedes()
+    {
+        paredes.foreach({ pared => pared.iniciar() })
+    }
+
+    method iniciarParedes()
+    {
+        paredes.foreach({ pared => pared.iniciar() })
+    }
+
     method terminar()
     {
         
         game.removeVisual(cabeza)
 
-        managerPared.finalizar(paredes)
+        self.finalizarParedes()
 
         cabeza.destruirCuerpos()
 
