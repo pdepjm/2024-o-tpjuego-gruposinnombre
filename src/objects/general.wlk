@@ -7,11 +7,12 @@ import screamer.*
 class Pared {
   const x
   const y
+  method x() = x
+  method y() = y
   const imagen
   var property position = game.at(x, y)
   
   method image() = imagen
-  
   method iniciar() {
     game.whenCollideDo(self, { personaje => personaje.interactuarPared() })
     game.addVisual(self)
@@ -30,14 +31,15 @@ class Manzana {
   
   method image() = imagen
   
-  method desaparecer() {
-    game.removeVisual(self)
-  }
-  
   method iniciar() {
     game.whenCollideDo(self, { personaje => personaje.interactuarManzana(self) })
     game.addVisual(self)
   }
+  
+  method desaparecer() {
+    game.removeVisual(self)
+  }
+  
 }
 
 object partida {
