@@ -5,14 +5,10 @@ import juego3.*
 import screamer.*
 
 class Pared {
-  const x
-  const y
-  method x() = x
-  method y() = y
-  const imagen
-  var property position = game.at(x, y)
+  var property position = game.center()
   
-  method image() = imagen
+  method image()
+
   method iniciar() {
     game.whenCollideDo(self, { personaje => personaje.interactuarPared() })
     game.addVisual(self)
@@ -20,6 +16,23 @@ class Pared {
   
   method finalizar() {
     game.removeVisual(self)
+  }
+}
+
+class ParedQueNoHaceNada inherits Pared
+{
+
+  method interactuarPersona()
+  {
+  }
+}
+
+class ParedQueReinicia inherits Pared
+{
+
+  method interactuarPersona()
+  {
+    partida.partidaActual().reiniciar()
   }
 }
 
@@ -44,7 +57,7 @@ class Manzana {
 
 object partida {
 
-  var partidaActual = partida1
+  var property partidaActual = partida1
 
   var personajeActual = partidaActual.personaje()
   
@@ -59,3 +72,101 @@ object partida {
   method paredes() = partidaActual.paredesPartida()
 }
 
+object izquierda
+{
+  const personaje = partida.personaje()
+
+  const position = personaje.position()
+
+  const nuevaPosicion = game.at(position.x() - 1, position.y())
+
+  method moverse()
+  {
+    personaje.position(nuevaPosicion)
+
+    personaje.moverCuerpos(position)
+  }
+}
+
+object derecha
+{
+  const personaje = partida.personaje()
+
+  const position = personaje.position()
+
+  const nuevaPosicion = game.at(position.x() + 1, position.y())
+
+  method moverse()
+  {
+    personaje.position(nuevaPosicion)
+
+    personaje.moverCuerpos(position)
+  }
+}
+
+object arriba
+{
+  const personaje = partida.personaje()
+
+  const position = personaje.position()
+
+  const nuevaPosicion = game.at(position.x(), position.y() + 1)
+
+  method moverse()
+  {
+    personaje.position(nuevaPosicion)
+
+    personaje.moverCuerpos(position)
+  }
+}
+
+object abajo
+{
+  const personaje = partida.personaje()
+
+  const position = personaje.position()
+
+  const nuevaPosicion = game.at(position.x(), position.y() - 1)
+
+  method moverse()
+  {
+    personaje.position(nuevaPosicion)
+
+    personaje.moverCuerpos(position)
+  }
+}
+
+object decodificadorParedes
+{
+  method decodificarParedes()
+  {
+    partida.paredes().foreach
+    ({
+      fila =>
+        
+        fila.foreach
+        ({
+          pared => pared.decodificar()
+        })
+    })
+  }
+
+}
+
+object pn
+{
+  method decodificar() = new ParedQueNoHaceNada()
+}
+
+object pr
+{
+  method decodificar() = new ParedQueResetea()
+}
+
+object n
+{
+  method decodificar()
+  {
+
+  }
+}

@@ -9,48 +9,17 @@ object partida1{
     
 
     //Mapa completo de 10x8 delimitado por paredes sin paredes en el medio
-    const paredes = [
-        new Pared(x = 0 , y = 0, imagen = "../../assets/pared-tierra.png"), 
-        new Pared(x = 1 , y = 0, imagen = "../../assets/pared-tierra.png"),
-        new Pared(x = 2 , y = 0, imagen = "../../assets/pared-tierra.png"),
-        new Pared(x = 3 , y = 0, imagen = "../../assets/pared-tierra.png"),
-        new Pared(x = 4 , y = 0, imagen = "../../assets/pared-tierra.png"),
-        new Pared(x = 5 , y = 0, imagen = "../../assets/pared-tierra.png"),
-        new Pared(x = 6 , y = 0, imagen = "../../assets/pared-tierra.png"),
-        new Pared(x = 7 , y = 0, imagen = "../../assets/pared-tierra.png"),
-        new Pared(x = 8 , y = 0, imagen = "../../assets/pared-tierra.png"),
-        new Pared(x = 9 , y = 0, imagen = "../../assets/pared-tierra.png"),
-        new Pared(x = 0 , y = 7, imagen = "../../assets/pared-tierra.png"),
-        new Pared(x = 1 , y = 7, imagen = "../../assets/pared-tierra.png"),
-        new Pared(x = 2 , y = 7, imagen = "../../assets/pared-tierra.png"),
-        new Pared(x = 3 , y = 7, imagen = "../../assets/pared-tierra.png"),
-        new Pared(x = 4 , y = 7, imagen = "../../assets/pared-tierra.png"),
-        new Pared(x = 5 , y = 7, imagen = "../../assets/pared-tierra.png"),
-        new Pared(x = 6 , y = 7, imagen = "../../assets/pared-tierra.png"),
-        new Pared(x = 7 , y = 7, imagen = "../../assets/pared-tierra.png"),
-        new Pared(x = 8 , y = 7, imagen = "../../assets/pared-tierra.png"),
-        new Pared(x = 9 , y = 7, imagen = "../../assets/pared-tierra.png"),
-        new Pared(x = 0 , y = 1, imagen = "../../assets/pared-tierra.png"),
-        new Pared(x = 0 , y = 2, imagen = "../../assets/pared-tierra.png"),
-        new Pared(x = 0 , y = 3, imagen = "../../assets/pared-tierra.png"),
-        new Pared(x = 0 , y = 4, imagen = "../../assets/pared-tierra.png"),
-        new Pared(x = 0 , y = 5, imagen = "../../assets/pared-tierra.png"),
-        new Pared(x = 0 , y = 6, imagen = "../../assets/pared-tierra.png"),
-        new Pared(x = 9 , y = 1, imagen = "../../assets/pared-tierra.png"),
-        new Pared(x = 9 , y = 2, imagen = "../../assets/pared-tierra.png"),
-        new Pared(x = 9 , y = 3, imagen = "../../assets/pared-tierra.png"),
-        new Pared(x = 9 , y = 4, imagen = "../../assets/pared-tierra.png"),
-        new Pared(x = 9 , y = 5, imagen = "../../assets/pared-tierra.png"),
-        new Pared(x = 9 , y = 6, imagen = "../../assets/pared-tierra.png")
-    ]
+    const matrizParedes = 
+    [[p,p,p,p,p,p,p,p,p],
+     [p,n,n,n,n,n,n,n,p]]
 
     method paredesPartida() = paredes
 
     var manzanasActuales = 0
 
     method iniciar(){
-        game.height(8)
-	    game.width(10)
+        game.height(20)
+	    game.width(20)
 	    game.cellSize(40)
         partida.nuevaPartida(self)
 		game.boardGround("../../assets/fondo-pasto.png") 
@@ -112,41 +81,35 @@ object cabeza {
         })
     }
 
-    method moverse(direccion){
+    method moverCuerpos(posicionAnteriorCabeza)
+    {
+        //Guardo la posicion donde se guardará el proximo cuerpo en caso de añadir uno
         posicionProximoCuerpo = cuerpos.last().position()
-        var viejaPosicion = position
-        var nuevaViejaPosicion
-    
-        if(direccion == "derecha"){
-            position = game.at(position.x() + 1, position.y())
-            imagen = "../../assets/cabeza-derecha.png"
-        }
-        
-        else if(direccion == "izquierda"){ 
-            position = game.at(position.x() -1, position.y())
-            imagen = "../../assets/cabeza-izquierda.png"
-        }
-        
-        else if(direccion == "arriba"){
-            position = game.at(position.x(), position.y() + 1)
-            imagen = "../../assets/cabeza-arriba.png"
-        }
 
-        else if(direccion == "abajo"){
-            position = game.at(position.x(), position.y() - 1)
-            imagen = "../../assets/cabeza-abajo.png"
-        }
-        
+        var viejaPosicion = posicionAnteriorCabeza
+
+        var nuevaViejaPosicion
+
+        //Desplazo todos los cuerpos de la lista de cuerpos
         cuerpos.foreach({ cuerpo =>
+
+            //Guardo la posicion del cuerpo actual
             nuevaViejaPosicion = cuerpo.position()
+
+            //Reemplazo la posicion del cuerpo actual, con la del cuerpo o cabeza anterior
             cuerpo.position(viejaPosicion)
+
+            //Guardo la vieja posicion de este cuerpo para saber donde mover al proximo en la lista
             viejaPosicion = nuevaViejaPosicion    
         })
     }
 
     method interactuarManzana(manzana){
+
         manzana.desaparecer()
+
         partida1.sumarManzana()
+
         self.crecer()
     }
 
