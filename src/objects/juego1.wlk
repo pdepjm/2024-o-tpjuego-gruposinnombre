@@ -3,57 +3,88 @@ import juego2.*
 import general.*
 
 object partida1{
-   
+    
+    method personaje() = cabeza
+
+    //Todo sobre las manzanas
     const objetivoManzanas = 5
+
     const manzanasEnMapa = []
     
+    method imagenManzana() = 1
 
-    //Mapa completo de 10x8 delimitado por paredes sin paredes en el medio
+    //Matriz del mapa completo de 20x20 delimitado por paredes que no hacen nada
     const matrizParedes = 
-    [[p,p,p,p,p,p,p,p,p],
-     [p,n,n,n,n,n,n,n,p]]
+    [[pn,pn,pn,pn,pn,pn,pn,pn,pn],
+     [pn,n,n,n,n,n,n,pn]]
+
+    //Lista donde se guardan todas las paredes de la partida
+    const paredes = []
+
+    //Devuelve la matriz que delimita el mapa de la partida y sus paredes
+    method matrizParedes() = matrizParedes
 
     method paredesPartida() = paredes
 
+    //Imagen que tendrá la pared en toda la partida
+    method imagenPared() = 1
+
     var manzanasActuales = 0
 
+    //Metodo que se utiliza para iniciar el juego 1
     method iniciar(){
-        game.height(20)
-	    game.width(20)
-	    game.cellSize(40)
+
+        //Aviso al objeto partida que comenzó la partida 1
         partida.nuevaPartida(self)
+
+        //Defino el fondo background del mapa
 		game.boardGround("../../assets/fondo-pasto.png") 
-        self.iniciarParedes()
+
+        //Añado el personaje
         game.addVisual(cabeza)
+        
+        //Posiciono el personaje
         cabeza.position(game.center())
-        //Cambiar la imagen de la manzana
+
     }
 
-    method finalizarParedes(){ paredes.foreach({ pared => pared.iniciar() }) }
+    //Utilizado a la hora de darle fin a la partida
+    method terminar()
+    {
 
-    method iniciarParedes(){ paredes.foreach({ pared => pared.iniciar() }) }
-
-    method terminar(){
+        //Lo saco del mapa al personaje
         game.removeVisual(cabeza)
-        self.finalizarParedes()
+
+        //Insertar metodo que elimine todas las paredes
+
+        //Destruye todos los cuerpos de la serpiente
         cabeza.destruirCuerpos()
 
+        //Elimina a todas las manzanas del mapa, probablemente haya que modificarlo como paredes
         manzanasEnMapa.foreach({ manzana => 
+
             manzana.desaparecer()
+
             manzanasEnMapa.remove(manzana)
         })
     }
 
     method reiniciar(){
+
         self.terminar()
+
         manzanasActuales = 0
+
         self.iniciar()
     }
 
     method sumarManzana(){
+
         manzanasActuales ++
        
-        if(manzanasActuales == objetivoManzanas){
+        if(manzanasActuales == objetivoManzanas)
+        {
+
             //En este caso se debería pasar de nivel
             self.terminar()
 
@@ -62,27 +93,37 @@ object partida1{
             partida2.iniciar()
         }
     }
-    method personaje() = cabeza
+    
 }
 
 object cabeza {
 
     const cuerpos = []
+
     var posicionProximoCuerpo = position
+
     var property position = game.center()
-    var imagen = "../../assets/cabeza-abajo.png"
 
-    method image() = imagen
 
-    method destruirCuerpos(){
-        cuerpos.forEach({cuerpo =>
+    method image() = "../../assets/cabeza-abajo.png"
+
+    //Destruye todos los cuerpos de la serpiente
+    method destruirCuerpos()
+    {
+
+        cuerpos.forEach
+        ({cuerpo =>
+
             game.removeVisual(cuerpo)
+
             cuerpos.remove(cuerpo)
+
         })
     }
 
     method moverCuerpos(posicionAnteriorCabeza)
     {
+
         //Guardo la posicion donde se guardará el proximo cuerpo en caso de añadir uno
         posicionProximoCuerpo = cuerpos.last().position()
 
@@ -104,6 +145,7 @@ object cabeza {
         })
     }
 
+    //Interactua con la manzana el personaje (hay que modificarlo como a las paredes)
     method interactuarManzana(manzana){
 
         manzana.desaparecer()
@@ -113,16 +155,16 @@ object cabeza {
         self.crecer()
     }
 
-    method interactuarPared(){
-    }
-
+    //Metodo que se utiliza cada vez que la serpiente come una manzana, por lo tanto crece en un cuerpo
     method crecer(){
-        //Aca la imagen porque la declaran? no deberia formar parte de la clase
-        var nuevoCuerpo = new Cuerpo(position = posicionProximoCuerpo, imagen = "imagen")
+
+        //Lo crea, lo inicia, y lo añade
+        var nuevoCuerpo = new Cuerpo(position = posicionProximoCuerpo)
 
         nuevoCuerpo.iniciar()
 
         cuerpos.add(nuevoCuerpo)
+
     }
 
     method interactuarCuerpo(){
@@ -130,14 +172,17 @@ object cabeza {
     } 
 }
 
+//Cuerpo de la serpiente
 class Cuerpo{
-    var property position 
-    var imagen = "../../assets/cuerpo.png"
 
-    method image() = imagen
+    var property position 
+
+    method image() = "../../assets/cuerpo.png"
 
     method iniciar(){
+
         game.whenCollideDo(self, {personaje => personaje.interactuarCuerpo()})
+
         game.addVisual(self)
     }
 }
