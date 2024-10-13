@@ -63,7 +63,7 @@ object partida1{
         //Elimina a todas las manzanas del mapa, probablemente haya que modificarlo como paredes
         manzanasEnMapa.foreach({ manzana => 
 
-            manzana.desaparecer()
+            manzana.finalizar()
 
             manzanasEnMapa.remove(manzana)
         })
@@ -125,6 +125,7 @@ object cabeza {
     {
 
         //Guardo la posicion donde se guardará el proximo cuerpo en caso de añadir uno
+        if(cuerpos !=[]){
         posicionProximoCuerpo = cuerpos.last().position()
 
         var viejaPosicion = posicionAnteriorCabeza
@@ -142,13 +143,13 @@ object cabeza {
 
             //Guardo la vieja posicion de este cuerpo para saber donde mover al proximo en la lista
             viejaPosicion = nuevaViejaPosicion    
-        })
+        })}
     }
 
     //Interactua con la manzana el personaje (hay que modificarlo como a las paredes)
     method interactuarManzana(manzana){
 
-        manzana.desaparecer()
+        manzana.finalizar()
 
         partida1.sumarManzana()
 
