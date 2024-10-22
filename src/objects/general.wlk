@@ -14,7 +14,7 @@ object partida {
 
   var property imagenManzana = partidaActual.imagenManzana()
 
-  var personajeActual = partidaActual.personaje()
+  method personajeActual() = partidaActual.personaje()
   
   //Se usa para definir qué partida está ocurriendo en un instante determinado
   method nuevaPartida(partida) {
