@@ -63,6 +63,43 @@ class Manzana inherits Cosas {
 }
 
 /*------------------------Objetos relacionados con las direcciones y los movimientos de los personajes------------------------------------*/
+//PRUEBA DE HERENCIA CON LOS MOVIMIENTOS
+
+//SUPERCLASE
+class Movimiento
+{
+  const personaje = partida.personaje()
+
+  const position = personaje.position()
+
+  method nuevaPosicion() = game.at(0,0)
+
+  method moverse()
+  {
+    personaje.position(self.nuevaPosicion())
+
+    personaje.moverCuerpos(position)
+  }
+}
+
+//OBJETOS
+object izquierda inherits Movimiento {
+  override method nuevaPosicion()  = game.at(personaje.position().x() - 1, personaje.position().y())
+}
+
+object derecha inherits Movimiento {
+  override method nuevaPosicion() = game.at(personaje.position().x() + 1, personaje.position().y())
+}
+
+object arriba inherits Movimiento {
+  override method nuevaPosicion() = game.at(personaje.position().x(), personaje.position().y() + 1)
+}
+
+object abajo inherits Movimiento {
+  override method nuevaPosicion() = game.at(personaje.position().x(), personaje.position().y() - 1)
+}
+
+/*
 object izquierda
 {
   const personaje = partida.personaje()
@@ -127,6 +164,7 @@ object abajo
     personaje.moverCuerpos(position)
   }
 }
+*/
 
 /*----------------------------------------------TODO SOBRE PAREDES-----------------------------------------------------------------------*/
 
@@ -173,13 +211,8 @@ object decodificadorParedes
 
   method decodificarParedes()
   {
-    partida.matrizParedes().foreach
-    ({
-      fila =>
-        
-        fila.foreach
-        ({
-          pared => 
+    partida.matrizParedes().foreach({fila => 
+        fila.foreach({ pared => 
           
           var nuevaPared = pared.decodificar(i, j)
 
