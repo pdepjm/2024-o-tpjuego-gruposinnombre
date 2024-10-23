@@ -6,6 +6,10 @@ import screamer.*
 
 /*-----------------------------------------------OBJETO PARTIDA, EL MÁS IMPORTANTE DE TODOS-----------------------------------------*/
 
+class partidas {
+  //ACA VAN LOS ATRIBUTOS QUE COMPARTEN CADA PARTIDA
+}
+
 object partida {
 
   var property partidaActual = partida1
@@ -32,6 +36,7 @@ object partida {
 /*---------------------------------------------Clase general de las manzanas y paredes-------------------------------------*/
 class Cosas {
 
+  //LAS VARIABLES ESTAN DE MAS, DEBERIAMOS BORRARLAS Y PONER --> var property position = game.at(0, 0)
   var x
 
   var y 
@@ -49,7 +54,7 @@ class Cosas {
 /*---------------------------------------------Objetos relacionados con las manzanas-------------------------------------*/
 class Manzana inherits Cosas {
 
-  const imagen
+  const imagen = "../../assets/manzana.png"
   
   method image() = imagen
   
@@ -98,73 +103,6 @@ object arriba inherits Movimiento {
 object abajo inherits Movimiento {
   override method nuevaPosicion() = game.at(personaje.position().x(), personaje.position().y() - 1)
 }
-
-/*
-object izquierda
-{
-  const personaje = partida.personaje()
-
-  const position = personaje.position()
-
-  method nuevaPosicion() = game.at(personaje.position().x() - 1, personaje.position().y())
-
-  method moverse()
-  {
-    personaje.position(self.nuevaPosicion())
-
-    personaje.moverCuerpos(position)
-  }
-}
-
-object derecha
-{
-  const personaje = partida.personaje()
-
-  const position = personaje.position()
-
-  method nuevaPosicion() = game.at(personaje.position().x() + 1, personaje.position().y())
-
-  method moverse()
-  {
-    personaje.position(self.nuevaPosicion())
-
-    personaje.moverCuerpos(position)
-  }
-}
-
-object arriba
-{
-  const personaje = partida.personaje()
-
-  const position = personaje.position()
-
-  method nuevaPosicion() = game.at(personaje.position().x(), personaje.position().y() + 1)
-
-  method moverse()
-  {
-  
-    personaje.position(self.nuevaPosicion())
-
-    personaje.moverCuerpos(position)
-  }
-}
-
-object abajo
-{
-  const personaje = partida.personaje()
-
-  const position = personaje.position()
-
-  method nuevaPosicion() = game.at(personaje.position().x(), personaje.position().y() - 1)
-
-  method moverse()
-  {
-    personaje.position(self.nuevaPosicion())
-
-    personaje.moverCuerpos(position)
-  }
-}
-*/
 
 /*----------------------------------------------TODO SOBRE PAREDES-----------------------------------------------------------------------*/
 
@@ -261,6 +199,21 @@ object pr
     return nuevaPared
   }
 }
+
+//Representa una manzana
+object mn
+{
+  method decodificar(fila, columna)
+  {
+    //La crea, la añade a la visual, y la retorna
+    var nuevaManzana = new Manzana(x = columna, y = fila)
+
+    game.addVisual(nuevaManzana)
+
+    return nuevaManzana
+  }
+}
+
 
 //Representa un espacio en blanco, algo que NO es pared
 object n

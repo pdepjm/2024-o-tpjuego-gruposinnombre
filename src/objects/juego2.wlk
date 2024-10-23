@@ -8,25 +8,25 @@ object partida2 {
   //Matriz del mapa completo de 20x20 delimitado por paredes que no hacen nada
     const matrizParedes = [
       [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn], // Fila 0
-      [pn, n, n, n, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn], // Fila 1
-      [pn, n, n, n, pn, pn, n, n, n, n, n, pn, n, n, n, n, n, n, pn, n, pn], // Fila 2
-      [pn, pn, pn, n, pn, pn, n, pn, pn, pn, n, pn, n, pn, pn, n, n, n, pn, n, pn], // Fila 3
-      [pn, pn, pn, n, pn, pn, n, pn, pn, pn, n, n, n, pn, pn, n, n, n, pn, n, pn], // Fila 4
-      [pn, pn, n, n, pn, pn, n, pn, pn, pn, pn, pn, pn, n, n, pn, pn, n, pn, n, pn], // Fila 5
-      [pn, n, n, n, n, pn, n, pn, pn, pn, pn, pn, pn, n, n, pn, pn, n, pn, n, pn], // Fila 6
-      [pn, n, n, n, n, pn, n, n, n, pn, n, n, n, n, n, n, n, n, pn, n, pn], // Fila 7
-      [pn, pn, pn, pn, n, pn, pn, pn, n, n, n, pn, pn, pn, pn, pn, pn, pn, pn, n, pn], // Fila 8
-      [pn, pn, n, n, n, n, n, n, n, n, n, pn, pn, pn, pn, pn, pn, pn, pn, n, pn], // Fila 9
-      [pn, pn, n, pn, pn, n, pn, pn, n, n, n, n, n, n, pn, n, n, n, n, n, pn], // Fila 10
-      [pn, pn, n, n, n, n, pn, pn, n, n, pn, pn, pn, n, pn, n, pn, pn, n, n, pn], // Fila 11
-      [pn, pn, pn, pn, pn, pn, pn, n, n, n, n, n, pn, n, n, n, pn, pn, n, n, pn], // Fila 12
-      [pn, pn, n, n, n, n, n, n, pn, pn, pn, n, pn, pn, pn, pn, pn, pn, n, n, pn], // Fila 13
-      [pn, pn, n, pn, pn, pn, pn, pn, pn, pn, pn, n, pn, n, n, pn, pn, n, n, n, pn], // Fila 14
-      [pn, pn, n, n, pn, pn, n, n, n, n, pn, n, pn, n, n, n, n, n, n, n, pn], // Fila 15
-      [pn, pn, n, n, pn, pn, n, pn, pn, n, pn, n, pn, n, n, n, n, n, n, n, pn], // Fila 16
-      [pn, pn, n, pn, pn, pn, n, pn, pn, n, pn, n, pn, n, pn, pn, pn, pn, pn, n, pn], // Fila 17
-      [pn, pn, n, n, n, n, n, pn, pn, n, n, n, pn, pn, pn, pn, pn, pn, pn, n, pn], // Fila 18
-      [pn,pn,pn,pn,pn,pn,pn,pn,pn,pn,pn,pn,pn,pn,pn,pn,pn,pn,pn,pn]
+      [pn,  n,  n,  n, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn], // Fila 1
+      [pn,  n, mn,  n, pn, pn,  n,  n,  n,  n,  n, pn,  n,  n,  n,  n,  n,  n, pn, pn], // Fila 2
+      [pn, pn, pn,  n, pn, pn,  n, pn, pn, pn,  n, pn,  n, pn, pn,  n, mn,  n, pn, pn], // Fila 3
+      [pn, pn, pn,  n, pn, pn,  n, pn, pn, pn,  n,  n, mn, pn, pn, mn, mn,  n, pn, pn], // Fila 4
+      [pn, pn,  n,  n, pn, pn,  n, pn, pn, pn, pn, pn, pn, mn,  n, pn, pn,  n, pn, pn], // Fila 5
+      [pn,  n,  n,  n,  n, pn,  n, pn, pn, pn, pn, pn, pn,  n,  n, pn, pn,  n, pn, pn], // Fila 6
+      [pn, mn,  n,  n,  n, pn,  n,  n,  n, pn,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn], // Fila 7
+      [pn, pn, pn, pn,  n, pn, pn, pn,  n,  n,  n, pn, pn, pn, pn, pn, pn, pn, pn, pn], // Fila 8
+      [pn, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn, pn, pn, pn, pn, pn, pn, pn], // Fila 9
+      [pn, pn,  n, pn, pn,  n, pn, pn,  n,  n,  n,  n,  n,  n, pn,  n,  n,  n, mn, pn], // Fila 10
+      [pn, pn,  n,  n, mn,  n, pn, pn,  n,  n, pn, pn, pn,  n, pn,  n, pn, pn,  n, pn], // Fila 11
+      [pn, pn, pn, pn, pn, pn, pn,  n,  n,  n,  n,  n, pn,  n,  n,  n, pn, pn,  n, pn], // Fila 12
+      [pn, pn,  n,  n,  n,  n,  n,  n, pn, pn, pn,  n, pn, pn, pn, pn, pn, pn,  n, pn], // Fila 13
+      [pn, pn,  n, pn, pn, pn, pn, pn, pn, pn, pn,  n, pn,  n, mn, pn, pn, mn,  n, pn], // Fila 14
+      [pn, pn,  n, mn, pn, pn,  n,  n,  n,  n, pn,  n, pn,  n,  n,  n,  n,  n, mn, pn], // Fila 15
+      [pn, pn,  n,  n, pn, pn,  n, pn, pn,  n, pn,  n, pn, mn,  n,  n,  n,  n,  n, pn], // Fila 16
+      [pn, pn,  n, pn, pn, pn,  n, pn, pn,  n, pn,  n, pn,  n, pn, pn, pn, pn, pn, pn], // Fila 17
+      [pn, pn,  n,  n,  n,  n,  n, pn, pn,  n,  n,  n, pn, pn, pn, pn, pn, pn, pn, pn], // Fila 18
+      [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn]
      ]
 
   const paredes = []
@@ -41,7 +41,8 @@ object partida2 {
   const objetivoManzanas = 14
   
   var manzanasActuales = 0
-
+  
+  //AGRUEGUE LAS MANZANAS EN LA MATRIZ
   const manzanas = [
   new Manzana(x = 2, y = 2, imagen = "manzana.png"),
   new Manzana(x = 3, y = 16, imagen = "manzana.png"),
@@ -57,6 +58,7 @@ object partida2 {
   new Manzana(x = 15, y = 3, imagen = "manzana.png"),
   new Manzana(x = 15, y = 18, imagen = "manzana.png"),
   new Manzana(x = 16, y = 13, imagen = "manzana.png")]
+  
 
   method manzanasPartida() = manzanas
 

@@ -11,12 +11,32 @@ object partida1{
 
     const manzanasEnMapa = []
     
-    method imagenManzana() = 1
+    method imagenManzana() = "../../assets/manzana.png"
 
     //Matriz del mapa completo de 20x20 delimitado por paredes que no hacen nada
-    const matrizParedes = 
-    [[pn,pn,pn,pn,pn,pn,pn,pn,pn],
-     [pn,n,n,n,n,n,n,pn]]
+    const matrizParedes = [
+        [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn],  // fila 0
+        [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn],  // fila 1
+        [pn, pn,  n,  n, pn, pn, pn,  n,  n,  n,  n,  n,  n,  n, pn, pn, mn,  n, pn, pn],  // fila 2
+        [pn, pn,  n, mn, pn, pn, pn,  n,  n,  n,  n,  n,  n,  n, pn, pn,  n,  n, pn, pn],  // fila 3
+        [pn, pn,  n,  n, pn, pn, pn,  n,  n,  n,  n,  n,  n,  n, pn, pn,  n, pn, pn, pn],  // fila 4
+        [pn, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn,  n, pn, pn, pn],  // fila 5
+        [pn, pn, pn, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn,  n, mn, pn, pn],  // fila 6
+        [pn, pn, pn, pn,  n,  n,  n,  n,  n,  n, pn, pn, pn, pn, pn, pn, mn,  n, pn, pn],  // fila 7
+        [pn, pn, mn,  n,  n,  n,  n,  n,  n,  n, pn, pn, pn, pn, pn, pn, pn,  n, pn, pn],  // fila 8
+        [pn, pn,  n,  n, pn,  n,  n,  n,  n,  n, pn, pn, pn, pn, pn, pn, pn,  n, pn, pn],  // fila 9
+        [pn, pn,  n,  n, pn, pn, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn],  // fila 10
+        [pn, pn,  n,  n, mn, pn, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn],  // fila 11
+        [pn, pn,  n,  n,  n, pn, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn],  // fila 12
+        [pn, pn, pn, pn,  n, pn, pn, pn, pn, pn, pn,  n,  n,  n,  n,  n,  n,  n, pn, pn],  // fila 13
+        [pn, pn, pn, pn, mn, pn, pn, pn, pn, pn, pn,  n,  n,  n,  n,  n,  n,  n, pn, pn],  // fila 14
+        [pn, pn, pn,  n,  n,  n,  n,  n,  n, pn, pn,  n,  n,  n, pn, pn, pn, pn, pn, pn],  // fila 15
+        [pn, pn,  n,  n,  n, pn, pn,  n,  n, pn, pn,  n,  n,  n,  n,  n,  n,  n, pn, pn],  // fila 16
+        [pn, pn,  n,  n, mn, pn, pn,  n, mn, pn, pn,  n,  n,  n,  n,  n,  n, mn, pn, pn],  // fila 17
+        [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn],  // fila 18
+        [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn] 
+]
+
 
     //Lista donde se guardan todas las paredes de la partida
     const paredes = []
@@ -27,7 +47,7 @@ object partida1{
     method paredesPartida() = paredes
 
     //Imagen que tendrá la pared en toda la partida
-    method imagenPared() = 1
+    method imagenPared() = "../../assets/pared-tierra.png" 
 
     var manzanasActuales = 0
 
@@ -104,8 +124,9 @@ object cabeza {
 
     var property position = game.center()
 
+    const imagen = "../../assets/cabeza-abajo.png"
 
-    method image() = "../../assets/cabeza-abajo.png"
+    method image() = imagen
 
     //Destruye todos los cuerpos de la serpiente
     method destruirCuerpos()
@@ -177,8 +198,9 @@ object cabeza {
 class Cuerpo{
 
     var property position 
+    const imagen = "../../assets/cuerpo.png"
 
-    method image() = "../../assets/cuerpo.png"
+    method image() = imagen
 
     method iniciar(){
 
