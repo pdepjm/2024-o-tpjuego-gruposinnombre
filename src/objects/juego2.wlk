@@ -29,6 +29,34 @@ object partida2 {
       [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn]
      ]
 
+
+  /*
+    const matrizParedes = [
+      [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn], // Fila 0
+      [n,  n,  n,  n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, pn], // Fila 1
+      [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn], // Fila 2
+      [n,  n,  n,  n, n, n, n, n, n, n, n, n, n, n, n, n, pn, n, n, pn], // Fila 3
+      [n,  n,  n,  n, n, n, n, n, n, n, n, n, n, n, n, n, pn, pn, n, pn], // Fila 4
+      [n,  n,  n,  n, n, n, n, n, n, n, n, n, pn, pn, pn, pn, pn, n, n, pn], // Fila 5
+      [n,  n,  n,  n, n, n, n, n, n, n, n, n, pn, n, n, n, n, n, pn, pn], // Fila 6
+      [n,  n,  n,  n, n, n, n, n, n, n, n, n, pn, n, pn, pn, pn, pn, pn, pn], // Fila 7
+      [n,  pn,  pn,  pn, pn, pn, pn, pn, n, n, n, n, pn, n, pn, pn, pn, pn, pn, pn], // Fila 8
+      [n, pn,  pn,  pn,  pn,  n,  n,  pn,  n,  n,  n, n, pn, n, pn, n, n, n, pn, pn], // Fila 9
+      [n, pn,  pn, n, n,  n, n, pn,  n,  n,  n,  n,  pn,  n, n,  n,  pn,  n, n, pn], // Fila 10
+      [pn, pn,  n,  n, mn,  n, pn, pn,  n,  n, pn, pn, pn,  n, pn,  n, pn, pn,  n, pn], // Fila 11
+      [n, pn, n, n, pn, pn, n,  n,  n,  n,  n,  n, n,  n,  n,  n, n, n,  n, pn], // Fila 12
+      [n, pn,  n,  pn,  pn,  pn,  pn,  pn, pn, pn, pn,  pn, pn, pn, pn, pn, pn, pn,  pn, pn], // Fila 13
+      [n, pn,  n, n, pn, pn, pn, n, n, n, n,  pn, n,  n, n, n, n, n,  n, n], // Fila 14
+      [n, n, pn, n, n, pn, n, n, pn, pn, n, pn, n, n, n, n, n, n, n, n], // Fila 15
+      [n, n, n, pn, n, n, n, pn, n, pn, n, pn, n, n, n, n, n, n, n, n], // Fila 16
+      [n, n, n, n, pn, pn, pn, n, n, pn, n, pn, n, n, n, n, n, n, n, n], // Fila 17
+      [n, n, n, n, n, n, n, n, n, pn, n, pn, n, n, n, n, n, n, n, n], // Fila 18
+      [n, n, n, n, n, n, n, n, n, pn, n, pn, n, n, n, n, n, n, n, n]
+     ]
+
+
+  */
+
   const paredes = []
 
   method matrizParedes() = matrizParedes
