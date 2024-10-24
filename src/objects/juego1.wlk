@@ -122,7 +122,7 @@ object cabeza {
 
     var posicionProximoCuerpo = position
 
-    var property position = game.center()
+    var property position = game.at(1,1)
 
     const imagen = "../../assets/cabeza-abajo.png"
 
