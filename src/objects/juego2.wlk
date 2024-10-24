@@ -2,7 +2,7 @@ import wollok.game.*
 import juego1.*
 import general.*
 
-const partida2 = new Partida(siguientePartida = partida3, imagenPartida = "imagen", imagenPared = "imagenParedxD", personaje = personaje, imagenManzana = "imagenManzana", objetivoManzanas = 10, 
+const partida2 = new Partida(siguientePartida = partida3, imagenPartida = "imagen", imagenPared = "imagenParedxD", personaje = santi, imagenManzana = "imagenManzana", objetivoManzanas = 10, 
 manzanasEnMapa = [], paredes = [],
 //ESTE MAPA YA ESTA BIEN HECHO
 matrizParedes = [
@@ -28,11 +28,25 @@ matrizParedes = [
         [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn]
 ])
 
-object personaje {
+object santi {
+  const cuerpos = []
+
+  var property posicionProximoCuerpo = position
+
   var property position = game.at(1,1)
-  var property imagen = "personaje.png"
-  
+
+  const imagen = "../../assets/cabeza-abajo.png"
+
+  method imagenIzquierda ()= "img"
+
+  method imagenDerecha ()= "img"
+
+  method imagenArriba ()= "img"
+
+  method imagenAbajo ()= "img"
+
   method image() = imagen
+  
   method iniciar() {
     game.addVisualCharacter(self)
   }
@@ -43,6 +57,7 @@ object personaje {
 
   method interactuarManzana(manzana){
     manzana.desaparecer()
+
     partida2.sumarManzana()
   }
 
@@ -57,30 +72,6 @@ object personaje {
             cuerpos.remove(cuerpo)
 
         })
-    }
-
-    method moverCuerpos(posicionAnteriorCabeza)
-    {
-        //Guardo la posicion donde se guardará el proximo cuerpo en caso de añadir uno
-        if(cuerpos !=[]){
-        posicionProximoCuerpo = cuerpos.last().position()
-
-        var viejaPosicion = posicionAnteriorCabeza
-
-        var nuevaViejaPosicion
-
-        //Desplazo todos los cuerpos de la lista de cuerpos
-        cuerpos.foreach({ cuerpo =>
-
-            //Guardo la posicion del cuerpo actual
-            nuevaViejaPosicion = cuerpo.position()
-
-            //Reemplazo la posicion del cuerpo actual, con la del cuerpo o cabeza anterior
-            cuerpo.position(viejaPosicion)
-
-            //Guardo la vieja posicion de este cuerpo para saber donde mover al proximo en la lista
-            viejaPosicion = nuevaViejaPosicion    
-        })}
     }
 
     method crecer(){

@@ -179,6 +179,11 @@ class Movimiento
 
   method moverse()
   {
+    if(self.personaje() == santi)
+    {
+      santi.crecer()
+    }
+
     self.personaje().moverCuerpos(self.position())
 
     self.personaje().position(self.nuevaPosicion())
