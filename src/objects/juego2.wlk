@@ -33,7 +33,6 @@ object personaje {
   var property imagen = "personaje.png"
   
   method image() = imagen
-  
   method iniciar() {
     game.addVisualCharacter(self)
   }

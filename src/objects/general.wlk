@@ -168,35 +168,47 @@ class Manzana inherits Cosas {
 //SUPERCLASE
 class Movimiento
 {
-  const personaje = configuracion.personaje()
 
-  const position = personaje.position()
+  method position() = self.personaje().position()
 
   method nuevaPosicion() = game.at(0,0)
 
+  method personaje() = configuracion.personaje()
+
+
+
   method moverse()
   {
-    personaje.position(self.nuevaPosicion())
+    self.personaje().moverCuerpos(self.position())
 
-    personaje.moverCuerpos(position)
+    self.personaje().position(self.nuevaPosicion())
   }
 }
 
 //OBJETOS
 object izquierda inherits Movimiento {
-  override method nuevaPosicion()  = game.at(personaje.position().x() - 1, personaje.position().y())
+  override method nuevaPosicion()  = game.at(self.personaje().position().x() - 1, self.personaje().position().y())
+
+  method cambiarImagen() = self.personaje().image(self.personaje().imagenIzquierda())
+
 }
 
 object derecha inherits Movimiento {
-  override method nuevaPosicion() = game.at(personaje.position().x() + 1, personaje.position().y())
+  override method nuevaPosicion() = game.at(self.personaje().position().x() + 1, self.personaje().position().y())
+
+  method cambiarImagen() = self.personaje().image(self.personaje().imagenDerecha())
 }
 
 object arriba inherits Movimiento {
-  override method nuevaPosicion() = game.at(personaje.position().x(), personaje.position().y() + 1)
+  override method nuevaPosicion() = game.at(self.personaje().position().x(), self.personaje().position().y() + 1)
+
+  method cambiarImagen() = self.personaje().image(self.personaje().imagenArriba())
 }
 
 object abajo inherits Movimiento {
-  override method nuevaPosicion() = game.at(personaje.position().x(), personaje.position().y() - 1)
+  override method nuevaPosicion() = game.at(self.personaje().position().x(), self.personaje().position().y() - 1)
+
+  method cambiarImagen() = self.personaje().image(self.personaje().imagenAbajo())
 }
 
 /*----------------------------------------------TODO SOBRE PAREDES-----------------------------------------------------------------------*/
@@ -239,7 +251,7 @@ class ParedQueReinicia inherits Pared
 
 object decodificadorParedes
 {
-  var i = 0
+  var i = 19
   var j = 0
 
   method decodificarParedes()
@@ -258,7 +270,10 @@ object decodificadorParedes
         })
       
       //Cambio de fila
-      i+= 1
+      i-= 1
+
+      //Reseteo la columna
+      j = 0
 
     })
   }
