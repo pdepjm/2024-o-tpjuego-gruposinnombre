@@ -318,3 +318,18 @@ object n
 
   }
 }
+/*------------------------------------------Clase de los cuerpos---------------------------------*/
+class Cuerpo{
+
+    var property position 
+    const imagen = "../../assets/cuerpo.png"
+
+    method image() = imagen
+
+    method iniciar(){
+
+        game.whenCollideDo(self, {personaje => personaje.interactuarCuerpo()})
+
+        game.addVisual(self)
+    }
+}

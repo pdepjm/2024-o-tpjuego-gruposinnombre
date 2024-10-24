@@ -15,27 +15,27 @@ object partida1{
 
     //Matriz del mapa completo de 20x20 delimitado por paredes que no hacen nada
     const matrizParedes = [
-      [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn], // Fila 0
-      [n,  n,  n,  n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, pn], // Fila 1
-      [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, n, pn, pn], // Fila 2
-      [n,  n,  n,  n, n, n, n, n, n, n, n, n, n, n, n, n, pn, n, n, pn], // Fila 3
-      [n,  n,  n,  n, n, n, n, n, n, n, n, n, n, n, n, n, pn, pn, n, pn], // Fila 4
-      [n,  n,  n,  n, n, n, n, n, n, n, n, n, pn, pn, pn, pn, pn, n, n, pn], // Fila 5
-      [n,  n,  n,  n, n, n, n, n, n, n, n, n, pn, n, n, n, n, n, pn, pn], // Fila 6
-      [n,  n,  n,  n, n, n, n, n, n, n, n, n, pn, n, pn, pn, pn, pn, pn, pn], // Fila 7
-      [n,  pn,  pn,  pn, pn, pn, pn, pn, n, n, n, n, pn, n, pn, pn, pn, pn, pn, pn], // Fila 8
-      [n, pn,  pn,  pn,  pn,  n,  n,  pn,  n,  n,  n, n, pn, n, pn, n, n, n, pn, pn], // Fila 9
-      [n, pn,  pn, n, n,  n, n, pn,  n,  n,  n,  n,  pn,  n, n,  n,  pn,  n, n, pn], // Fila 10
-      [pn, pn,  n,  n, mn,  n, pn, pn,  n,  n, pn, pn, pn,  n, pn,  n, pn, pn,  n, pn], // Fila 11
-      [n, pn, n, n, pn, pn, n,  n,  n,  n,  n,  n, n,  n,  n,  n, n, n,  n, pn], // Fila 12
-      [n, pn,  n,  pn,  pn,  pn,  pn,  pn, pn, pn, pn,  pn, pn, pn, pn, pn, pn, pn,  pn, pn], // Fila 13
-      [n, pn,  n, n, pn, pn, pn, n, n, n, n,  pn, n,  n, n, n, n, n,  n, n], // Fila 14
-      [n, n, pn, n, n, pn, n, n, pn, pn, n, pn, n, n, n, n, n, n, n, n], // Fila 15
-      [n, n, n, pn, n, n, n, pn, n, pn, n, pn, n, n, n, n, n, n, n, n], // Fila 16
-      [n, n, n, n, pn, pn, pn, n, n, pn, n, pn, n, n, n, n, n, n, n, n], // Fila 17
-      [n, n, n, n, n, n, n, n, n, pn, n, pn, n, n, n, n, n, n, n, n], // Fila 18
-      [n, n, n, n, n, n, n, n, n, pn, n, pn, n, n, n, n, n, n, n, n]
-     ]
+        [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn],  // fila 0
+        [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn],  // fila 1
+        [pn, pn,  n,  n, pn, pn, pn,  n,  n,  n,  n,  n,  n,  n, pn, pn,  n,  n, pn, pn],  // fila 2
+        [pn, pn,  n,  n, pn, pn, pn,  n,  n,  n,  n,  n,  n,  n, pn, pn,  n,  n, pn, pn],  // fila 3
+        [pn, pn,  n,  n, pn, pn, pn,  n,  n,  n,  n,  n,  n,  n, pn, pn,  n, pn, pn, pn],  // fila 4
+        [pn, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn,  n, pn, pn, pn],  // fila 5
+        [pn, pn, pn, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn,  n,  n, pn, pn],  // fila 6
+        [pn, pn, pn, pn,  n,  n,  n,  n,  n,  n, pn, pn, pn, pn, pn, pn,  n,  n, pn, pn],  // fila 7
+        [pn, pn,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn, pn, pn, pn, pn, pn,  n, pn, pn],  // fila 8
+        [pn, pn,  n,  n, pn,  n,  n,  n,  n,  n, pn, pn, pn, pn, pn, pn, pn,  n, pn, pn],  // fila 9
+        [pn, pn,  n,  n, pn, pn, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn],  // fila 10
+        [pn, pn,  n,  n,  n, pn, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn],  // fila 11
+        [pn, pn,  n,  n,  n, pn, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn],  // fila 12
+        [pn, pn, pn, pn,  n, pn, pn, pn, pn, pn, pn,  n,  n,  n,  n,  n,  n,  n, pn, pn],  // fila 13
+        [pn, pn, pn, pn,  n, pn, pn, pn, pn, pn, pn,  n,  n,  n,  n,  n,  n,  n, pn, pn],  // fila 14
+        [pn, pn, pn,  n,  n,  n,  n,  n,  n, pn, pn,  n,  n,  n, pn, pn, pn, pn, pn, pn],  // fila 15
+        [pn, pn,  n,  n,  n, pn, pn,  n,  n, pn, pn,  n,  n,  n,  n,  n,  n,  n, pn, pn],  // fila 16
+        [pn, pn,  n,  n,  n, pn, pn,  n,  n, pn, pn,  n,  n,  n,  n,  n,  n,  n, pn, pn],  // fila 17
+        [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn],  // fila 18
+        [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn] 
+]
 
 
     //Lista donde se guardan todas las paredes de la partida
@@ -195,17 +195,3 @@ object cabeza {
 }
 
 //Cuerpo de la serpiente
-class Cuerpo{
-
-    var property position 
-    const imagen = "../../assets/cuerpo.png"
-
-    method image() = imagen
-
-    method iniciar(){
-
-        game.whenCollideDo(self, {personaje => personaje.interactuarCuerpo()})
-
-        game.addVisual(self)
-    }
-}
