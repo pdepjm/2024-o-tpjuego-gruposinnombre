@@ -239,7 +239,7 @@ class ParedQueReinicia inherits Pared
 
 object decodificadorParedes
 {
-  var i = 0
+  var i = 19
   var j = 0
 
   method decodificarParedes()
@@ -258,7 +258,10 @@ object decodificadorParedes
         })
       
       //Cambio de fila
-      i+= 1
+      i-= 1
+
+      //Reseteo la columna
+      j = 0
 
     })
   }
