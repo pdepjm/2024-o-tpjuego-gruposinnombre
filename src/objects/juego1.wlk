@@ -126,6 +126,14 @@ object cabeza {
 
     const imagen = "../../assets/cabeza-abajo.png"
 
+    method imagenIzquierda ()= "img"
+
+    method imagenDerecha ()= "img"
+
+    method imagenArriba ()= "img"
+
+    method imagenAbajo ()= "img"
+
     method image() = imagen
 
     //Destruye todos los cuerpos de la serpiente
