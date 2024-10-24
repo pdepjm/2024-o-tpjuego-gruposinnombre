@@ -1,196 +1,35 @@
 import wollok.game.*
-import juego3.*
+import juego2.*
 import general.*
 
 
-object partida4
-{ 
-  //MAPA -----------------------------------------------------------------------------------------------
-  const pisos = [
-  new Pared(x = 0, y = 0, imagen = "image3.png"),
-  new Pared(x = 1, y = 0, imagen = "image3.png"),
-  new Pared(x = 2, y = 0, imagen = "image3.png"),
-  new Pared(x = 3, y = 0, imagen = "image3.png"),
-  new Pared(x = 4, y = 0, imagen = "image3.png"),
-  new Pared(x = 5, y = 0, imagen = "image3.png"),
-  new Pared(x = 6, y = 0, imagen = "image3.png"),
-  new Pared(x = 7, y = 0, imagen = "image3.png"),
-  new Pared(x = 8, y = 0, imagen = "image3.png"),
-  new Pared(x = 9, y = 0, imagen = "image3.png"),
-  new Pared(x = 10, y = 0, imagen = "image3.png"),
-  new Pared(x = 11, y = 0, imagen = "image3.png"),
-  new Pared(x = 12, y = 0, imagen = "image3.png"),
-  new Pared(x = 13, y = 0, imagen = "image3.png"),
-  new Pared(x = 14, y = 0, imagen = "image3.png"),
-  new Pared(x = 15, y = 0, imagen = "image3.png"),
-  new Pared(x = 16, y = 0, imagen = "image3.png"),
-  new Pared(x = 17, y = 0, imagen = "image3.png"),
-  new Pared(x = 18, y = 0, imagen = "image3.png"),
-  new Pared(x = 19, y = 0, imagen = "image3.png"),
-  new Pared(x = 0, y = 2, imagen = "image3.png"),
-  new Pared(x = 1, y = 2, imagen = "image3.png"),
-  new Pared(x = 2, y = 2, imagen = "image3.png"),
-  new Pared(x = 3, y = 2, imagen = "image3.png"),
-  new Pared(x = 4, y = 2, imagen = "image3.png"),
-  new Pared(x = 5, y = 2, imagen = "image3.png"),
-  new Pared(x = 6, y = 2, imagen = "image3.png"),
-  new Pared(x = 7, y = 2, imagen = "image3.png"),
-  new Pared(x = 8, y = 2, imagen = "image3.png"),
-  new Pared(x = 9, y = 2, imagen = "image3.png"),
-  new Pared(x = 10, y = 2, imagen = "image3.png"),
-  new Pared(x = 11, y = 2, imagen = "image3.png"),
-  new Pared(x = 12, y = 2, imagen = "image3.png"),
-  new Pared(x = 13, y = 2, imagen = "image3.png"),
-  new Pared(x = 14, y = 2, imagen = "image3.png"),
-  new Pared(x = 15, y = 2, imagen = "image3.png"),
-  new Pared(x = 16, y = 2, imagen = "image3.png"),
-  new Pared(x = 12, y = 5, imagen = "image3.png"),
-  new Pared(x = 13, y = 5, imagen = "image3.png"),
-  new Pared(x = 14, y = 5, imagen = "image3.png"),
-  new Pared(x = 15, y = 5, imagen = "image3.png"),
-  new Pared(x = 16, y = 5, imagen = "image3.png"),
-  new Pared(x = 19, y = 5, imagen = "image3.png"),
-  new Pared(x = 14, y = 7, imagen = "image3.png"),
-  new Pared(x = 15, y = 7, imagen = "image3.png"),
-  new Pared(x = 16, y = 7, imagen = "image3.png"),
-  new Pared(x = 17, y = 7, imagen = "image3.png"),
-  new Pared(x = 18, y = 7, imagen = "image3.png"),
-  new Pared(x = 15, y = 8, imagen = "image3.png"),
-  new Pared(x = 16, y = 8, imagen = "image3.png"),
-  new Pared(x = 17, y = 8, imagen = "image3.png"),
-  new Pared(x = 18, y = 8, imagen = "image3.png"),
-  new Pared(x = 19, y = 8, imagen = "image3.png"),
-  new Pared(x = 15, y = 11, imagen = "image3.png"),
-  new Pared(x = 16, y = 11, imagen = "image3.png"),
-  new Pared(x = 17, y = 11, imagen = "image3.png"),
-  new Pared(x = 19, y = 11, imagen = "image3.png"),
-  new Pared(x = 14, y = 11, imagen = "image3.png"),
-  new Pared(x = 13, y = 11, imagen = "image3.png"),
-  new Pared(x = 12, y = 11, imagen = "image3.png"),
-  new Pared(x = 11, y = 11, imagen = "image3.png"),
-  new Pared(x = 10, y = 11, imagen = "image3.png"),
-  new Pared(x = 9, y = 11, imagen = "image3.png"),
-  new Pared(x = 8, y = 11, imagen = "image3.png"),
-  new Pared(x = 7, y = 11, imagen = "image3.png"),
-  new Pared(x = 7, y = 10, imagen = "image3.png"),
-  new Pared(x = 18, y = 13, imagen = "image3.png"),
-  new Pared(x = 16, y = 13, imagen = "image3.png"),
-  new Pared(x = 15, y = 13, imagen = "image3.png"),
-  new Pared(x = 14, y = 13, imagen = "image3.png"),
-  new Pared(x = 13, y = 13, imagen = "image3.png"),
-  new Pared(x = 12, y = 13, imagen = "image3.png"),
-  new Pared(x = 11, y = 13, imagen = "image3.png"),
-  new Pared(x = 10, y = 13, imagen = "image3.png"),
-  new Pared(x = 9, y = 13, imagen = "image3.png"),
-  new Pared(x = 8, y = 13, imagen = "image3.png"),
-  new Pared(x = 7, y = 13, imagen = "image3.png"),
-  new Pared(x = 6, y = 13, imagen = "image3.png"),
-  new Pared(x = 5, y = 13, imagen = "image3.png"),
-  new Pared(x = 4, y = 13, imagen = "image3.png"),
-  new Pared(x = 3, y = 13, imagen = "image3.png"),
-  new Pared(x = 1, y = 13, imagen = "image3.png"),
-  new Pared(x = 1, y = 8, imagen = "image3.png"),
-  new Pared(x = 2, y = 8, imagen = "image3.png"),
-  new Pared(x = 3, y = 8, imagen = "image3.png"),
-  new Pared(x = 4, y = 8, imagen = "image3.png"),
-  new Pared(x = 5, y = 8, imagen = "image3.png"),
-  new Pared(x = 6, y = 8, imagen = "image3.png"),
-  new Pared(x = 7, y = 8, imagen = "image3.png")
-  ]
-//------------------------------------------------------------------------------------------
-const columnas = [
-  new Pared(x = 16, y = 3, imagen = "image3.png"),
-  new Pared(x = 16, y = 4, imagen = "image3.png"),
-  new Pared(x = 19, y = 1, imagen = "image3.png"),
-  new Pared(x = 19, y = 2, imagen = "image3.png"),
-  new Pared(x = 19, y = 3, imagen = "image3.png"),
-  new Pared(x = 19, y = 4, imagen = "image3.png"),
-  new Pared(x = 17, y = 4, imagen = "image3.png"),
-  new Pared(x = 18, y = 2, imagen = "image3.png"),
-  new Pared(x = 19, y = 6, imagen = "image3.png"),
-  new Pared(x = 18, y = 6, imagen = "image3.png"),
-  new Pared(x = 19, y = 7, imagen = "image3.png"),
-  new Pared(x = 12, y = 6, imagen = "image3.png"),
-  new Pared(x = 12, y = 7, imagen = "image3.png"),
-  new Pared(x = 12, y = 8, imagen = "image3.png"),
-  new Pared(x = 14, y = 8, imagen = "image3.png"),
-  new Pared(x = 9, y = 19, imagen = "image3.png"),
-  new Pared(x = 11, y = 19, imagen = "image3.png"),
-  new Pared(x = 9, y = 18, imagen = "image3.png"),
-  new Pared(x = 11, y = 18, imagen = "image3.png"),
-  new Pared(x = 9, y = 17, imagen = "image3.png"),
-  new Pared(x = 11, y = 17, imagen = "image3.png"),
-  new Pared(x = 12, y = 10, imagen = "image3.png"),
-  new Pared(x = 12, y = 9, imagen = "image3.png"),
-  new Pared(x = 19, y = 10, imagen = "image3.png"),
-  new Pared(x = 14, y = 9, imagen = "image3.png"),
-  new Pared(x = 16, y = 10, imagen = "image3.png"),
-  new Pared(x = 18, y = 9, imagen = "image3.png"),
-  new Pared(x = 19, y = 13, imagen = "image3.png"),
-  new Pared(x = 19, y = 12, imagen = "image3.png"),
-  new Pared(x = 17, y = 13, imagen = "image3.png"),
-  new Pared(x = 7, y = 9, imagen = "image3.png"),
-  new Pared(x = 1, y = 10, imagen = "image3.png"),
-  new Pared(x = 1, y = 11, imagen = "image3.png"),
-  new Pared(x = 1, y = 12, imagen = "image3.png"),
-  new Pared(x = 1, y = 9, imagen = "image3.png"),
-  new Pared(x = 1, y = 14, imagen = "image3.png"),
-  new Pared(x = 2, y = 15, imagen = "image3.png"),
-  new Pared(x = 3, y = 16, imagen = "image3.png"),
-  new Pared(x = 4, y = 17, imagen = "image3.png"),
-  new Pared(x = 5, y = 17, imagen = "image3.png"),
-  new Pared(x = 6, y = 17, imagen = "image3.png"),
-  new Pared(x = 7, y = 16, imagen = "image3.png"),
-  new Pared(x = 8, y = 15, imagen = "image3.png"),
-  new Pared(x = 4, y = 14, imagen = "image3.png"),
-  new Pared(x = 5, y = 14, imagen = "image3.png"),
-  new Pared(x = 5, y = 15, imagen = "image3.png"),
-  new Pared(x = 6, y = 14, imagen = "image3.png"),
-  new Pared(x = 9, y = 15, imagen = "image3.png"),
-  new Pared(x = 9, y = 16, imagen = "image3.png"),
-  new Pared(x = 11, y = 16, imagen = "image3.png"),
-  new Pared(x = 11, y = 15, imagen = "image3.png"),
-  new Pared(x = 11, y = 14, imagen = "image3.png"),
-  new Pared(x = 19, y = 9, imagen = "image3.png"),
-  new Pared(x = 2, y = 9, imagen = "image3.png"),
-  new Pared(x = 2, y = 10, imagen = "image3.png"),
-  new Pared(x = 2, y = 11, imagen = "image3.png"),
-  new Pared(x = 3, y = 9, imagen = "image3.png"),
-  new Pared(x = 4, y = 9, imagen = "image3.png"),
-  new Pared(x = 5, y = 11, imagen = "image3.png"),
-  new Pared(x = 4, y = 11, imagen = "image3.png"),
-  new Pared(x = 5, y = 12, imagen = "image3.png"),
-  new Pared(x = 4, y = 12, imagen = "image3.png")
-  ]
-
- method iniciarParedes() {
-    pisos.foreach({ pared => pared.iniciar() })
-    columnas.forEach({pared=>pared.iniciar()})
-  }
-  
-  method finalizarParedes() {
-    pisos.forEach({pared=>pared.finalizar()})
-    columnas.forEach({pared=>pared.finalizar()})
-  }
-//MAPA -----------------------------------------------------------------------------------------------
-  method personaje() = personaje
-
-  method iniciar()
-  {
-    game.height(20)
-    game.width(20)
-    game.cellSize(50)
-    game.ground("negrofondo.png")
-    personaje.iniciar()
-    manzanaScreamer.iniciar()
-    self.iniciarParedes()
-  }
-}
-
+const partida1 = new Partida(siguientePartida = fin, imagenPartida = "imagen", imagenPared = "imagenParedxD", personaje = lauti, imagenManzana = "imagenManzana", objetivoManzanas = 10, 
+manzanasEnMapa = [], paredes = [],
+matrizParedes = [
+        [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn],  // fila 0
+        [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn],  // fila 1
+        [pn, pn,  n,  n, pn, pn, pn,  n,  n,  n,  n,  n,  n,  n, pn, pn, mn,  n, pn, pn],  // fila 2
+        [pn, pn,  n, mn, pn, pn, pn,  n,  n,  n,  n,  n,  n,  n, pn, pn,  n,  n, pn, pn],  // fila 3
+        [pn, pn,  n,  n, pn, pn, pn,  n,  n,  n,  n,  n,  n,  n, pn, pn,  n, pn, pn, pn],  // fila 4
+        [pn, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn,  n, pn, pn, pn],  // fila 5
+        [pn, pn, pn, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn,  n, mn, pn, pn],  // fila 6
+        [pn, pn, pn, pn,  n,  n,  n,  n,  n,  n, pn, pn, pn, pn, pn, pn, mn,  n, pn, pn],  // fila 7
+        [pn, pn, mn,  n,  n,  n,  n,  n,  n,  n, pn, pn, pn, pn, pn, pn, pn,  n, pn, pn],  // fila 8
+        [pn, pn,  n,  n, pn,  n,  n,  n,  n,  n, pn, pn, pn, pn, pn, pn, pn,  n, pn, pn],  // fila 9
+        [pn, pn,  n,  n, pn, pn, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn],  // fila 10
+        [pn, pn,  n,  n, mn, pn, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn],  // fila 11
+        [pn, pn,  n,  n,  n, pn, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn],  // fila 12
+        [pn, pn, pn, pn,  n, pn, pn, pn, pn, pn, pn,  n,  n,  n,  n,  n,  n,  n, pn, pn],  // fila 13
+        [pn, pn, pn, pn, mn, pn, pn, pn, pn, pn, pn,  n,  n,  n,  n,  n,  n,  n, pn, pn],  // fila 14
+        [pn, pn, pn,  n,  n,  n,  n,  n,  n, pn, pn,  n,  n,  n, pn, pn, pn, pn, pn, pn],  // fila 15
+        [pn, pn,  n,  n,  n, pn, pn,  n,  n, pn, pn,  n,  n,  n,  n,  n,  n,  n, pn, pn],  // fila 16
+        [pn, pn,  n,  n, mn, pn, pn,  n, mn, pn, pn,  n,  n,  n,  n,  n,  n, mn, pn, pn],  // fila 17
+        [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn],  // fila 18
+        [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn] 
+])
 const manzanaScreamer = new Manzana(x = 10, y = 19, imagen = "b.png")
 
-
-object personaje {
+object lauti {
   
   var property position = game.at(1,1)
   var property imagen = "a.png"
@@ -259,9 +98,9 @@ object screamer {
   
   method iniciar() {
     game.addVisual(self)
-    game.removeVisual(personaje)
+    game.removeVisual(lauti)
     game.removeVisual(manzanaScreamer)
-    partida4.finalizarParedes()
+    partida3.finalizarParedes()
   }
 
 } 

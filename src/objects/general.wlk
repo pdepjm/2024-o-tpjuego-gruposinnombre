@@ -6,11 +6,8 @@ import screamer.*
 
 /*-----------------------------------------------OBJETO PARTIDA, EL MÁS IMPORTANTE DE TODOS-----------------------------------------*/
 
-class partidas {
-  //ACA VAN LOS ATRIBUTOS QUE COMPARTEN CADA PARTIDA
-}
 
-object partida {
+object configuracion {
 
   var property partidaActual = partida1
 
@@ -27,12 +24,110 @@ object partida {
 
   }
   
-  method personaje() = personajeActual
+  method personaje() = self.personajeActual()
 
   method matrizParedes() = partidaActual.matrizParedes()
   
   method paredes() = partidaActual.paredesPartida()
+
 }
+/*---------------------------------------------Clase de las partidas--------------------------------------------------------------------------*/
+
+class Partida {
+
+  var manzanasActuales = 0
+
+  //Proxima partida a ser iniciada
+  var siguientePartida
+
+  //Imagen que tendrá la pared en toda la partida
+  var property imagenPared
+
+  var property imagenManzana
+
+  var property personaje
+
+  const objetivoManzanas
+
+  const manzanasEnMapa = []
+
+
+  //Matriz del mapa completo de 20x20 delimitado por paredes que no hacen nada
+  const matrizParedes = []
+
+  //Lista donde se guardan todas las paredes de la partida
+  const paredes = []
+  
+  //Devuelve la matriz que delimita el mapa de la partida y sus paredes
+  method matrizParedes() = matrizParedes
+
+  method paredesPartida() = paredes
+
+  //Metodo que se utiliza para iniciar el juego 1
+  method iniciar(){
+
+    //Aviso al objeto partida que comenzó la partida 1
+    configuracion.nuevaPartida(self)
+
+    //Defino el fondo background del mapa
+		game.boardGround("../../assets/fondo-pasto.png") 
+
+      //Añado el personaje
+      game.addVisual(self.personaje())
+        
+      //Posiciono el personaje
+      self.personaje().position(game.center())
+    }
+
+  //Utilizado a la hora de darle fin a la partida
+  method terminar(){
+
+    //Lo saco del mapa al personaje
+    game.removeVisual(self.personaje())
+
+    //Insertar metodo que elimine todas las paredes
+
+    //Destruye todos los cuerpos de la serpiente
+    self.personaje().destruirCuerpos()
+
+    //Elimina a todas las manzanas del mapa, probablemente haya que modificarlo como paredes
+    manzanasEnMapa.foreach({ manzana => 
+
+        manzana.finalizar()
+
+        manzanasEnMapa.remove(manzana)
+      })
+    }
+
+    //Reinicia la partida instantaneamnete
+    method reiniciar(){
+
+        self.terminar()
+
+        manzanasActuales = 0
+
+        self.iniciar()
+    }
+
+    method sumarManzana(){
+
+        manzanasActuales += 1
+       
+        if(manzanasActuales == objetivoManzanas)
+        {
+
+            //En este caso se debería pasar de nivel
+            self.terminar()
+
+            configuracion.nuevaPartida(siguientePartida)
+
+            siguientePartida.iniciar()
+        }
+    }        
+}
+
+
+
 /*---------------------------------------------Clase general de las manzanas y paredes-------------------------------------*/
 class Cosas {
 
@@ -73,7 +168,7 @@ class Manzana inherits Cosas {
 //SUPERCLASE
 class Movimiento
 {
-  const personaje = partida.personaje()
+  const personaje = configuracion.personaje()
 
   const position = personaje.position()
 
@@ -110,7 +205,7 @@ object abajo inherits Movimiento {
 
 class Pared inherits Cosas {
 
-  method image() = partida.imagenPared()
+  method image() = configuracion.imagenPared()
 
   method iniciar() {
 
@@ -135,7 +230,7 @@ class ParedQueReinicia inherits Pared
 
   method interactuarPersona()
   {
-    partida.partidaActual().reiniciar()
+    configuracion.partidaActual().reiniciar()
   }
 }
 
@@ -149,13 +244,13 @@ object decodificadorParedes
 
   method decodificarParedes()
   {
-    partida.matrizParedes().foreach({fila => 
+    configuracion.matrizParedes().foreach({fila => 
         fila.foreach({ pared => 
           
           var nuevaPared = pared.decodificar(i, j)
 
           //Investigar acá como hacer para las que no son paredes para que no salte error.
-          partida.partidaActual().paredesPartida().add(nuevaPared)
+          configuracion.partidaActual().paredesPartida().add(nuevaPared)
 
           //Cambio de columna
           j += 1
