@@ -1,115 +1,31 @@
 import wollok.game.*
 import juego1.*
-import juego3.*
 import general.*
 
-object partida2 {
-  //TODO SOBRE PAREDES
-  //Matriz del mapa completo de 20x20 delimitado por paredes que no hacen nada
-    const matrizParedes = [
-      [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn], // Fila 0
-      [pn,  n,  n,  n, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn], // Fila 1
-      [pn,  n, mn,  n, pn, pn,  n,  n,  n,  n,  n, pn,  n,  n,  n,  n,  n,  n, pn, pn], // Fila 2
-      [pn, pn, pn,  n, pn, pn,  n, pn, pn, pn,  n, pn,  n, pn, pn,  n, mn,  n, pn, pn], // Fila 3
-      [pn, pn, pn,  n, pn, pn,  n, pn, pn, pn,  n,  n, mn, pn, pn, mn, mn,  n, pn, pn], // Fila 4
-      [pn, pn,  n,  n, pn, pn,  n, pn, pn, pn, pn, pn, pn, mn,  n, pn, pn,  n, pn, pn], // Fila 5
-      [pn,  n,  n,  n,  n, pn,  n, pn, pn, pn, pn, pn, pn,  n,  n, pn, pn,  n, pn, pn], // Fila 6
-      [pn, mn,  n,  n,  n, pn,  n,  n,  n, pn,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn], // Fila 7
-      [pn, pn, pn, pn,  n, pn, pn, pn,  n,  n,  n, pn, pn, pn, pn, pn, pn, pn, pn, pn], // Fila 8
-      [pn, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn, pn, pn, pn, pn, pn, pn, pn], // Fila 9
-      [pn, pn,  n, pn, pn,  n, pn, pn,  n,  n,  n,  n,  n,  n, pn,  n,  n,  n, mn, pn], // Fila 10
-      [pn, pn,  n,  n, mn,  n, pn, pn,  n,  n, pn, pn, pn,  n, pn,  n, pn, pn,  n, pn], // Fila 11
-      [pn, pn, pn, pn, pn, pn, pn,  n,  n,  n,  n,  n, pn,  n,  n,  n, pn, pn,  n, pn], // Fila 12
-      [pn, pn,  n,  n,  n,  n,  n,  n, pn, pn, pn,  n, pn, pn, pn, pn, pn, pn,  n, pn], // Fila 13
-      [pn, pn,  n, pn, pn, pn, pn, pn, pn, pn, pn,  n, pn,  n, mn, pn, pn, mn,  n, pn], // Fila 14
-      [pn, pn,  n, mn, pn, pn,  n,  n,  n,  n, pn,  n, pn,  n,  n,  n,  n,  n, mn, pn], // Fila 15
-      [pn, pn,  n,  n, pn, pn,  n, pn, pn,  n, pn,  n, pn, mn,  n,  n,  n,  n,  n, pn], // Fila 16
-      [pn, pn,  n, pn, pn, pn,  n, pn, pn,  n, pn,  n, pn,  n, pn, pn, pn, pn, pn, pn], // Fila 17
-      [pn, pn,  n,  n,  n,  n,  n, pn, pn,  n,  n,  n, pn, pn, pn, pn, pn, pn, pn, pn], // Fila 18
-      [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn]
-     ]
-
-
-  /*
-    const matrizParedes = [
-      [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn], // Fila 0
-      [n,  n,  n,  n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, n, pn], // Fila 1
-      [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn], // Fila 2
-      [n,  n,  n,  n, n, n, n, n, n, n, n, n, n, n, n, n, pn, n, n, pn], // Fila 3
-      [n,  n,  n,  n, n, n, n, n, n, n, n, n, n, n, n, n, pn, pn, n, pn], // Fila 4
-      [n,  n,  n,  n, n, n, n, n, n, n, n, n, pn, pn, pn, pn, pn, n, n, pn], // Fila 5
-      [n,  n,  n,  n, n, n, n, n, n, n, n, n, pn, n, n, n, n, n, pn, pn], // Fila 6
-      [n,  n,  n,  n, n, n, n, n, n, n, n, n, pn, n, pn, pn, pn, pn, pn, pn], // Fila 7
-      [n,  pn,  pn,  pn, pn, pn, pn, pn, n, n, n, n, pn, n, pn, pn, pn, pn, pn, pn], // Fila 8
-      [n, pn,  pn,  pn,  pn,  n,  n,  pn,  n,  n,  n, n, pn, n, pn, n, n, n, pn, pn], // Fila 9
-      [n, pn,  pn, n, n,  n, n, pn,  n,  n,  n,  n,  pn,  n, n,  n,  pn,  n, n, pn], // Fila 10
-      [pn, pn,  n,  n, mn,  n, pn, pn,  n,  n, pn, pn, pn,  n, pn,  n, pn, pn,  n, pn], // Fila 11
-      [n, pn, n, n, pn, pn, n,  n,  n,  n,  n,  n, n,  n,  n,  n, n, n,  n, pn], // Fila 12
-      [n, pn,  n,  pn,  pn,  pn,  pn,  pn, pn, pn, pn,  pn, pn, pn, pn, pn, pn, pn,  pn, pn], // Fila 13
-      [n, pn,  n, n, pn, pn, pn, n, n, n, n,  pn, n,  n, n, n, n, n,  n, n], // Fila 14
-      [n, n, pn, n, n, pn, n, n, pn, pn, n, pn, n, n, n, n, n, n, n, n], // Fila 15
-      [n, n, n, pn, n, n, n, pn, n, pn, n, pn, n, n, n, n, n, n, n, n], // Fila 16
-      [n, n, n, n, pn, pn, pn, n, n, pn, n, pn, n, n, n, n, n, n, n, n], // Fila 17
-      [n, n, n, n, n, n, n, n, n, pn, n, pn, n, n, n, n, n, n, n, n], // Fila 18
-      [n, n, n, n, n, n, n, n, n, pn, n, pn, n, n, n, n, n, n, n, n]
-     ]
-
-
-  */
-
-  const paredes = []
-
-  method matrizParedes() = matrizParedes
-  
-  method iniciarParedes(){
-    paredes.forEach({pared => pared.iniciar()})
-  }
-  
-  //TODO SOBRE MANZANAS
-  const objetivoManzanas = 14
-  
-  var manzanasActuales = 0
-  
-  //AGRUEGUE LAS MANZANAS EN LA MATRIZ
-  const manzanas = [
-  new Manzana(x = 2, y = 2, imagen = "manzana.png"),
-  new Manzana(x = 3, y = 16, imagen = "manzana.png"),
-  new Manzana(x = 4, y = 12, imagen = "manzana.png"),
-  new Manzana(x = 4, y = 15, imagen = "manzana.png"),
-  new Manzana(x = 4, y = 16, imagen = "manzana.png"),
-  new Manzana(x = 5, y = 13, imagen = "manzana.png"),
-  new Manzana(x = 7, y = 1, imagen = "manzana.png"),
-  new Manzana(x = 10, y = 18, imagen = "manzana.png"),
-  new Manzana(x = 11, y = 5, imagen = "manzana.png"),
-  new Manzana(x = 14, y = 14, imagen = "manzana.png"),
-  new Manzana(x = 14, y = 17, imagen = "manzana.png"),
-  new Manzana(x = 15, y = 3, imagen = "manzana.png"),
-  new Manzana(x = 15, y = 18, imagen = "manzana.png"),
-  new Manzana(x = 16, y = 13, imagen = "manzana.png")]
-  
-
-  method manzanasPartida() = manzanas
-
-  method iniciarManzanas(){
-    manzanas.forEach({manzana => manzana.iniciar()})
-  }
-
-  method sumarManzana(){
-    manzanasActuales += 1
-  }
-
-  method iniciar() {
-    game.height(20)
-    game.width(20)
-    game.cellSize(50)
-    game.ground("fondo.png")
-    personaje.iniciar()
-    self.iniciarParedes()
-    self.iniciarManzanas()
-  }
-  
-  method personaje() = personaje
-}
+const partida2 = new Partida(siguientePartida = partida3, imagenPartida = "imagen", imagenPared = "imagenParedxD", personaje = personaje, imagenManzana = "imagenManzana", objetivoManzanas = 10, 
+manzanasEnMapa = [], paredes = [],
+matrizParedes = [
+        [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn],  // fila 0
+        [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn],  // fila 1
+        [pn, pn,  n,  n, pn, pn, pn,  n,  n,  n,  n,  n,  n,  n, pn, pn, mn,  n, pn, pn],  // fila 2
+        [pn, pn,  n, mn, pn, pn, pn,  n,  n,  n,  n,  n,  n,  n, pn, pn,  n,  n, pn, pn],  // fila 3
+        [pn, pn,  n,  n, pn, pn, pn,  n,  n,  n,  n,  n,  n,  n, pn, pn,  n, pn, pn, pn],  // fila 4
+        [pn, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn,  n, pn, pn, pn],  // fila 5
+        [pn, pn, pn, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn,  n, mn, pn, pn],  // fila 6
+        [pn, pn, pn, pn,  n,  n,  n,  n,  n,  n, pn, pn, pn, pn, pn, pn, mn,  n, pn, pn],  // fila 7
+        [pn, pn, mn,  n,  n,  n,  n,  n,  n,  n, pn, pn, pn, pn, pn, pn, pn,  n, pn, pn],  // fila 8
+        [pn, pn,  n,  n, pn,  n,  n,  n,  n,  n, pn, pn, pn, pn, pn, pn, pn,  n, pn, pn],  // fila 9
+        [pn, pn,  n,  n, pn, pn, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn],  // fila 10
+        [pn, pn,  n,  n, mn, pn, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn],  // fila 11
+        [pn, pn,  n,  n,  n, pn, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn],  // fila 12
+        [pn, pn, pn, pn,  n, pn, pn, pn, pn, pn, pn,  n,  n,  n,  n,  n,  n,  n, pn, pn],  // fila 13
+        [pn, pn, pn, pn, mn, pn, pn, pn, pn, pn, pn,  n,  n,  n,  n,  n,  n,  n, pn, pn],  // fila 14
+        [pn, pn, pn,  n,  n,  n,  n,  n,  n, pn, pn,  n,  n,  n, pn, pn, pn, pn, pn, pn],  // fila 15
+        [pn, pn,  n,  n,  n, pn, pn,  n,  n, pn, pn,  n,  n,  n,  n,  n,  n,  n, pn, pn],  // fila 16
+        [pn, pn,  n,  n, mn, pn, pn,  n, mn, pn, pn,  n,  n,  n,  n,  n,  n, mn, pn, pn],  // fila 17
+        [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn],  // fila 18
+        [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn] 
+])
 
 object personaje {
   var property position = game.at(1,1)
