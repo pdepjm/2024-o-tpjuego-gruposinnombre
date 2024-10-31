@@ -1,6 +1,6 @@
 import wollok.game.*
-import src.objects.juego1.*
-import src.objects.general.*
+import juego1.*
+import general.*
 
 program miniJuego{
 

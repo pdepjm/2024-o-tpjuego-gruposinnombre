@@ -1,0 +1,9 @@
+import general.*
+
+describe "group of tests for general" {
+
+  test "test de ejemplo" {
+
+  }
+
+}
