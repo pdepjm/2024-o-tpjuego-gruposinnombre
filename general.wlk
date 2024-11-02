@@ -9,17 +9,15 @@ object configuracion {
   var property partidaActual = partida1
   var property imagenPared = partidaActual.imagenPared()
   var property imagenManzana = partidaActual.imagenManzana()
-  
-  method personajeActual() = partidaActual.personaje()
+
+  method personaje() = partidaActual.personaje()
 
   //Se usa para definir qué partida está ocurriendo en un instante determinado
   method nuevaPartida(partida) {
     partidaActual = partida
   }
   
-  method personaje() = self.personajeActual()
-  
-  method matrizParedes() = partidaActual.matrizParedes()
+  method matrizParedes() = partidaActual.retornarMatriz()
   
   method paredes() = partidaActual.paredesPartida()
 }
@@ -32,31 +30,29 @@ class Partida {
   const manzanasEnMapa = []
   
   const siguientePartida //Proxima partida a ser iniciada
-
   //Imagenes de la partida
   var property imagenPared
   var property imagenManzana
   var property personaje
 
-
   const matrizParedes = [] //Matriz del mapa completo de 20x20
-  const paredes = [] //Lista de objetos pared de la partida
+  const paredes = [] //Lista de objetos pared de la partida --> creo que no hace falta
   
+  method retornarMatriz() = matrizParedes
 
-  method matrizParedes() = matrizParedes
-  
+  method retornarManzanasEnMapa() = manzanasEnMapa
+
   method paredesPartida() = paredes
-  
+
   //Inicia la partida
   method iniciar() {
-
     configuracion.nuevaPartida(self) //Le asigno al objeto configuracion cual es su partida actual
+
+    game.boardGround("fondo-pasto.png") //Defino el fondo del mapa --> SI REFRESCO LA PAGINA LO APLICA
     
-    game.boardGround("fondo-pasto.png") //Defino el fondo del mapa 
-    
-    game.addVisual(self.personaje()) //Añado el personaje 
-    
-    self.personaje().position(game.center()) //Posiciono el personaje
+    game.addVisual(self.personaje()) //Añado el personaje --> LO TOMA
+
+    decodificadorParedes.decodificarParedes()
   }
   
   //Termina la partida
@@ -71,7 +67,7 @@ class Partida {
     
     //Elimina a todas las manzanas del mapa, probablemente haya que modificarlo como paredes
     manzanasActuales = 0
-    manzanasEnMapa.foreach(
+    manzanasEnMapa.forEach(
       { manzana =>
         manzana.finalizar()
         manzanasEnMapa.remove(manzana)
@@ -89,7 +85,7 @@ class Partida {
   }
   
   method sumarManzana() {
-    manzanasActuales ++
+    manzanasActuales += 1
     
     if (manzanasActuales == objetivoManzanas) {
 
@@ -141,7 +137,8 @@ class Movimiento {
   
 
   //USAR override para la funcion moverse al definir a santi
-  method moverse() {
+  method moverse() 
+  {
     if (self.personaje() == santi) santi.crecer()
     
     self.personaje().moverCuerpos(self.position())
@@ -223,16 +220,29 @@ object decodificadorParedes {
   var j = 0
   
   method decodificarParedes() {
-    configuracion.matrizParedes().foreach(
-      { fila =>
-        fila.foreach(
-          { pared =>
-            const nuevaPared = pared.decodificar(i, j)
-            //Investigar acá como hacer para las que no son paredes para que no salte error. RESPUESTA ABAJO
-            //if (pared == pn) configuracion.partidaActual().paredesPartida().add(nuevaPared)
+    configuracion.matrizParedes().forEach
+    (
+    { 
+      fila =>
+        fila.forEach(
+          { pared => 
             
-            configuracion.partidaActual().paredesPartida().add(nuevaPared)
-            
+            if (pared == pn || pared == pr)
+            {
+              const nuevaPared = pared.decodificar(i, j)
+              configuracion.partidaActual().paredesPartida().add(nuevaPared)
+
+            } 
+            else
+            {
+              if(pared == mn)
+              {
+                const nuevaManzana = pared.decodificar(i,j)
+                configuracion.partidaActual().retornarManzanasEnMapa().add(nuevaManzana)
+              }
+            }
+
+
             //Cambio de columna
             j += 1
           }
@@ -241,20 +251,21 @@ object decodificadorParedes {
         //Cambio de fila
         i -= 1
         
-        
         //Reseteo la columna
         j = 0
       }
     )
   }
-} //Representa una pared que no hace nada
+} 
 
+//Representa una pared que no hace nada
 object pn {
-  method decodificar(fila, columna) {
+  method decodificar(fila, columna) 
+  {
     //La crea, la añade a la visual, y la retorna
     const nuevaPared = new ParedQueNoHaceNada(x = columna, y = fila)
     
-    game.addVisual(nuevaPared)
+    nuevaPared.iniciar()
     
     return nuevaPared
   }
@@ -265,7 +276,7 @@ object pr {
     //La crea, la añade a la visual, y la retorna
     const nuevaPared = new ParedQueReinicia(x = columna, y = fila)
     
-    game.addVisual(nuevaPared)
+    nuevaPared.iniciar()
     
     return nuevaPared
   }
@@ -276,7 +287,7 @@ object mn {
     //La crea, la añade a la visual, y la retorna
     const nuevaManzana = new Manzana(x = columna, y = fila)
     
-    game.addVisual(nuevaManzana)
+    nuevaManzana.iniciar()
     
     return nuevaManzana
   }

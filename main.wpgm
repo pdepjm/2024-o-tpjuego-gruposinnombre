@@ -26,7 +26,7 @@ program miniJuego{
 		const paredes = configuracion.paredes()
 			
         //ACA SE VERIFICA SI AL MOVERSE CHOCA CON UNA PARED
-		if((paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)})).negate()){
+		if((paredes.any({pared => (pared.position().y() == nuevaPosicionY) && (pared.position().x() == nuevaPosicionX)})).negate()){
 
 			//Si no choca, el personaje se desplazará a la dirección
 			arriba.moverse()
@@ -55,7 +55,7 @@ program miniJuego{
 		const paredes = configuracion.paredes()
 			
         //ACA SE VERIFICA SI AL MOVERSE CHOCA CON UNA PARED
-		if((paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)})).negate()){
+		if((paredes.any({pared => (pared.position().y() == nuevaPosicionY) && (pared.position().x() == nuevaPosicionX)})).negate()){
 
 			//Si no choca, el personaje se desplazará a la dirección
 			izquierda.moverse()
@@ -85,7 +85,7 @@ program miniJuego{
 		const paredes = configuracion.paredes()
 			
         //ACA SE VERIFICA SI AL MOVERSE CHOCA CON UNA PARED
-		if((paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)})).negate()){
+		if((paredes.any({pared => (pared.position().y() == nuevaPosicionY) && (pared.position().x() == nuevaPosicionX)})).negate()){
 
 			//Si no choca, el personaje se desplazará a la dirección
 			abajo.moverse()
@@ -114,7 +114,7 @@ program miniJuego{
 		const paredes = configuracion.paredes()
 			
         //ACA SE VERIFICA SI AL MOVERSE CHOCA CON UNA PARED
-		if((paredes.any({pared => (pared.y() == nuevaPosicionY) && (pared.x() == nuevaPosicionX)})).negate()){
+		if((paredes.any({pared => (pared.position().y() == nuevaPosicionY) && (pared.position().x() == nuevaPosicionX)})).negate()){
 
 			//Si no choca, el personaje se desplazará a la dirección
 			derecha.moverse()
