@@ -28,8 +28,8 @@ manzanasEnMapa = [], paredes = [],
       [ n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn,  n,  n, pn], // Fila 3
       [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn,  n, pn, pn], // Fila 2
       [ n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn], // Fila 1
-      [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn]
-])
+      [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn]],
+      manzanasActuales = 0)
 const manzanaScreamer = new Manzana(x = 10, y = 19, imagen = "b.png")
 
 object lauti {

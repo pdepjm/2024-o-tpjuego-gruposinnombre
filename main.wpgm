@@ -29,6 +29,7 @@ program miniJuego{
 		if((paredes.any({pared => (pared.position().y() == nuevaPosicionY) && (pared.position().x() == nuevaPosicionX)})).negate()){
 
 			//Si no choca, el personaje se desplazará a la dirección
+			configuracion.personaje().posicionProximoCuerpo(configuracion.personaje().position())
 			arriba.moverse()
 
 		}
@@ -58,6 +59,7 @@ program miniJuego{
 		if((paredes.any({pared => (pared.position().y() == nuevaPosicionY) && (pared.position().x() == nuevaPosicionX)})).negate()){
 
 			//Si no choca, el personaje se desplazará a la dirección
+			configuracion.personaje().posicionProximoCuerpo(configuracion.personaje().position())
 			izquierda.moverse()
 
 		}
@@ -88,6 +90,7 @@ program miniJuego{
 		if((paredes.any({pared => (pared.position().y() == nuevaPosicionY) && (pared.position().x() == nuevaPosicionX)})).negate()){
 
 			//Si no choca, el personaje se desplazará a la dirección
+			configuracion.personaje().posicionProximoCuerpo(configuracion.personaje().position())
 			abajo.moverse()
 
 		}
@@ -117,6 +120,7 @@ program miniJuego{
 		if((paredes.any({pared => (pared.position().y() == nuevaPosicionY) && (pared.position().x() == nuevaPosicionX)})).negate()){
 
 			//Si no choca, el personaje se desplazará a la dirección
+			configuracion.personaje().posicionProximoCuerpo(configuracion.personaje().position())
 			derecha.moverse()
 
 		}

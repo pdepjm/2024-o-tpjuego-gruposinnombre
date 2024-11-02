@@ -1,6 +1,6 @@
 import wollok.game.*
 import juego1.*
-import juego3.*
+import screamer.*
 import general.*
 
 const partida2 = new Partida( 
@@ -12,25 +12,26 @@ const partida2 = new Partida(
   //ESTE MAPA YA ESTA BIEN HECHO
   matrizParedes = [
     [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn],  //fila 19
-    [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn,  n,  n,  n,  n,  n,  n,  n, pn, pn, pn],  // fila 18
-    [pn, pn,  n,  n,  n,  n,  n,  n, pn, pn,  n, pn, pn, pn,  n,  n,  n, pn, pn, pn],  // fila 17
-    [pn, pn,  n,  n,  n, pn, pn,  n, pn, pn,  n, pn, pn, pn, pn,  n,  n, pn, pn, pn],  // fila 16
-    [pn, pn,  n,  n,  n, pn, pn,  n, pn, pn,  n,  n,  n, pn, pn,  n,  n, pn, pn, pn],  // fila 15
-    [pn, pn,  n, pn, pn,  n,  n,  n, pn, pn, pn, pn,  n, pn,  n,  n,  n, pn, pn, pn],  // fila 14
-    [pn, pn,  n, pn, pn,  n,  n,  n, pn, pn,  n,  n,  n, pn,  n,  n,  n,  n, pn, pn],  // fila 13
-    [pn, pn,  n,  n,  n, pn, pn,  n, pn, pn,  n, pn, pn, pn, pn, pn, pn, pn, pn, pn],  // fila 12
+    [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, mn,  n,  n,  n,  n, mn,  n, pn, pn, pn],  // fila 18
+    [pn, pn,  n,  n,  n,  n,  n,  n, pn, pn,  n, pn, pn, pn, mn,  n,  n, pn, pn, pn],  // fila 17
+    [pn, pn,  n, mn, mn, pn, pn,  n, pn, pn,  n, pn, pn, pn, pn,  n,  n, pn, pn, pn],  // fila 16
+    [pn, pn,  n,  n, mn, pn, pn,  n, pn, pn,  n,  n,  n, pn, pn,  n,  n, pn, pn, pn],  // fila 15
+    [pn, pn,  n, pn, pn,  n,  n,  n, pn, pn, pn, pn,  n, pn, mn,  n,  n, pn, pn, pn],  // fila 14
+    [pn, pn,  n, pn, pn, mn,  n,  n, pn, pn,  n,  n,  n, pn,  n,  n,  n, mn, pn, pn],  // fila 13
+    [pn, pn,  n,  n, mn, pn, pn,  n, pn, pn,  n, pn, pn, pn, pn, pn, pn, pn, pn, pn],  // fila 12
     [pn, pn, pn, pn,  n, pn, pn,  n, pn, pn,  n, pn,  n,  n,  n,  n,  n,  n,  n, pn],  // fila 11
     [pn, pn,  n,  n,  n, pn, pn,  n,  n,  n,  n, pn,  n, pn, pn, pn, pn, pn,  n, pn],  // fila 10
     [pn, pn,  n, pn, pn, pn, pn, pn,  n,  n,  n,  n,  n, pn, pn,  n,  n,  n,  n, pn],  // fila 9
     [pn, pn,  n, pn, pn, pn, pn,  n,  n,  n,  n,  n,  n, pn, pn,  n, pn, pn, pn, pn],  // fila 8
     [pn, pn,  n, pn, pn, pn, pn,  n, pn,  n, pn, pn,  n,  n, pn,  n, pn, pn, pn, pn],  // fila 7
     [pn, pn,  n,  n,  n,  n,  n,  n, pn,  n, pn, pn, pn,  n, pn,  n,  n,  n,  n, pn],  // fila 6
-    [pn, pn,  n, pn, pn, pn, pn, pn, pn,  n,  n,  n, pn,  n, pn, pn, pn, pn,  n, pn],  // fila 5
+    [pn, pn,  n, pn, pn, pn, pn, pn, pn,  n,  n, mn, pn,  n, pn, pn, pn, pn,  n, pn],  // fila 5
     [pn, pn, pn, pn, pn, pn,  n,  n,  n,  n, pn,  n, pn,  n, pn, pn, pn, pn,  n, pn],  // fila 4
-    [pn,  n,  n,  n,  n,  n,  n,  n, pn,  n, pn,  n, pn,  n, pn,  n,  n, pn,  n, pn],  // fila 3
-    [pn,  n,  n, pn, pn,  n,  n,  n, pn,  n,  n,  n, pn,  n,  n,  n,  n,  n,  n, pn],  // fila 2
-    [pn,  n,  n, pn, pn, pn,  n,  n, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn],  // fila 1
-    [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn]]
+    [pn,  n,  n,  n,  n,  n,  n,  n, pn,  n, pn,  n, pn,  n, pn, mn,  n, pn,  n, pn],  // fila 3
+    [pn,  n, mn, pn, pn,  n,  n,  n, pn,  n,  n,  n, pn,  n,  n,  n,  n,  n,  n, pn],  // fila 2
+    [pn,  n,  n, pn, pn, pn,  n, mn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn],  // fila 1
+    [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn]],
+    manzanasActuales = 0
 )
 
 object santi {

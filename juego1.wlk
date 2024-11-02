@@ -8,7 +8,7 @@ const partida1 = new Partida(
     imagenPared = "pared-tierra.png", 
     personaje = cabeza,
     imagenManzana = "manzana.png",
-    objetivoManzanas = 2, 
+    objetivoManzanas = 15, 
     matrizParedes = [
         [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn],  // fila 0
         [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn],  // fila 1
@@ -21,7 +21,7 @@ const partida1 = new Partida(
         [pn, pn,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn, pn, pn, pn, pn, pn,  n, pn, pn],  // fila 8
         [pn, pn,  n,  n, pn,  n,  n,  n,  n,  n, pn, pn, pn, pn, pn, pn, pn,  n, pn, pn],  // fila 9
         [pn, pn,  n,  n, pn, pn, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn],  // fila 10
-        [pn, pn,  n,  n,  n, pn, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn],  // fila 11
+        [pn, pn,  n,  n,  n, pn, pn,  mn, n,  n,  mn, n,  mn, n,  n,  n,  n,  n, pn, pn],  // fila 11
         [pn, pn,  n,  n,  n, pn, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn],  // fila 12
         [pn, pn, pn, pn,  n, pn, pn, pn, pn, pn, pn,  n,  n,  n,  n,  n,  n,  n, pn, pn],  // fila 13
         [pn, pn, pn, pn,  n, pn, pn, pn, pn, pn, pn,  n,  n,  n,  n,  n,  n,  n, pn, pn],  // fila 14
@@ -29,7 +29,8 @@ const partida1 = new Partida(
         [pn, pn,  n,  n,  n, pn, pn,  n,  n, pn, pn,  n,  n,  n,  n,  n,  n,  n, pn, pn],  // fila 16
         [pn, pn,  n,  n,  n, pn, pn,  n,  n, pn, pn,  n,  n,  n,  n,  n,  n,  n, pn, pn],  // fila 17
         [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn],  // fila 18
-        [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn]]
+        [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn]],
+        manzanasActuales = 0
 )
 
 object cabeza {
@@ -92,12 +93,12 @@ object cabeza {
             viejaPosicion = nuevaViejaPosicion    
         })}
     }
-
     //Interactua con la manzana el personaje (hay que modificarlo como a las paredes)
     method interactuarManzana(manzana){
-
+        
+        manzana.position(game.at(24, 24))
         manzana.finalizar()
-
+        
         partida1.sumarManzana()
 
         self.crecer()

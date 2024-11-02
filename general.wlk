@@ -1,7 +1,6 @@
 import wollok.game.*
 import juego1.*
 import juego2.*
-import juego3.*
 import screamer.*
 
 /*-----------------------------------------------OBJETO PARTIDA, EL MÁS IMPORTANTE DE TODOS-----------------------------------------*/
@@ -25,7 +24,7 @@ object configuracion {
 
 class Partida {
   //Todo sobre manzanas
-  var manzanasActuales = 0
+  var property manzanasActuales
   const objetivoManzanas
   const manzanasEnMapa = []
   
@@ -116,10 +115,7 @@ class Manzana inherits Cosas {
   method image() = imagen
   
   method iniciar() {
-    game.whenCollideDo(
-      self,
-      { personaje => personaje.interactuarManzana(self) }
-    )
+    game.whenCollideDo(self,{ personaje => personaje.interactuarManzana(self) })
     
     game.addVisual(self)
   }
@@ -311,6 +307,9 @@ class Cuerpo {
     
     game.addVisual(self)
   }
+
+  method interactuarCuerpo(){}
+  method interactuarManzana(manzana){}
 }
 
 /*------------------------------------------Objeto fin del juego---------------------------------*/
