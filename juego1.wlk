@@ -14,8 +14,8 @@ const partida1 = new Partida(
         [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn],  // fila 1
         [pn, pn,  n,  n, pn, pn, pn,  n,  n,  n,  n,  n,  n,  n, pn, pn,  n,  n, pn, pn],  // fila 2
         [pn, pn,  n,  n, pn, pn, pn,  n,  n,  n,  n,  n,  n,  n, pn, pn,  n,  n, pn, pn],  // fila 3
-        [pn, pn,  n,  n, pn, pn, pn,  n,  n,  n,  n,  n,  n,  n, pn, pn,  n, pn, pn, pn],  // fila 4
-        [pn, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn,  n, pn, pn, pn],  // fila 5
+        [pn, pn, mn,  n, pn, pn, pn,  n,  n,  n,  n,  n,  n,  n, pn, pn,  n, pn, pn, pn],  // fila 4
+        [pn, pn, mn, mn, mn, mn, mn, mn, mn, mn,  n,  n,  n,  n, pn, pn,  n, pn, pn, pn],  // fila 5
         [pn, pn, pn, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn,  n,  n, pn, pn],  // fila 6
         [pn, pn, pn, pn,  n,  n,  n,  mn,  n,  n, pn, pn, pn, pn, pn, pn,  n,  n, pn, pn],  // fila 7
         [pn, pn,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn, pn, pn, pn, pn, pn,  n, pn, pn],  // fila 8
@@ -41,17 +41,16 @@ object cabeza {
 
     var property position = game.at(2,17)
 
-    const imagen = "cabeza-abajo.png"
+    var property imagen = "cabeza-abajo.png"
 
     method image() = imagen
 
-    method imagenIzquierda ()= "cabeza-izquierda.png"
-
-    method imagenDerecha ()= "cabeza-derecha.png"
-
-    method imagenArriba ()= "cabeza-arriba.png"
+    method retornarCuerpos() = cuerpos
 
     method imagenAbajo ()= "cabeza-abajo.png"
+    method imagenArriba ()= "cabeza-arriba.png"
+    method imagenDerecha ()= "cabeza-derecha.png"
+    method imagenIzquierda ()= "cabeza-izquierda.png"
 
 
     //Destruye todos los cuerpos de la serpiente

@@ -24,13 +24,15 @@ program miniJuego{
 		const nuevaPosicionX = configuracion.personaje().position().x()	
 
 		const paredes = configuracion.paredes()
-			
+		
         //ACA SE VERIFICA SI AL MOVERSE CHOCA CON UNA PARED
 		if((paredes.any({pared => (pared.position().y() == nuevaPosicionY) && (pared.position().x() == nuevaPosicionX)})).negate()){
 
 			//Si no choca, el personaje se desplazará a la dirección
 			configuracion.personaje().posicionProximoCuerpo(configuracion.personaje().position())
 			arriba.moverse()
+			//Cambia la imagen del cuerpo
+			configuracion.personaje().imagen(configuracion.personaje().imagenArriba())
 
 		}
 		else{
@@ -45,6 +47,13 @@ program miniJuego{
 			paredDeImpacto.interactuarPersona()
 
 		}
+		//SI COLICIONA CON SU CUEROI REINICIA LA PARTIDA --> REVISAR EL REINICIO
+		const cuerpos = configuracion.personaje().retornarCuerpos()
+
+		if( cuerpos.any({cuerpo => cuerpo.position() == game.at(nuevaPosicionX,nuevaPosicionY )})){
+			configuracion.partidaActual().reiniciar()
+		}
+
 	})
 
 	keyboard.a().onPressDo({
@@ -61,6 +70,8 @@ program miniJuego{
 			//Si no choca, el personaje se desplazará a la dirección
 			configuracion.personaje().posicionProximoCuerpo(configuracion.personaje().position())
 			izquierda.moverse()
+			//Cambia la imagen del cuerpo
+			configuracion.personaje().imagen(configuracion.personaje().imagenIzquierda())
 
 		}
 		else{
@@ -75,6 +86,13 @@ program miniJuego{
 
 			paredDeImpacto.interactuarPersona()
 
+		}
+		
+		//SI COLICIONA CON SU CUERPO REINICIA LA PARTIDA --> REVISAR EL REINICIO
+		const cuerpos = configuracion.personaje().retornarCuerpos()
+
+		if( cuerpos.any({cuerpo => cuerpo.position() == game.at(nuevaPosicionX,nuevaPosicionY )})){
+			configuracion.partidaActual().reiniciar()
 		}
 	})
 
@@ -92,6 +110,9 @@ program miniJuego{
 			//Si no choca, el personaje se desplazará a la dirección
 			configuracion.personaje().posicionProximoCuerpo(configuracion.personaje().position())
 			abajo.moverse()
+			//Cambia la imagen del cuerpo
+			configuracion.personaje().imagen(configuracion.personaje().imagenAbajo())
+
 
 		}
 		else{
@@ -105,6 +126,12 @@ program miniJuego{
 
 			paredDeImpacto.interactuarPersona()
 
+		}
+		//SI COLICIONA CON SU CUERPO REINICIA LA PARTIDA --> REVISAR EL REINICIO
+		const cuerpos = configuracion.personaje().retornarCuerpos()
+
+		if( cuerpos.any({cuerpo => cuerpo.position() == game.at(nuevaPosicionX,nuevaPosicionY )})){
+			configuracion.partidaActual().reiniciar()
 		}
 	})
 
@@ -122,6 +149,9 @@ program miniJuego{
 			//Si no choca, el personaje se desplazará a la dirección
 			configuracion.personaje().posicionProximoCuerpo(configuracion.personaje().position())
 			derecha.moverse()
+			//Cambia la imagen del cuerpo
+			configuracion.personaje().imagen(configuracion.personaje().imagenDerecha())
+
 
 		}
 		else{
@@ -135,6 +165,13 @@ program miniJuego{
 
 			paredDeImpacto.interactuarPersona()
 
+		}
+
+		//SI COLICIONA CON SU CUERPO REINICIA LA PARTIDA --> REVISAR EL REINICIO
+		const cuerpos = configuracion.personaje().retornarCuerpos()
+
+		if( cuerpos.any({cuerpo => cuerpo.position() == game.at(nuevaPosicionX,nuevaPosicionY )})){
+			configuracion.partidaActual().reiniciar()
 		}
 	})
 	

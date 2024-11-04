@@ -26,7 +26,9 @@ class Partida {
   //Todo sobre manzanas
   var property manzanasActuales
   const objetivoManzanas
-  const manzanasEnMapa = []
+  var property manzanasEnMapa = []
+  //Guardo las posiciones para decodificarlas en el reinicio
+  var property posicionesManzanas = []
   
   const siguientePartida //Proxima partida a ser iniciada
   //Imagenes de la partida
@@ -39,7 +41,7 @@ class Partida {
   
   method retornarMatriz() = matrizParedes
 
-  method retornarManzanasEnMapa() = manzanasEnMapa
+  //method retornarManzanasEnMapa() = manzanasEnMapa
 
   method paredesPartida() = paredes
 
@@ -76,11 +78,15 @@ class Partida {
   
   //Reinicia la partida instantaneamente
   method reiniciar() {
-    self.terminar()
+    self.personaje().destruirCuerpos()
+
+    self.personaje().position(game.at(2,17))
     
+    configuracion.personaje().imagen(configuracion.personaje().imagenAbajo())
+
     manzanasActuales = 0
-    
-    self.iniciar()
+
+    //self.iniciar()
   }
   
   method sumarManzana() {
@@ -148,10 +154,6 @@ object izquierda inherits Movimiento {
     self.personaje().position().x() - 1,
     self.personaje().position().y()
   )
-  
-  method cambiarImagen() = self.personaje().image(
-    self.personaje().imagenIzquierda()
-  )
 }
 
 object derecha inherits Movimiento {
@@ -159,9 +161,7 @@ object derecha inherits Movimiento {
     self.personaje().position().x() + 1,
     self.personaje().position().y()
   )
-  
-  method cambiarImagen() = configuracion.personaje().image(self.personaje().imagenDerecha())
-}
+  }
 
 
 object arriba inherits Movimiento {
@@ -169,20 +169,12 @@ object arriba inherits Movimiento {
     self.personaje().position().x(),
     self.personaje().position().y() + 1
   )
-  
-  method cambiarImagen() = self.personaje().image(
-    self.personaje().imagenArriba()
-  )
 }
 
 object abajo inherits Movimiento {
   override method nuevaPosicion() = game.at(
     self.personaje().position().x(),
     self.personaje().position().y() - 1
-  )
-  
-  method cambiarImagen() = self.personaje().image(
-    self.personaje().imagenAbajo()
   )
 }
 /*----------------------------------------------TODO SOBRE PAREDES-----------------------------------------------------------------------*/
@@ -234,7 +226,7 @@ object decodificadorParedes {
               if(pared == mn)
               {
                 const nuevaManzana = pared.decodificar(i,j)
-                configuracion.partidaActual().retornarManzanasEnMapa().add(nuevaManzana)
+                configuracion.partidaActual().manzanasEnMapa().add(nuevaManzana)
               }
             }
 
@@ -298,7 +290,7 @@ object n {
 
 class Cuerpo {
   var property position
-  const imagen = "cuerpo.png"
+  const imagen = "cuerpo.png" 
   
   method image() = imagen
   
