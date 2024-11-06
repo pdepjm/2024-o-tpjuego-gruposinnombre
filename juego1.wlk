@@ -8,7 +8,7 @@ const partida1 = new Partida(
     imagenPared = "pared-tierra.png", 
     personaje = cabeza,
     imagenManzana = "manzana.png",
-    objetivoManzanas = 15, 
+    objetivoManzanas = 3, 
     matrizParedes = [
         [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn],  // fila 0
         [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn],  // fila 1
@@ -60,6 +60,8 @@ object cabeza {
         cuerpos.forEach
         ({cuerpo =>
 
+            cuerpo.position(game.at(24, 24))
+
             game.removeVisual(cuerpo)
 
             cuerpos.remove(cuerpo)
@@ -95,6 +97,8 @@ object cabeza {
     //Interactua con la manzana el personaje (hay que modificarlo como a las paredes)
     method interactuarManzana(manzana){
         
+        configuracion.partidaActual().posicionesManzanas().add(manzana.position())
+
         manzana.position(game.at(24, 24))
         manzana.finalizar()
         

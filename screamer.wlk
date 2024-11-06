@@ -3,8 +3,14 @@ import juego2.*
 import general.*
 
 
-const partida3 = new Partida(siguientePartida = fin, imagenPared = "imagenParedxD", personaje = lauti, imagenManzana = "imagenManzana", objetivoManzanas = 10, 
-manzanasEnMapa = [], paredes = [],
+const partida3 = new Partida(
+  siguientePartida = fin,
+  imagenPared = "imagenParedxD",
+  personaje = lauti,
+  imagenManzana = "imagenManzana",
+  objetivoManzanas = 10,
+  manzanasEnMapa = [],
+  paredes = [],
 
     //Matriz del mapa completo de 20x20 delimitado por paredes que no hacen nada
     //ESTE MAPA YA ESTA BIEN

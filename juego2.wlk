@@ -43,13 +43,10 @@ object santi {
 
   const imagen = "cabeza-abajo.png"
 
-  method imagenIzquierda ()= "cabeza-izquierda.png"
-
-  method imagenDerecha ()= "cabeza-derecha.png"
-
-  method imagenArriba ()= "cabeza-arriba.png"
-
-  method imagenAbajo ()= "cabeza-abajo.png"
+    method imagenAbajo ()= "cabeza-abajo.png"
+    method imagenArriba ()= "cabeza-arriba.png"
+    method imagenDerecha ()= "cabeza-derecha.png"
+    method imagenIzquierda ()= "cabeza-izquierda.png"
 
   method image() = imagen
   
@@ -88,5 +85,31 @@ object santi {
 
         cuerpos.add(nuevoCuerpo)
 
+    }
+
+  method moverCuerpos(posicionAnteriorCabeza)
+    {
+
+        //Guardo la posicion donde se guardará el proximo cuerpo en caso de añadir uno
+        if(cuerpos !=[])
+        {
+        self.posicionProximoCuerpo(cuerpos.last().position()) 
+
+        var viejaPosicion = posicionAnteriorCabeza
+
+        var nuevaViejaPosicion
+
+        //Desplazo todos los cuerpos de la lista de cuerpos
+        cuerpos.forEach({ cuerpo =>
+
+            //Guardo la posicion del cuerpo actual
+            nuevaViejaPosicion = cuerpo.position()
+
+            //Reemplazo la posicion del cuerpo actual, con la del cuerpo o cabeza anterior
+            cuerpo.position(viejaPosicion)
+
+            //Guardo la vieja posicion de este cuerpo para saber donde mover al proximo en la lista
+            viejaPosicion = nuevaViejaPosicion    
+        })}
     }
 }

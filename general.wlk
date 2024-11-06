@@ -62,6 +62,11 @@ class Partida {
     game.removeVisual(self.personaje()) //Saca el personaje del mapa
 
     //Insertar metodo que elimine todas las paredes
+    paredes.forEach(
+      { pared =>
+        pared.finalizar()
+        manzanasEnMapa.remove(pared)
+      })
     
     
     self.personaje().destruirCuerpos() //Destruye todos los cuerpos de la serpiente
@@ -85,6 +90,13 @@ class Partida {
     configuracion.personaje().imagen(configuracion.personaje().imagenAbajo())
 
     manzanasActuales = 0
+
+    self.posicionesManzanas().forEach({posicion=>
+    const nuevaManzana = new Manzana(x = posicion.x(), y = posicion.y())
+    
+    nuevaManzana.iniciar()
+    self.posicionesManzanas().remove(posicion)
+    })
 
     //self.iniciar()
   }
