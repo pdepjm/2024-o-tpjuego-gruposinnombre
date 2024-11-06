@@ -7,10 +7,10 @@ program miniJuego{
 	game.title("Minijuegos")
 
 	//Seteamos la altura
-	game.height(20)
+	game.height(18)
 
 	//Seteamos el ancho
-	game.width(20)
+	game.width(18)
 
 	//Seteamos el tamaño de la celda
 	game.cellSize(40)

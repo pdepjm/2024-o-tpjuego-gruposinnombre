@@ -85,7 +85,7 @@ class Partida {
   method reiniciar() {
     self.personaje().destruirCuerpos()
 
-    self.personaje().position(game.at(2,17))
+    //self.personaje().position(game.at(2,17))
     
     configuracion.personaje().imagen(configuracion.personaje().imagenAbajo())
 
@@ -216,7 +216,7 @@ class ParedQueReinicia inherits Pared {
 /*---------------------------OBJETOS CON LOS QUE HAGO LA MATRIZ DEL MAPA------------------------------*/
 
 object decodificadorParedes {
-  var i = 19
+  var i = 17
   var j = 0
   
   method decodificarParedes() {
