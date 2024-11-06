@@ -17,8 +17,8 @@ object configuracion {
   }
   
   method matrizParedes() = partidaActual.retornarMatriz()
-  
   method paredes() = partidaActual.paredesPartida()
+  
 }
 /*---------------------------------------------Clase de las partidas--------------------------------------------------------------------------*/
 
@@ -37,7 +37,7 @@ class Partida {
   var property personaje
 
   const matrizParedes = [] //Matriz del mapa completo de 20x20
-  const paredes = [] //Lista de objetos pared de la partida --> creo que no hace falta
+  var property paredes = [] //Lista de objetos pared de la partida --> creo que no hace falta
   
   method retornarMatriz() = matrizParedes
 
@@ -48,7 +48,7 @@ class Partida {
   //Inicia la partida
   method iniciar() {
     configuracion.nuevaPartida(self) //Le asigno al objeto configuracion cual es su partida actual
-
+    
     game.boardGround("fondo-pasto.png") //Defino el fondo del mapa --> SI REFRESCO LA PAGINA LO APLICA
     
     game.addVisual(self.personaje()) //Añado el personaje --> LO TOMA
@@ -58,34 +58,29 @@ class Partida {
   
   //Termina la partida
   method terminar() {
-    
-    game.removeVisual(self.personaje()) //Saca el personaje del mapa
-
     //Insertar metodo que elimine todas las paredes
-    paredes.forEach(
-      { pared =>
-        pared.finalizar()
-        manzanasEnMapa.remove(pared)
-      })
-    
-    
-    self.personaje().destruirCuerpos() //Destruye todos los cuerpos de la serpiente
-    
-    //Elimina a todas las manzanas del mapa, probablemente haya que modificarlo como paredes
+    paredes.forEach({ pared => pared.finalizar()})
+	  paredes.clear()
+
+    //Elimina a todas las manzanas del mapa
     manzanasActuales = 0
-    manzanasEnMapa.forEach(
-      { manzana =>
-        manzana.finalizar()
-        manzanasEnMapa.remove(manzana)
-      }
-    )
+    manzanasEnMapa.forEach( { manzana => manzana.finalizar() })
+    manzanasEnMapa.clear()
+    
+    //Elimina al personaje y sus cuerpos
+    self.personaje().destruirCuerpos()
+    game.removeVisual(self.personaje())
+    self.personaje().clear()
+
+    //configuracion.nuevaPartida(siguientePartida)
+    partida2.iniciar()
   }
   
   //Reinicia la partida instantaneamente
   method reiniciar() {
     self.personaje().destruirCuerpos()
 
-    //self.personaje().position(game.at(2,17))
+    self.personaje().position(game.at(1,16))
     
     configuracion.personaje().imagen(configuracion.personaje().imagenAbajo())
 
@@ -108,9 +103,9 @@ class Partida {
 
       self.terminar()
       
-      configuracion.nuevaPartida(siguientePartida) //Pasar de nivel
+      //configuracion.nuevaPartida(siguientePartida) //Pasar de nivel
       
-      siguientePartida.iniciar()
+      //siguientePartida.iniciar()
     }
   }
 }
