@@ -5,7 +5,7 @@ import screamer.*
 
 /*-----------------------------------------------OBJETO PARTIDA, EL MÁS IMPORTANTE DE TODOS-----------------------------------------*/
 object configuracion {
-  var property partidaActual = partida2
+  var property partidaActual = partida1
   var property imagenPared = partidaActual.imagenPared()
   var property imagenManzana = partidaActual.imagenManzana()
 
@@ -35,6 +35,8 @@ class Partida {
   var property imagenPared
   var property imagenManzana
   var property personaje
+
+  method objetivoManzanas() = objetivoManzanas
 
   const matrizParedes = [] //Matriz del mapa completo de 20x20
   var property paredes = [] //Lista de objetos pared de la partida --> creo que no hace falta
@@ -70,10 +72,10 @@ class Partida {
     //Elimina al personaje y sus cuerpos
     self.personaje().destruirCuerpos()
     game.removeVisual(self.personaje())
-    self.personaje().clear()
+
 
     //configuracion.nuevaPartida(siguientePartida)
-    partida2.iniciar()
+    siguientePartida.iniciar()
   }
   
   //Reinicia la partida instantaneamente
