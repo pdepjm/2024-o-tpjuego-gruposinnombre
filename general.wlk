@@ -13,7 +13,7 @@ object configuracion {
 
   //Se usa para definir qué partida está ocurriendo en un instante determinado
   method nuevaPartida(partida) {
-    partidaActual = partida
+    self.partidaActual(partida)
   }
 
   method matrizParedes() = partidaActual.retornarMatriz()
@@ -30,7 +30,7 @@ class Partida {
   //Guardo las posiciones para decodificarlas en el reinicio
   var property posicionesManzanas = []
   
-  const siguientePartida //Proxima partida a ser iniciada
+  var property siguientePartida //Proxima partida a ser iniciada
   //Imagenes de la partida
   var property imagenPared
   var property imagenManzana
@@ -39,6 +39,7 @@ class Partida {
   method objetivoManzanas() = objetivoManzanas
 
   const matrizParedes = [] //Matriz del mapa completo de 20x20
+
   var property paredes = [] //Lista de objetos pared de la partida --> creo que no hace falta
   
   method retornarMatriz() = matrizParedes
@@ -61,13 +62,22 @@ class Partida {
   //Termina la partida
   method terminar() {
     //Insertar metodo que elimine todas las paredes
-    paredes.forEach({ pared => pared.finalizar()})
+    paredes.forEach({ 
+      pared => pared.finalizar()
+
+      pared.position(game.at(24,24))
+    })
+    configuracion.paredes().clear()
 	  paredes.clear()
+    //self.retornarMatriz().clear()
+    
 
     //Elimina a todas las manzanas del mapa
     manzanasActuales = 0
     manzanasEnMapa.forEach( { manzana => manzana.finalizar() })
     manzanasEnMapa.clear()
+    posicionesManzanas.clear()
+  
     
     //Elimina al personaje y sus cuerpos
     self.personaje().destruirCuerpos()
@@ -82,7 +92,7 @@ class Partida {
   method reiniciar() {
     self.personaje().destruirCuerpos()
 
-    self.personaje().position(game.at(1,16))
+    self.personaje().position(configuracion.personaje().posicionInicial())
     
     configuracion.personaje().imagen(configuracion.personaje().imagenAbajo())
 

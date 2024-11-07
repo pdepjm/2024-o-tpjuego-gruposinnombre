@@ -62,7 +62,8 @@ program miniJuego{
 			paredDeImpacto.interactuarPersona()
 
 		}
-		//SI COLICIONA CON SU CUEROI REINICIA LA PARTIDA --> REVISAR EL REINICIO
+		
+		//SI COLICIONA CON SU CUERPO REINICIA LA PARTIDA --> REVISAR EL REINICIO
 		const cuerpos = configuracion.personaje().retornarCuerpos()
 
 		if( cuerpos.any({cuerpo => cuerpo.position() == game.at(nuevaPosicionX,nuevaPosicionY )})){

@@ -37,6 +37,7 @@ const partida3 = new Partida(
 
 object lauti {
   
+  var property posicionInicial = game.at(1,1)
   var property position = game.at(1,1)
   var property imagen = "cabeza-abajo.png"
   method image() = imagen
