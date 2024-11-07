@@ -15,7 +15,7 @@ object configuracion {
   method nuevaPartida(partida) {
     partidaActual = partida
   }
-  
+
   method matrizParedes() = partidaActual.retornarMatriz()
   method paredes() = partidaActual.paredesPartida()
   
@@ -49,7 +49,7 @@ class Partida {
   method iniciar() {
     configuracion.nuevaPartida(self) //Le asigno al objeto configuracion cual es su partida actual
     
-    game.boardGround("fondo-pasto.png") //Defino el fondo del mapa --> SI REFRESCO LA PAGINA LO APLICA
+	  game.addVisual(fondoDePantalla)//Defino el fondo del mapa --> SI REFRESCO LA PAGINA LO APLICA
     
     game.addVisual(self.personaje()) //Añado el personaje --> LO TOMA
 
@@ -208,7 +208,14 @@ class ParedQueReinicia inherits Pared {
     configuracion.partidaActual().reiniciar()
   }
 }
-/*---------------------------OBJETOS CON LOS QUE HAGO LA MATRIZ DEL MAPA------------------------------*/
+/*---------------------------OBJETOS CON LOS QUE HAGO EL MAPA------------------------------*/
+object fondoDePantalla {
+		var property position = game.at(0, 0)
+		method image() = "fondo-pasto.png"
+    method interactuarPared() {
+      
+    }
+	}
 
 object decodificadorParedes {
   var i = 17
