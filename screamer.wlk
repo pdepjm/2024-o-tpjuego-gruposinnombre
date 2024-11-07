@@ -14,27 +14,25 @@ const partida3 = new Partida(
 
     //Matriz del mapa completo de 20x20 delimitado por paredes que no hacen nada
     //ESTE MAPA YA ESTA BIEN
-     matrizParedes = [
-      [ n,  n,  n,  n,  n,  n,  n,  n,  n, pn,  n, pn,  n,  n,  n,  n,  n,  n,  n,  n],
-      [ n,  n,  n,  n,  n,  n,  n,  n,  n, pn,  n, pn,  n,  n,  n,  n,  n,  n,  n,  n], // Fila 18
-      [ n,  n,  n,  n, pn, pn, pn,  n,  n, pn,  n, pn,  n,  n,  n,  n,  n,  n,  n,  n], // Fila 17
-      [ n,  n,  n, pn,  n,  n,  n, pn,  n, pn,  n, pn,  n,  n,  n,  n,  n,  n,  n,  n], // Fila 16
-      [ n,  n, pn,  n,  n, pn,  n,  n, pn, pn,  n, pn,  n,  n,  n,  n,  n,  n,  n,  n], // Fila 15
-      [ n, pn,  n,  n, pn, pn, pn,  n,  n,  n,  n, pn,  n,  n,  n,  n,  n,  n,  n,  n], // Fila 14
-      [ n, pn,  n, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn], // Fila 13
-      [ n, pn,  n,  n, pn, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn], // Fila 12
-      [ n, pn, pn,  n, pn, pn,  n, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn,  n, pn], // Fila 11
-      [ n, pn, pn,  n,  n,  n,  n, pn,  n,  n,  n,  n, pn,  n,  n,  n, pn,  n,  n, pn], // Fila 10
-      [ n, pn, pn, pn, pn,  n,  n, pn,  n,  n,  n,  n, pn,  n, pn,  n,  n,  n, pn, pn], // Fila 9
-      [ n, pn, pn, pn, pn, pn, pn, pn,  n,  n,  n,  n, pn,  n, pn, pn, pn, pn, pn, pn], // Fila 8
-      [ n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn,  n, pn, pn, pn, pn, pn, pn], // Fila 7
-      [ n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn,  n,  n,  n,  n,  n, pn, pn], // Fila 6
-      [ n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn, pn, pn, pn,  n,  n, pn], // Fila 5
-      [ n,  n,  n,  n,  n,  mn, n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn,  n, pn], // Fila 4
-      [ n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn,  n,  n, pn], // Fila 3
-      [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn,  n, pn, pn], // Fila 2
-      [ n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn], // Fila 1
-      [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn]],
+  matrizParedes =[
+    [ n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pr, pr, pr,  n,  n,  n,  n,  n],  // fila 17
+    [ n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pr,  n, pr,  n,  n,  n,  n,  n],  // fila 16
+    [ n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pr,  n, pr,  n,  n,  n,  n,  n],  // fila 15
+    [ n,  n,  n,  n,  n,  n,  n,  n, pr, pr, pr,  n, pr,  n,  n,  n,  n,  n],  // fila 14
+    [ n,  n,  n,  n,  n,  n, pr, pr, pr,  n,  n,  n, pr,  n,  n,  n,  n,  n],  // fila 13
+    [ n,  n,  n,  n,  n,  n, pr,  n,  n,  n, pr, pr, pr,  n,  n,  n,  n,  n],  // fila 12
+    [ n, pr, pr, pr, pr, pr, pr,  n, pr, pr, pr,  n,  n,  n,  n,  n,  n,  n],  // fila 11
+    [ n, pr,  n,  n,  n, pr, pr,  n, pr,  n,  n,  n,  n,  n,  n,  n,  n,  n],  // fila 10
+    [ n, pr,  n, pr,  n, pr, pr,  n, pr,  n,  n,  n,  n,  n,  n,  n,  n,  n],  // fila 9
+    [ n, pr,  n, pr,  n, pr, pr,  n, pr, pr, pr, pr, pr, pr, pr, pr, pr,  n],  // fila 8
+    [ n, pr,  n, pr,  n,  n,  n,  n, pr, pr,  n,  n,  n,  n,  n,  n, pr,  n],  // fila 7
+    [ n, pr,  n, pr, pr, pr, pr, pr, pr, pr,  n, pr, pr, pr, pr,  n, pr, pr],  // fila 6
+    [ n, pr,  n,  n,  n,  n,  n,  n,  n,  n,  n, pr,  n,  n, pr,  n,  n, pr],  // fila 5
+    [ n, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr,  n,  n, pr, pr,  n, pr],  // fila 4
+    [ n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pr,  n,  n, pr],  // fila 3
+    [pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr,  n, pr, pr],  // fila 2
+    [pr,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pr, pr],  // fila 1
+    [pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr]],
       manzanasActuales = 0)
 const manzanaScreamer = new Manzana(x = 10, y = 19, imagen = "b.png")
 
