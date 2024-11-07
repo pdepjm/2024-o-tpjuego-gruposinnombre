@@ -30,7 +30,7 @@ const partida3 = new Partida(
       [ n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn,  n, pn, pn, pn, pn, pn, pn], // Fila 7
       [ n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn,  n,  n,  n,  n,  n, pn, pn], // Fila 6
       [ n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn, pn, pn, pn,  n,  n, pn], // Fila 5
-      [ n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn,  n, pn], // Fila 4
+      [ n,  n,  n,  n,  n,  mn, n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn,  n, pn], // Fila 4
       [ n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn,  n,  n, pn], // Fila 3
       [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn,  n, pn, pn], // Fila 2
       [ n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn], // Fila 1
@@ -41,7 +41,7 @@ const manzanaScreamer = new Manzana(x = 10, y = 19, imagen = "b.png")
 object lauti {
   
   var property position = game.at(1,1)
-  var property imagen = "a.png"
+  var property imagen = "cabeza-abajo.png"
   method image() = imagen
   
   method iniciar() {
@@ -99,6 +99,13 @@ object lauti {
       }
     }
   }
+//Esto es necesario para el movimiento
+  const cuerpos = []
+  method retornarCuerpos() = cuerpos
+  var property posicionProximoCuerpo = position
+  method moverCuerpos(posicionAnteriorCabeza)
+    {
+    }
 }
 
 object screamer {

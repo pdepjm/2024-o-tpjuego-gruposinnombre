@@ -17,7 +17,7 @@ program miniJuego{
 	//Seteamos el tamaño de la celda
 	game.cellSize(40)
 
-	keyboard.enter().onPressDo( {partida1.iniciar()} )
+	keyboard.enter().onPressDo( {partida3.iniciar()} )
 
 	keyboard.w().onPressDo({
 
