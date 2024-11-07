@@ -57,10 +57,9 @@ object cabeza {
         cuerpos.forEach( {cuerpo => 
 
             cuerpo.position(game.at(24, 24))
-            game.removeVisual(cuerpo)
-            cuerpos.remove(cuerpo)
-        
+            game.removeVisual(cuerpo)        
         } )
+        cuerpos.clear()
     }
 
     method moverCuerpos(posicionAnteriorCabeza)

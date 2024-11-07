@@ -52,7 +52,7 @@ class Partida {
   method iniciar() {
     configuracion.nuevaPartida(self) //Le asigno al objeto configuracion cual es su partida actual
     
-	  game.addVisual(fondoDePantalla)//Defino el fondo del mapa --> SI REFRESCO LA PAGINA LO APLICA
+	  //game.addVisual(fondoDePantalla)//Defino el fondo del mapa --> SI REFRESCO LA PAGINA LO APLICA
     
     game.addVisual(self.personaje()) //Añado el personaje --> LO TOMA
 

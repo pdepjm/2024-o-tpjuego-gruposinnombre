@@ -17,6 +17,11 @@ program miniJuego{
 	//Seteamos el tamaño de la celda
 	game.cellSize(40)
 
+
+	keyboard.u().onPressDo() {}
+	keyboard.i().onPressDo() {}
+	keyboard.j().onPressDo() {}
+
 	partida1.iniciar()
 
 	/*
@@ -33,7 +38,7 @@ program miniJuego{
 	*/
 
 	keyboard.w().onPressDo({
-
+		//MUCHA LOGICA	
 		const nuevaPosicionY = configuracion.personaje().position().y() + 1
 
 		const nuevaPosicionX = configuracion.personaje().position().x()	
