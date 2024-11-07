@@ -8,7 +8,7 @@ const partida2 = new Partida(
   imagenPared = "pared-tierra.png",
   personaje = santi,
   imagenManzana = "imagenManzana",
-  objetivoManzanas = 1, 
+  objetivoManzanas = 3, 
   //ESTE MAPA YA ESTA BIEN HECHO
   matrizParedes =[
     [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn],  // fila 17
@@ -39,14 +39,14 @@ object santi {
 
   var property position = game.at(1,1)
 
-  const imagen = "cabeza-abajo.png"
-
-    method imagenAbajo ()= "cabeza-abajo.png"
-    method imagenArriba ()= "cabeza-arriba.png"
-    method imagenDerecha ()= "cabeza-derecha.png"
-    method imagenIzquierda ()= "cabeza-izquierda.png"
+  var property imagen = "cabeza-abajo.png"
 
   method image() = imagen
+
+  method imagenAbajo ()= "cabeza-abajo.png"
+  method imagenArriba ()= "cabeza-arriba.png"
+  method imagenDerecha ()= "cabeza-derecha.png"
+  method imagenIzquierda ()= "cabeza-izquierda.png"
   
   method iniciar() {
     game.addVisualCharacter(self)
@@ -56,17 +56,17 @@ object santi {
     //no pongo nada porque quiero que se quede en su posicion actual
   }
 
-  method interactuarManzana(manzana){
-    manzana.desaparecer()
+method interactuarManzana(manzana){
+      
+      configuracion.partidaActual().posicionesManzanas().add(manzana.position())
 
-    partida2.sumarManzana()
+      manzana.position(game.at(24, 24))
+      manzana.finalizar()
+      partida2.sumarManzana()
   }
 
- method destruirCuerpos()
-    {
-
-        cuerpos.forEach
-        ({cuerpo =>
+ method destruirCuerpos(){
+        cuerpos.forEach({cuerpo =>
 
             game.removeVisual(cuerpo)
 
@@ -82,6 +82,8 @@ object santi {
         nuevoCuerpo.iniciar()
 
         cuerpos.add(nuevoCuerpo)
+
+        //game.whenCollideDo(nuevoCuerpo, {santi => })
 
     }
 

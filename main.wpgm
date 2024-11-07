@@ -17,7 +17,20 @@ program miniJuego{
 	//Seteamos el tamaño de la celda
 	game.cellSize(40)
 
-	partida1.iniciar()
+	partida2.iniciar()
+
+	/*
+	//ALTERNATIVA COMPARANDO COM LA MATRIZ --> FUNCIONA, LA PROBE EN EL NIVEL 1 Y FUNCIONABA, EL PROBLEMA ES EN EL DOS, YA QUE NO LEE LAS MANZANAS
+	
+	const objetoMatriz = configuracion.matrizParedes().get(nuevaPosicionX).get(nuevaPosicionY)
+	
+	if(objetoMatriz != pn){
+		configuracion.personaje().posicionProximoCuerpo(configuracion.personaje().position())
+		izquierda.moverse()
+		//Cambia la imagen del cuerpo
+		configuracion.personaje().imagen(configuracion.personaje().imagenIzquierda())
+	}		
+	*/
 
 	keyboard.w().onPressDo({
 
@@ -66,7 +79,7 @@ program miniJuego{
 
 		const paredes = configuracion.paredes()
 			
-        //ACA SE VERIFICA SI AL MOVERSE CHOCA CON UNA PARED
+		//ACA SE VERIFICA SI AL MOVERSE CHOCA CON UNA PARED
 		if((paredes.any({pared => (pared.position().y() == nuevaPosicionY) && (pared.position().x() == nuevaPosicionX)})).negate()){
 
 			//Si no choca, el personaje se desplazará a la dirección
