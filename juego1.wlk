@@ -8,11 +8,7 @@ const partida1 = new Partida(
     imagenPared = "pared-tierra.png", 
     personaje = cabeza,
     imagenManzana = "manzana.png",
-<<<<<<< Updated upstream
-    objetivoManzanas = 3, 
-=======
     objetivoManzanas = 5, 
->>>>>>> Stashed changes
     matrizParedes = [
         [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn],  // fila 0
         [pn,  n,  n, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, mn,  n, pn],  // fila 1

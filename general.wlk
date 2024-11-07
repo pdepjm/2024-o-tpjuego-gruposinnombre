@@ -61,27 +61,12 @@ class Partida {
   
   //Termina la partida
   method terminar() {
-    //Insertar metodo que elimine todas las paredes
-    paredes.forEach({ 
-      pared => pared.finalizar()
-
-      pared.position(game.at(24,24))
-    })
-    configuracion.paredes().clear()
-	  paredes.clear()
-    //self.retornarMatriz().clear()
-    
-
-    //Elimina a todas las manzanas del mapa
-    manzanasActuales = 0
-    manzanasEnMapa.forEach( { manzana => manzana.finalizar() })
-    manzanasEnMapa.clear()
-    posicionesManzanas.clear()
   
+    manzanasActuales = 0
+    game.clear()
     
     //Elimina al personaje y sus cuerpos
     self.personaje().destruirCuerpos()
-    game.removeVisual(self.personaje())
 
 
     //configuracion.nuevaPartida(siguientePartida)
