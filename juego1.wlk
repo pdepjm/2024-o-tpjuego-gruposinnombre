@@ -8,7 +8,7 @@ const partida1 = new Partida(
     imagenPared = "pared-tierra.png", 
     personaje = cabeza,
     imagenManzana = "manzana.png",
-    objetivoManzanas = 10, 
+    objetivoManzanas = 5, 
     matrizParedes = [
         [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn],  // fila 0
         [pn,  n,  n, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, mn,  n, pn],  // fila 1
@@ -37,6 +37,7 @@ object cabeza {
 
     var property posicionProximoCuerpo = position
 
+    var property posicionInicial = game.at(1,16)
     var property position = game.at(1,16)
 
     var property imagen = "cabeza-abajo.png"
@@ -56,10 +57,9 @@ object cabeza {
         cuerpos.forEach( {cuerpo => 
 
             cuerpo.position(game.at(24, 24))
-            game.removeVisual(cuerpo)
-            cuerpos.remove(cuerpo)
-        
+            game.removeVisual(cuerpo)        
         } )
+        cuerpos.clear()
     }
 
     method moverCuerpos(posicionAnteriorCabeza)
@@ -94,10 +94,11 @@ object cabeza {
 
         manzana.position(game.at(24, 24))
         manzana.finalizar()
+
+        self.crecer()
         
         partida1.sumarManzana()
 
-        self.crecer()
     }
 
     //Metodo que se utiliza cada vez que la serpiente come una manzana, por lo tanto crece en un cuerpo

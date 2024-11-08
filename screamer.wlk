@@ -5,10 +5,10 @@ import general.*
 
 const partida3 = new Partida(
   siguientePartida = fin,
-  imagenPared = "imagenParedxD",
+  imagenPared = "pared-tierra.png",
   personaje = lauti,
   imagenManzana = "imagenManzana",
-  objetivoManzanas = 10,
+  objetivoManzanas = 1,
   manzanasEnMapa = [],
   paredes = [],
 
@@ -16,7 +16,7 @@ const partida3 = new Partida(
     //ESTE MAPA YA ESTA BIEN
   matrizParedes =[
     [ n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pr, pr, pr,  n,  n,  n,  n,  n],  // fila 17
-    [ n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pr,  n, pr,  n,  n,  n,  n,  n],  // fila 16
+    [ n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pr, mn, pr,  n,  n,  n,  n,  n],  // fila 16
     [ n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pr,  n, pr,  n,  n,  n,  n,  n],  // fila 15
     [ n,  n,  n,  n,  n,  n,  n,  n, pr, pr, pr,  n, pr,  n,  n,  n,  n,  n],  // fila 14
     [ n,  n,  n,  n,  n,  n, pr, pr, pr,  n,  n,  n, pr,  n,  n,  n,  n,  n],  // fila 13
@@ -34,10 +34,10 @@ const partida3 = new Partida(
     [pr,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pr, pr],  // fila 1
     [pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr]],
       manzanasActuales = 0)
-const manzanaScreamer = new Manzana(x = 10, y = 19, imagen = "b.png")
 
 object lauti {
   
+  var property posicionInicial = game.at(1,1)
   var property position = game.at(1,1)
   var property imagen = "cabeza-abajo.png"
   method image() = imagen
@@ -68,35 +68,6 @@ object lauti {
     self.image()
   }
 
-  method moverse(direccion) {
-    if (direccion == "derecha") {
-      position = game.at(position.x() + 1, position.y())
-      self.cambiarImagen("a.png")
-      
-
-
-    } else {
-      if (direccion == "izquierda") {
-        position = game.at(position.x() - 1, position.y())
-        self.cambiarImagen("algo")
-        
-
-
-      } else {
-        if (direccion == "arriba") {
-          position = game.at(position.x(), position.y() + 1)
-        } 
-        
-        
-        
-        else {
-          if (direccion == "abajo") {
-            position = game.at(position.x(), position.y() - 1)
-          }
-        }
-      }
-    }
-  }
 //Esto es necesario para el movimiento
   const cuerpos = []
   method retornarCuerpos() = cuerpos
@@ -112,8 +83,7 @@ object screamer {
   
   method iniciar() {
     game.addVisual(self)
-    game.removeVisual(lauti)
-    game.removeVisual(manzanaScreamer)
+    game.allVisuals().forEach({visual=> game.removeVisual(visual)})
     partida3.finalizarParedes()
   }
 

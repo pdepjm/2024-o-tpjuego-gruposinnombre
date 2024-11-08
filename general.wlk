@@ -5,7 +5,7 @@ import screamer.*
 
 /*-----------------------------------------------OBJETO PARTIDA, EL MÁS IMPORTANTE DE TODOS-----------------------------------------*/
 object configuracion {
-  var property partidaActual = partida2
+  var property partidaActual = partida1
   var property imagenPared = partidaActual.imagenPared()
   var property imagenManzana = partidaActual.imagenManzana()
 
@@ -13,7 +13,7 @@ object configuracion {
 
   //Se usa para definir qué partida está ocurriendo en un instante determinado
   method nuevaPartida(partida) {
-    partidaActual = partida
+    self.partidaActual(partida)
   }
 
   method matrizParedes() = partidaActual.matrizParedes()
@@ -53,29 +53,23 @@ class Partida {
   
   //Termina la partida
   method terminar() {
-    //Insertar metodo que elimine todas las paredes
-    paredes.forEach({ pared => pared.finalizar()})
-	  paredes.clear()
-
-    //Elimina a todas las manzanas del mapa
+  
     manzanasActuales = 0
-    manzanasEnMapa.forEach( { manzana => manzana.finalizar() })
-    manzanasEnMapa.clear()
+    game.clear()
     
     //Elimina al personaje y sus cuerpos
     self.personaje().destruirCuerpos()
-    game.removeVisual(self.personaje())
-    self.personaje().clear()
+
 
     //configuracion.nuevaPartida(siguientePartida)
-    partida2.iniciar()
+    siguientePartida.iniciar()
   }
   
   //Reinicia la partida instantaneamente
   method reiniciar() {
     self.personaje().destruirCuerpos()
 
-    self.personaje().position(game.at(1,16))
+    self.personaje().position(configuracion.personaje().posicionInicial())
     
     configuracion.personaje().imagen(configuracion.personaje().imagenAbajo())
 

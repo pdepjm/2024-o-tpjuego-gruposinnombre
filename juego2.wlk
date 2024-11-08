@@ -37,6 +37,7 @@ object santi {
 
   var property posicionProximoCuerpo = position
 
+  var property posicionInicial = game.at(1,1)
   var property position = game.at(1,1)
 
   var property imagen = "cabeza-abajo.png"
@@ -47,10 +48,6 @@ object santi {
   method imagenArriba ()= "cabeza-arriba.png"
   method imagenDerecha ()= "cabeza-derecha.png"
   method imagenIzquierda ()= "cabeza-izquierda.png"
-  
-  method iniciar() {
-    game.addVisualCharacter(self)
-  }
 
   method interactuarPared(){
     //no pongo nada porque quiero que se quede en su posicion actual
@@ -69,7 +66,7 @@ method interactuarManzana(manzana){
         cuerpos.forEach({cuerpo =>
 
             game.removeVisual(cuerpo)
-
+            cuerpo.position(game.at(24, 24))
             cuerpos.remove(cuerpo)
 
         })
@@ -112,4 +109,6 @@ method interactuarManzana(manzana){
             viejaPosicion = nuevaViejaPosicion    
         })}
     }
+
+    method retornarCuerpos() = cuerpos
 }

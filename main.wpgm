@@ -17,7 +17,12 @@ program miniJuego{
 	//Seteamos el tamaño de la celda
 	game.cellSize(40)
 
-	partida2.iniciar()
+
+	keyboard.u().onPressDo() {}
+	keyboard.i().onPressDo() {}
+	keyboard.j().onPressDo() {}
+
+	partida1.iniciar()
 
 	/*
 	//ALTERNATIVA COMPARANDO COM LA MATRIZ --> FUNCIONA, LA PROBE EN EL NIVEL 1 Y FUNCIONABA, EL PROBLEMA ES EN EL DOS, YA QUE NO LEE LAS MANZANAS
@@ -33,7 +38,7 @@ program miniJuego{
 	*/
 
 	keyboard.w().onPressDo({
-
+		//MUCHA LOGICA	
 		const nuevaPosicionY = configuracion.personaje().position().y() + 1
 
 		const nuevaPosicionX = configuracion.personaje().position().x()	
@@ -62,7 +67,8 @@ program miniJuego{
 			paredDeImpacto.interactuarPersona()
 
 		}
-		//SI COLICIONA CON SU CUEROI REINICIA LA PARTIDA --> REVISAR EL REINICIO
+		
+		//SI COLICIONA CON SU CUERPO REINICIA LA PARTIDA --> REVISAR EL REINICIO
 		const cuerpos = configuracion.personaje().retornarCuerpos()
 
 		if( cuerpos.any({cuerpo => cuerpo.position() == game.at(nuevaPosicionX,nuevaPosicionY )})){
