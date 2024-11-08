@@ -5,7 +5,7 @@ import screamer.*
 
 /*-----------------------------------------------OBJETO PARTIDA, EL MÁS IMPORTANTE DE TODOS-----------------------------------------*/
 object configuracion {
-  var property partidaActual = partida1
+  var property partidaActual = partida2
   var property imagenPared = partidaActual.imagenPared()
   var property imagenManzana = partidaActual.imagenManzana()
 
@@ -61,17 +61,18 @@ class Partida {
   //Reinicia la partida instantaneamente
   method reiniciar() {
     //Reiniciar Personaje
+    //personaje.reiniciarPersonaje()
     personaje.destruirCuerpos()
     personaje.position(personaje.posicionInicial())
     configuracion.personaje().imagen(configuracion.personaje().imagenAbajo())
 
     //Reiniciar manzanas
     manzanasActuales = 0
-    self.posicionesManzanas().forEach({ posicion=>
+    posicionesManzanas.forEach({ posicion =>
         const nuevaManzana = new Manzana(x = posicion.x(), y = posicion.y())
         nuevaManzana.iniciar()
-        self.posicionesManzanas().remove(posicion)
     })
+    posicionesManzanas.clear()
   }
   
   method sumarManzana() {
@@ -87,6 +88,121 @@ class Partida {
     }
   }
 }
+
+/*---------------------------------------------Clase de los personajes-------------------------------------*/
+
+class Personaje {
+  const cuerpos = []
+  const posicionInicial
+
+  var property position = posicionInicial
+  var property posicionProximoCuerpo = position
+
+  //Animaciones
+  var property imagen = "cabeza-abajo.png"
+
+  method image() = imagen
+  method imagenAbajo() = "cabeza-abajo.png"
+  method imagenArriba() = "cabeza-arriba.png"
+  method imagenDerecha() = "cabeza-derecha.png"
+  method imagenIzquierda() = "cabeza-izquierda.png"
+
+  //Destruye todos los cuerpos de la serpiente
+  method destruirCuerpos(){
+      cuerpos.forEach({ cuerpo => cuerpo.finalizar() })
+      cuerpos.clear()
+  }
+
+  method reiniciarPersonaje() {
+    self.destruirCuerpos()
+    self.position(posicionInicial)
+    imagen = self.imagenAbajo()
+  }
+
+  //Permite que los juegos sigan al personaje
+  method moverCuerpos(posicionAnteriorCabeza){
+    if(cuerpos != []){
+      self.posicionProximoCuerpo(cuerpos.last().position()) //Guardo la posicion donde se guardará el proximo cuerpo en caso de añadir uno
+
+      var viejaPosicion = posicionAnteriorCabeza
+
+      var nuevaViejaPosicion
+
+      cuerpos.forEach({ cuerpo =>
+
+          nuevaViejaPosicion = cuerpo.position()  //Guardo la posicion del cuerpo actual
+
+          cuerpo.position(viejaPosicion) //Reemplazo la posicion del cuerpo actual, con la del cuerpo o cabeza anterior
+
+          //Guardo la vieja posicion de este cuerpo para saber donde mover al proximo en la lista
+          viejaPosicion = nuevaViejaPosicion 
+      })
+    }
+  }
+
+  //Interactua con la manzana el personaje
+  method interactuarManzana(manzana){
+    
+    self.crecer()
+    partida1.sumarManzana()
+
+    configuracion.partidaActual().posicionesManzanas().add(manzana.position()) // se guarda la posicion en caso de reinicio
+    manzana.position(game.at(24, 24))
+    manzana.finalizar()
+  }
+
+  //Le agrega un bloque mas al cuerpo
+  method crecer(){
+    const nuevoCuerpo = new Cuerpo(position = self.posicionProximoCuerpo())
+
+    nuevoCuerpo.iniciar()
+
+    cuerpos.add(nuevoCuerpo)
+  }
+
+  //Si choca consigo mismo reinicia
+  method interactuarCuerpo(){
+    partida1.reiniciar()
+  } 
+}
+
+/*------------------------Objetos relacionados con las direcciones y los movimientos de los personajes------------------------------------*/
+//PRUEBA DE HERENCIA CON LOS MOVIMIENTOS
+//SUPERCLASE
+class Movimiento {
+  method personaje() = configuracion.personaje()
+  method position() = self.personaje().position()
+  method nuevaPosicion()
+  
+  //USAR override para la funcion moverse al definir a santi
+  method moverse() {
+    if (self.personaje() == santi) santi.crecer()
+    
+    self.personaje().moverCuerpos(self.position())
+    
+    self.personaje().position(self.nuevaPosicion())
+  }
+} 
+
+//OBJETOS
+//Estos podrian ser metodos de la clase personaje, asi SANTI PUEDE HACER OVERRIDE
+object izquierda inherits Movimiento {
+  override method nuevaPosicion() = self.position().left(1)
+}
+
+object derecha inherits Movimiento {
+  override method nuevaPosicion() = self.position().right(1)
+  }
+
+
+object arriba inherits Movimiento {
+  override method nuevaPosicion() = self.position().up(1)
+}
+
+object abajo inherits Movimiento {
+  override method nuevaPosicion() = self.position().down(1)
+}
+
 /*---------------------------------------------Clase general de las manzanas y paredes-------------------------------------*/
 
 class Cosas {
@@ -113,55 +229,6 @@ class Manzana inherits Cosas {
     super()
     game.whenCollideDo(self,{ personaje => personaje.interactuarManzana(self) })
   }
-}
-/*------------------------Objetos relacionados con las direcciones y los movimientos de los personajes------------------------------------*/
-
-//PRUEBA DE HERENCIA CON LOS MOVIMIENTOS
-//SUPERCLASE
-class Movimiento {
-  method position() = self.personaje().position()
-  
-  method nuevaPosicion() = game.at(0, 0)
-  
-  method personaje() = configuracion.personaje()
-  
-  //USAR override para la funcion moverse al definir a santi
-  method moverse() {
-    if (self.personaje() == santi) santi.crecer()
-    
-    self.personaje().moverCuerpos(self.position())
-    
-    self.personaje().position(self.nuevaPosicion())
-  }
-} //OBJETOS
-
-object izquierda inherits Movimiento {
-  override method nuevaPosicion() = game.at(
-    self.personaje().position().x() - 1,
-    self.personaje().position().y()
-  )
-}
-
-object derecha inherits Movimiento {
-  override method nuevaPosicion() = game.at(
-    self.personaje().position().x() + 1,
-    self.personaje().position().y()
-  )
-  }
-
-
-object arriba inherits Movimiento {
-  override method nuevaPosicion() = game.at(
-    self.personaje().position().x(),
-    self.personaje().position().y() + 1
-  )
-}
-
-object abajo inherits Movimiento {
-  override method nuevaPosicion() = game.at(
-    self.personaje().position().x(),
-    self.personaje().position().y() - 1
-  )
 }
 /*----------------------------------------------TODO SOBRE PAREDES-----------------------------------------------------------------------*/
 

@@ -17,7 +17,7 @@ program miniJuego{
 	//Seteamos el tamaño de la celda
 	game.cellSize(40)
 
-	partida1.iniciar()
+	partida2.iniciar()
 
 	/*
 	//ALTERNATIVA COMPARANDO COM LA MATRIZ --> FUNCIONA, LA PROBE EN EL NIVEL 1 Y FUNCIONABA, EL PROBLEMA ES EN EL DOS, YA QUE NO LEE LAS MANZANAS
