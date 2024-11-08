@@ -53,7 +53,7 @@ object santi {
     //no pongo nada porque quiero que se quede en su posicion actual
   }
 
-method interactuarManzana(manzana){
+  method interactuarManzana(manzana){
       
       configuracion.partidaActual().posicionesManzanas().add(manzana.position())
 
@@ -62,15 +62,10 @@ method interactuarManzana(manzana){
       partida2.sumarManzana()
   }
 
- method destruirCuerpos(){
-        cuerpos.forEach({cuerpo =>
-
-            game.removeVisual(cuerpo)
-            cuerpo.position(game.at(24, 24))
-            cuerpos.remove(cuerpo)
-
-        })
-    }
+  method destruirCuerpos(){
+    cuerpos.forEach({cuerpo => cuerpo.finalizar()})
+    cuerpos.clear()
+  }
 
     method crecer(){
         //Lo crea, lo inicia, y lo añade

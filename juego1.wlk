@@ -54,11 +54,7 @@ object cabeza {
 
     //Destruye todos los cuerpos de la serpiente
     method destruirCuerpos(){
-        cuerpos.forEach( {cuerpo => 
-
-            cuerpo.position(game.at(24, 24))
-            game.removeVisual(cuerpo)        
-        } )
+        cuerpos.forEach({ cuerpo => cuerpo.finalizar() })
         cuerpos.clear()
     }
 
