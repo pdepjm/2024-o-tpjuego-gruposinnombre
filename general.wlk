@@ -16,44 +16,39 @@ object configuracion {
     partidaActual = partida
   }
 
-  method matrizParedes() = partidaActual.retornarMatriz()
-  method paredes() = partidaActual.paredesPartida()
+  method matrizParedes() = partidaActual.matrizParedes()
+  method paredes() = partidaActual.paredes()
   
 }
 /*---------------------------------------------Clase de las partidas--------------------------------------------------------------------------*/
 
 class Partida {
-  //Todo sobre manzanas
-  var property manzanasActuales
-  const objetivoManzanas
-  var property manzanasEnMapa = []
-  //Guardo las posiciones para decodificarlas en el reinicio
-  var property posicionesManzanas = []
-  
   const siguientePartida //Proxima partida a ser iniciada
+
   //Imagenes de la partida
   var property imagenPared
   var property imagenManzana
   var property personaje
 
-  const matrizParedes = [] //Matriz del mapa completo de 20x20
-  var property paredes = [] //Lista de objetos pared de la partida --> creo que no hace falta
-  
-  method retornarMatriz() = matrizParedes
+  //Todo sobre manzanas
+  const objetivoManzanas
+  var property manzanasActuales
+  var property manzanasEnMapa = []
+  var property posicionesManzanas = []  //Guardo las posiciones para decodificarlas en el reinicio
 
-  //method retornarManzanasEnMapa() = manzanasEnMapa
-
-  method paredesPartida() = paredes
+  //todo sobre paredes
+  var property matrizParedes = []
+  var property paredes = []
 
   //Inicia la partida
   method iniciar() {
-    configuracion.nuevaPartida(self) //Le asigno al objeto configuracion cual es su partida actual
+    configuracion.nuevaPartida(self) //Asigno la partida actual
     
-	  game.addVisual(fondoDePantalla)//Defino el fondo del mapa --> SI REFRESCO LA PAGINA LO APLICA
+	  game.addVisual(fondoDePantalla) //Agrego el fondo del mapa
     
-    game.addVisual(self.personaje()) //Añado el personaje --> LO TOMA
+    game.addVisual(self.personaje()) //Añado el personaje
 
-    decodificadorParedes.decodificarParedes()
+    decodificadorParedes.decodificarParedes() //decodifica el mapa
   }
   
   //Termina la partida
@@ -116,6 +111,10 @@ class Cosas {
   const y
   var property position = game.at(x, y)
   
+  method iniciar(){
+    game.addVisual(self)
+  }
+
   method finalizar() {
     game.removeVisual(self)
   }
@@ -127,10 +126,9 @@ class Manzana inherits Cosas {
   
   method image() = imagen
   
-  method iniciar() {
+  override method iniciar() {
+    super()
     game.whenCollideDo(self,{ personaje => personaje.interactuarManzana(self) })
-    
-    game.addVisual(self)
   }
 }
 /*------------------------Objetos relacionados con las direcciones y los movimientos de los personajes------------------------------------*/
@@ -146,8 +144,7 @@ class Movimiento {
   
 
   //USAR override para la funcion moverse al definir a santi
-  method moverse() 
-  {
+  method moverse() {
     if (self.personaje() == santi) santi.crecer()
     
     self.personaje().moverCuerpos(self.position())
@@ -190,10 +187,9 @@ object abajo inherits Movimiento {
 class Pared inherits Cosas {
   method image() = configuracion.imagenPared()
   
-  method iniciar() {
-    game.whenCollideDo(self, { personaje => personaje.interactuarPared() })
-    
-    game.addVisual(self)
+  override method iniciar() {
+    super()
+    game.whenCollideDo(self, { personaje => personaje.interactuarPared() })    
   }
 }
 
@@ -232,7 +228,7 @@ object decodificadorParedes {
             if (pared == pn || pared == pr)
             {
               const nuevaPared = pared.decodificar(i, j)
-              configuracion.partidaActual().paredesPartida().add(nuevaPared)
+              configuracion.partidaActual().paredes().add(nuevaPared)
 
             } 
             else
