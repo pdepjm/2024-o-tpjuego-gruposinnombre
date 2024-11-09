@@ -170,19 +170,6 @@ class Movimiento {
       self.personaje().position(self.nuevaPosicion())
     } 
 } 
-
-  /*
-  NO TOCAR FORMA PARTE DEL NUEVO METODO DE MOVIMIENTO
-  method puedeMoverseA(posicionX, posicionY) {
-    const objetoMatriz = configuracion.matrizParedes().get(posicionX).get(posicionY)
-    
-    if(objetoMatriz != pn){
-      configuracion.personaje().posicionProximoCuerpo(configuracion.personaje().position())
-      self.nuevaPosicion()
-    }	
-  }
-  */
-
 //OBJETOS
 //Estos podrian ser metodos de la clase personaje, asi SANTI PUEDE HACER OVERRIDE
 

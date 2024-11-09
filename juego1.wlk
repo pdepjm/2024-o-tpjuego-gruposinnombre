@@ -10,7 +10,6 @@ object cabeza inherits Personaje(position = game.at(1, 16), posicionInicial = ga
     }
 }
 
-
 //partida1 hecha a partir de la clase Partida
 const partida1 = new Partida(
     siguientePartida = partida2,  

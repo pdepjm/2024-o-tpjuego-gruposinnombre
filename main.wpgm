@@ -17,21 +17,61 @@ program miniJuego{
 	//Seteamos el tamaño de la celda
 	game.cellSize(40)
 
-	partida2.iniciar()
+	partida1.iniciar()
 
-	/*
-	//ALTERNATIVA COMPARANDO COM LA MATRIZ
-
+//ALTERNATIVA COMPARANDO COM LA MATRIZ
 	keyboard.w().onPressDo({
 		const nuevaPosicionY = configuracion.personaje().position().y() + 1
 		const nuevaPosicionX = configuracion.personaje().position().x()	
+		const objetoMatriz = configuracion.partidaActual().matrizParedes().get(17-nuevaPosicionY).get(nuevaPosicionX)
 
-		configuracion.personaje().imagen(configuracion.personaje().imagenArriba())
-		arriba.puedeMoverseA(nuevaPosicionX,nuevaPosicionY)
+		if(objetoMatriz != pn){
+			configuracion.personaje().posicionProximoCuerpo(configuracion.personaje().position())
+			arriba.moverse()
+			configuracion.personaje().imagen(configuracion.personaje().imagenArriba())
+		}
 	})
 
-	*/
+	keyboard.a().onPressDo({
+		const nuevaPosicionY = configuracion.personaje().position().y()
+		const nuevaPosicionX = configuracion.personaje().position().x() - 1
+		const objetoMatriz = configuracion.partidaActual().matrizParedes().get(17-nuevaPosicionY).get(nuevaPosicionX)
+		
+		if(objetoMatriz != pn){
+			configuracion.personaje().posicionProximoCuerpo(configuracion.personaje().position())
+			izquierda.moverse()
+			configuracion.personaje().imagen(configuracion.personaje().imagenIzquierda())
+		}
+	})
 
+	keyboard.s().onPressDo({
+		const nuevaPosicionY = configuracion.personaje().position().y() - 1
+		const nuevaPosicionX = configuracion.personaje().position().x()	
+		const objetoMatriz = configuracion.partidaActual().matrizParedes().get(17-nuevaPosicionY).get(nuevaPosicionX)
+
+		if(objetoMatriz != pn){
+			configuracion.personaje().posicionProximoCuerpo(configuracion.personaje().position())
+			abajo.moverse()
+			configuracion.personaje().imagen(configuracion.personaje().imagenAbajo())
+		}	
+	})
+
+	keyboard.d().onPressDo({
+		const nuevaPosicionY = configuracion.personaje().position().y() 
+		const nuevaPosicionX = configuracion.personaje().position().x() + 1	
+		const objetoMatriz = configuracion.partidaActual().matrizParedes().get(17-nuevaPosicionY).get(nuevaPosicionX)
+
+		if(objetoMatriz != pn){
+			configuracion.personaje().posicionProximoCuerpo(configuracion.personaje().position())
+			derecha.moverse()
+			configuracion.personaje().imagen(configuracion.personaje().imagenDerecha())
+		}
+	})
+
+	game.start()
+}
+
+/*
 	keyboard.w().onPressDo({
 		//MUCHA LOGICA	
 		const nuevaPosicionY = configuracion.personaje().position().y() + 1
@@ -63,8 +103,6 @@ program miniJuego{
 
 		}
 	})
-
-
 	keyboard.a().onPressDo({
 
 		const nuevaPosicionY = configuracion.personaje().position().y()
@@ -164,9 +202,5 @@ program miniJuego{
 
 		}
 	})
-	
-	game.start()
-}
 
-
-
+*/
