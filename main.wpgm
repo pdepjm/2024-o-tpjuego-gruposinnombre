@@ -1,16 +1,212 @@
 import wollok.game.*
+import juego1.*
+import juego2.*
+import screamer.*
+import general.*
 
-import pepita.*
+program miniJuego{
 
-program PepitaGame {
-	game.title("Pepita")
-	game.height(10)
-	game.width(10)
-	game.cellSize(100)
+	game.title("Minijuegos")
 
-	game.addVisual(pepita)
+	//Seteamos la altura
+	game.height(18)
 
-	keyboard.w().onPressDo({ pepita.fly(1) })
+	//Seteamos el ancho
+	game.width(18)
+
+	//Seteamos el tamaño de la celda
+	game.cellSize(40)
+
+	partida3.iniciar()
+
+	//Sonido de fondo
+	const sonidoFondo = game.sound("sonidoFondo.mp3")
+  	sonidoFondo.shouldLoop(true)
+ 	game.schedule(30000, { sonidoFondo.play()} )
+
+
+//ALTERNATIVA COMPARANDO COM LA MATRIZ
+	keyboard.w().onPressDo({
+		const nuevaPosicionY = configuracion.personaje().position().y() + 1
+		const nuevaPosicionX = configuracion.personaje().position().x()	
+		const objetoMatriz = configuracion.partidaActual().matrizParedes().get(17-nuevaPosicionY).get(nuevaPosicionX)
+
+		if(objetoMatriz != pn){
+			configuracion.personaje().posicionProximoCuerpo(configuracion.personaje().position())
+			arriba.moverse()
+			configuracion.personaje().imagen(configuracion.personaje().imagenArriba())
+		}
+	})
+
+	keyboard.a().onPressDo({
+		const nuevaPosicionY = configuracion.personaje().position().y()
+		const nuevaPosicionX = configuracion.personaje().position().x() - 1
+		const objetoMatriz = configuracion.partidaActual().matrizParedes().get(17-nuevaPosicionY).get(nuevaPosicionX)
+		
+		if(objetoMatriz != pn){
+			configuracion.personaje().posicionProximoCuerpo(configuracion.personaje().position())
+			izquierda.moverse()
+			configuracion.personaje().imagen(configuracion.personaje().imagenIzquierda())
+		}
+	})
+
+	keyboard.s().onPressDo({
+		const nuevaPosicionY = configuracion.personaje().position().y() - 1
+		const nuevaPosicionX = configuracion.personaje().position().x()	
+		const objetoMatriz = configuracion.partidaActual().matrizParedes().get(17-nuevaPosicionY).get(nuevaPosicionX)
+
+		if(objetoMatriz != pn){
+			configuracion.personaje().posicionProximoCuerpo(configuracion.personaje().position())
+			abajo.moverse()
+			configuracion.personaje().imagen(configuracion.personaje().imagenAbajo())
+		}	
+	})
+
+	keyboard.d().onPressDo({
+		const nuevaPosicionY = configuracion.personaje().position().y() 
+		const nuevaPosicionX = configuracion.personaje().position().x() + 1	
+		const objetoMatriz = configuracion.partidaActual().matrizParedes().get(17-nuevaPosicionY).get(nuevaPosicionX)
+
+		if(objetoMatriz != pn){
+			configuracion.personaje().posicionProximoCuerpo(configuracion.personaje().position())
+			derecha.moverse()
+			configuracion.personaje().imagen(configuracion.personaje().imagenDerecha())
+		}
+	})
 
 	game.start()
 }
+
+/*
+	keyboard.w().onPressDo({
+		//MUCHA LOGICA	
+		const nuevaPosicionY = configuracion.personaje().position().y() + 1
+
+		const nuevaPosicionX = configuracion.personaje().position().x()	
+
+		const paredes = configuracion.paredes()
+		
+        //ACA SE VERIFICA SI AL MOVERSE CHOCA CON UNA PARED
+		if((paredes.any({pared => (pared.position().y() == nuevaPosicionY) && (pared.position().x() == nuevaPosicionX)})).negate()){
+
+			//Si no choca, el personaje se desplazará a la dirección
+			configuracion.personaje().posicionProximoCuerpo(configuracion.personaje().position())
+			arriba.moverse()
+			//Cambia la imagen del cuerpo
+			configuracion.personaje().imagen(configuracion.personaje().imagenArriba())
+
+		}
+		else{
+
+			//Si choca, esa pared interactuará con el personaje
+			const paredDeImpacto = paredes.find
+			({
+
+				pared => pared.position() == game.at(nuevaPosicionX, nuevaPosicionY)
+			})
+
+			paredDeImpacto.interactuarPersona()
+
+		}
+	})
+	keyboard.a().onPressDo({
+
+		const nuevaPosicionY = configuracion.personaje().position().y()
+
+		const nuevaPosicionX = configuracion.personaje().position().x() - 1
+
+		const paredes = configuracion.paredes()
+			
+		//ACA SE VERIFICA SI AL MOVERSE CHOCA CON UNA PARED
+		if((paredes.any({pared => (pared.position().y() == nuevaPosicionY) && (pared.position().x() == nuevaPosicionX)})).negate()){
+
+			//Si no choca, el personaje se desplazará a la dirección
+			configuracion.personaje().posicionProximoCuerpo(configuracion.personaje().position())
+			izquierda.moverse()
+			//Cambia la imagen del cuerpo
+			configuracion.personaje().imagen(configuracion.personaje().imagenIzquierda())
+
+		}
+		else{
+
+			//Si choca, esa pared interactuará con el personaje
+			const paredDeImpacto = paredes.find
+			({
+
+				pared => pared.position() == game.at(nuevaPosicionX, nuevaPosicionY)
+				
+			})
+
+			paredDeImpacto.interactuarPersona()
+
+		}
+	})
+
+	keyboard.s().onPressDo({
+
+		const nuevaPosicionY = configuracion.personaje().position().y() - 1
+
+		const nuevaPosicionX = configuracion.personaje().position().x()	
+
+		const paredes = configuracion.paredes()
+			
+        //ACA SE VERIFICA SI AL MOVERSE CHOCA CON UNA PARED
+		if((paredes.any({pared => (pared.position().y() == nuevaPosicionY) && (pared.position().x() == nuevaPosicionX)})).negate()){
+
+			//Si no choca, el personaje se desplazará a la dirección
+			configuracion.personaje().posicionProximoCuerpo(configuracion.personaje().position())
+			abajo.moverse()
+			//Cambia la imagen del cuerpo
+			configuracion.personaje().imagen(configuracion.personaje().imagenAbajo())
+
+
+		}
+		else{
+
+			//Si choca, esa pared interactuará con el personaje
+			const paredDeImpacto = paredes.find
+			({
+
+				pared => pared.position() == game.at(nuevaPosicionX, nuevaPosicionY)
+			})
+
+			paredDeImpacto.interactuarPersona()
+
+		}
+		
+	})
+
+	keyboard.d().onPressDo({
+
+		const nuevaPosicionY = configuracion.personaje().position().y() 
+
+		const nuevaPosicionX = configuracion.personaje().position().x() + 1	
+
+		const paredes = configuracion.paredes()
+			
+        //ACA SE VERIFICA SI AL MOVERSE CHOCA CON UNA PARED
+		if((paredes.any({pared => (pared.position().y() == nuevaPosicionY) && (pared.position().x() == nuevaPosicionX)})).negate()){
+
+			//Si no choca, el personaje se desplazará a la dirección
+			configuracion.personaje().posicionProximoCuerpo(configuracion.personaje().position())
+			derecha.moverse()
+			//Cambia la imagen del cuerpo
+			configuracion.personaje().imagen(configuracion.personaje().imagenDerecha())
+
+
+		}
+		else{
+
+			//Si choca, esa pared interactuará con el personaje
+			const paredDeImpacto = paredes.find
+			({
+
+				pared => pared.position() == game.at(nuevaPosicionX, nuevaPosicionY)
+			})
+
+			paredDeImpacto.interactuarPersona()
+
+		}
+	})
+
+*/
