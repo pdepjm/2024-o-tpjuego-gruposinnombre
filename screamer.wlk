@@ -2,7 +2,7 @@ import wollok.game.*
 import juego2.*
 import general.*
 
-const partida3 = new Partida(
+object partida3 inherits Partida(
   siguientePartida = fin,
   imagenPared = "pared-tierra.png",
   personaje = lauti,
@@ -30,7 +30,19 @@ const partida3 = new Partida(
     [pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr,  n, pr, pr],  // fila 2
     [pr,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pr, pr],  // fila 1
     [pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr]],
-      manzanasActuales = 0)
+    manzanasActuales = 0){
+
+      override method iniciar() {
+          super()
+          reloj.iniciar()
+          game.onTick(1000, "reloj", { reloj.restar() })
+      }
+
+      method finalizarParedes() {
+        self.paredes().forEach({pared => pared.finalizar()})
+        self.paredes().clear()
+      }
+    }
 
 object lauti inherits Personaje(posicionInicial = game.at(1,1)) {
 
@@ -46,6 +58,7 @@ object lauti inherits Personaje(posicionInicial = game.at(1,1)) {
   
   method resetPosition() {
     position = posicionInicial
+    reloj.segundos(20)
   }
   
   method interactuarPared() {
@@ -70,7 +83,28 @@ object screamer {
 
 } 
 
+object reloj inherits Cosas(x=3, y=14) {
+  var property segundos = 20
+
+  method image() = "reloj.png"
+
+  method restar() {
+    segundos-=1
+    
+    if(segundos==0){
+      lauti.resetPosition()
+      segundos = 20
+    }
+    
+    game.say(self, "Tenes " + segundos + " segundos")
+  }
+}
+
 /*
+sonidoFondo.
+ 	
+
+
 object lauti2 {
   
   var property posicionInicial = game.at(1,1)

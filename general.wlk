@@ -80,7 +80,6 @@ class Partida {
     posicionesManzanas.clear()
   }
 }
-
 /*---------------------------------------------Clase de los personajes-------------------------------------*/
 
 class Personaje {
@@ -135,6 +134,7 @@ class Personaje {
 
   //Interactua con la manzana el personaje
   method interactuarManzana(manzana){
+    game.sound("sonidoComer.mp3").play()
     configuracion.partidaActual().posicionesManzanas().add(manzana.position()) // se guarda la posicion en caso de reinicio
     configuracion.partidaActual().sumarManzana()
     manzana.position(game.at(24, 24))

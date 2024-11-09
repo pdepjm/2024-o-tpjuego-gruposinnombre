@@ -19,6 +19,12 @@ program miniJuego{
 
 	partida3.iniciar()
 
+	//Sonido de fondo
+	const sonidoFondo = game.sound("sonidoFondo.mp3")
+  	sonidoFondo.shouldLoop(true)
+ 	game.schedule(30000, { sonidoFondo.play()} )
+
+
 //ALTERNATIVA COMPARANDO COM LA MATRIZ
 	keyboard.w().onPressDo({
 		const nuevaPosicionY = configuracion.personaje().position().y() + 1

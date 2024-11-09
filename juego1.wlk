@@ -16,14 +16,14 @@ const partida1 = new Partida(
     imagenPared = "pared-tierra.png", 
     personaje = cabeza,
     imagenManzana = "manzana.png",
-    objetivoManzanas = 5, 
+    objetivoManzanas = 10, 
     matrizParedes = [
         [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn],  // fila 0
         [pn,  n,  n, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, mn,  n, pn],  // fila 1
         [pn,  n, mn, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn,  n,  n, pn],  // fila 2
         [pn,  n,  n, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn,  n, pn, pn],  // fila 3
         [pn,  n,  n, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn,  n, pn, pn],  // fila 4
-        [pn,  n,  n,  n, mn, mn,  n,  n,  n,  n,  n,  n,  n,  n, pn,  n, mn, pn],  // fila 5
+        [pn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn,  n, mn, pn],  // fila 5
         [pn, pn, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, mn,  n, pn],  // fila 6
         [pn, mn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn,  n, pn],  // fila 7
         [pn,  n,  n, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, pn,  n, pn],  // fila 8
