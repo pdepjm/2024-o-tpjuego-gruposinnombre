@@ -20,16 +20,16 @@ program miniJuego{
 	partida2.iniciar()
 
 	/*
-	//ALTERNATIVA COMPARANDO COM LA MATRIZ --> FUNCIONA, LA PROBE EN EL NIVEL 1 Y FUNCIONABA, EL PROBLEMA ES EN EL DOS, YA QUE NO LEE LAS MANZANAS
-	
-	const objetoMatriz = configuracion.matrizParedes().get(nuevaPosicionX).get(nuevaPosicionY)
-	
-	if(objetoMatriz != pn){
-		configuracion.personaje().posicionProximoCuerpo(configuracion.personaje().position())
-		izquierda.moverse()
-		//Cambia la imagen del cuerpo
-		configuracion.personaje().imagen(configuracion.personaje().imagenIzquierda())
-	}		
+	//ALTERNATIVA COMPARANDO COM LA MATRIZ
+
+	keyboard.w().onPressDo({
+		const nuevaPosicionY = configuracion.personaje().position().y() + 1
+		const nuevaPosicionX = configuracion.personaje().position().x()	
+
+		configuracion.personaje().imagen(configuracion.personaje().imagenArriba())
+		arriba.puedeMoverseA(nuevaPosicionX,nuevaPosicionY)
+	})
+
 	*/
 
 	keyboard.w().onPressDo({
@@ -62,15 +62,8 @@ program miniJuego{
 			paredDeImpacto.interactuarPersona()
 
 		}
-		
-		//SI COLICIONA CON SU CUERPO REINICIA LA PARTIDA --> REVISAR EL REINICIO
-		const cuerpos = configuracion.personaje().retornarCuerpos()
-
-		if( cuerpos.any({cuerpo => cuerpo.position() == game.at(nuevaPosicionX,nuevaPosicionY )})){
-			configuracion.partidaActual().reiniciar()
-		}
-
 	})
+
 
 	keyboard.a().onPressDo({
 
@@ -102,13 +95,6 @@ program miniJuego{
 
 			paredDeImpacto.interactuarPersona()
 
-		}
-		
-		//SI COLICIONA CON SU CUERPO REINICIA LA PARTIDA --> REVISAR EL REINICIO
-		const cuerpos = configuracion.personaje().retornarCuerpos()
-
-		if( cuerpos.any({cuerpo => cuerpo.position() == game.at(nuevaPosicionX,nuevaPosicionY )})){
-			configuracion.partidaActual().reiniciar()
 		}
 	})
 
@@ -143,12 +129,7 @@ program miniJuego{
 			paredDeImpacto.interactuarPersona()
 
 		}
-		//SI COLICIONA CON SU CUERPO REINICIA LA PARTIDA --> REVISAR EL REINICIO
-		const cuerpos = configuracion.personaje().retornarCuerpos()
-
-		if( cuerpos.any({cuerpo => cuerpo.position() == game.at(nuevaPosicionX,nuevaPosicionY )})){
-			configuracion.partidaActual().reiniciar()
-		}
+		
 	})
 
 	keyboard.d().onPressDo({
@@ -181,13 +162,6 @@ program miniJuego{
 
 			paredDeImpacto.interactuarPersona()
 
-		}
-
-		//SI COLICIONA CON SU CUERPO REINICIA LA PARTIDA --> REVISAR EL REINICIO
-		const cuerpos = configuracion.personaje().retornarCuerpos()
-
-		if( cuerpos.any({cuerpo => cuerpo.position() == game.at(nuevaPosicionX,nuevaPosicionY )})){
-			configuracion.partidaActual().reiniciar()
 		}
 	})
 	

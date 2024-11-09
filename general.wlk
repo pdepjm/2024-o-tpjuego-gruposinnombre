@@ -43,49 +43,41 @@ class Partida {
 
     decodificadorParedes.decodificarParedes() //decodifica el mapa
   }
-  
-  //Termina la partida
-  method terminar() {
-  
+
+  //Reinicia la partida instantaneamente terminar
+  method reiniciar() {
+    personaje.reiniciarPersonaje() //Reiniciar Personaje
+
+    self.reiniciarManzanas() //Reiniciar manzanas
+  }
+
+    //Termina la partida
+  method pasarDeNivel() {
     manzanasActuales = 0
     game.clear()
     
-    //Elimina al personaje y sus cuerpos
-    self.personaje().destruirCuerpos()
-
+    personaje.destruirCuerpos() //Elimina al personaje y sus cuerpos
 
     configuracion.partidaActual(siguientePartida)
     siguientePartida.iniciar()
-  }
-  
-  //Reinicia la partida instantaneamente
-  method reiniciar() {
-    //Reiniciar Personaje
-    //personaje.reiniciarPersonaje()
-    personaje.destruirCuerpos()
-    personaje.position(personaje.posicionInicial())
-    configuracion.personaje().imagen(configuracion.personaje().imagenAbajo())
-
-    //Reiniciar manzanas
-    manzanasActuales = 0
-    posicionesManzanas.forEach({ posicion =>
-        const nuevaManzana = new Manzana(x = posicion.x(), y = posicion.y())
-        nuevaManzana.iniciar()
-    })
-    posicionesManzanas.clear()
   }
   
   method sumarManzana() {
     manzanasActuales += 1
     
     if (manzanasActuales == objetivoManzanas) {
-
-      self.terminar()
-      
-      //configuracion.partidaActual(siguientePartida) //Pasar de nivel
-      
-      //siguientePartida.iniciar()
+      self.pasarDeNivel()
     }
+  }
+  
+  //Reinicia las manzanas y el contador
+  method reiniciarManzanas() {
+    manzanasActuales = 0
+    posicionesManzanas.forEach({ posicion =>
+        const nuevaManzana = new Manzana(x = posicion.x(), y = posicion.y())
+        nuevaManzana.iniciar()
+    })
+    posicionesManzanas.clear()
   }
 }
 
@@ -113,6 +105,7 @@ class Personaje {
       cuerpos.clear()
   }
 
+  //Devuelve al personaje a su estado inicial
   method reiniciarPersonaje() {
     self.destruirCuerpos()
     self.position(posicionInicial)
@@ -142,11 +135,8 @@ class Personaje {
 
   //Interactua con la manzana el personaje
   method interactuarManzana(manzana){
-    
-    self.crecer()
-    partida1.sumarManzana()
-
     configuracion.partidaActual().posicionesManzanas().add(manzana.position()) // se guarda la posicion en caso de reinicio
+    configuracion.partidaActual().sumarManzana()
     manzana.position(game.at(24, 24))
     manzana.finalizar()
   }
@@ -162,45 +152,54 @@ class Personaje {
 
   //Si choca consigo mismo reinicia
   method interactuarCuerpo(){
-    partida1.reiniciar()
+    configuracion.partidaActual().reiniciar()
   } 
 }
-
 /*------------------------Objetos relacionados con las direcciones y los movimientos de los personajes------------------------------------*/
-//PRUEBA DE HERENCIA CON LOS MOVIMIENTOS
-//SUPERCLASE
 class Movimiento {
   method personaje() = configuracion.personaje()
   method position() = self.personaje().position()
-  method nuevaPosicion()
-  
-  //USAR override para la funcion moverse al definir a santi
-  method moverse() {
-    if (self.personaje() == santi) santi.crecer()
-    
-    self.personaje().moverCuerpos(self.position())
-    
-    self.personaje().position(self.nuevaPosicion())
-  }
+  method nuevaPosicion() = self.position()
+
+   //USAR override para la funcion moverse al definir a santi
+    method moverse() {
+      if (self.personaje() == santi) santi.crecer()
+
+      self.personaje().moverCuerpos(self.position())
+
+      self.personaje().position(self.nuevaPosicion())
+    } 
 } 
+
+  /*
+  NO TOCAR FORMA PARTE DEL NUEVO METODO DE MOVIMIENTO
+  method puedeMoverseA(posicionX, posicionY) {
+    const objetoMatriz = configuracion.matrizParedes().get(posicionX).get(posicionY)
+    
+    if(objetoMatriz != pn){
+      configuracion.personaje().posicionProximoCuerpo(configuracion.personaje().position())
+      self.nuevaPosicion()
+    }	
+  }
+  */
 
 //OBJETOS
 //Estos podrian ser metodos de la clase personaje, asi SANTI PUEDE HACER OVERRIDE
+
 object izquierda inherits Movimiento {
-  override method nuevaPosicion() = self.position().left(1)
+  override method nuevaPosicion() = super().left(1)
 }
 
 object derecha inherits Movimiento {
-  override method nuevaPosicion() = self.position().right(1)
+  override method nuevaPosicion() = super().right(1)
   }
 
-
 object arriba inherits Movimiento {
-  override method nuevaPosicion() = self.position().up(1)
+  override method nuevaPosicion() = super().up(1)
 }
 
 object abajo inherits Movimiento {
-  override method nuevaPosicion() = self.position().down(1)
+  override method nuevaPosicion() = super().down(1)
 }
 
 /*---------------------------------------------Clase general de las manzanas y paredes-------------------------------------*/

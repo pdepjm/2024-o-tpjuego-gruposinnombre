@@ -2,6 +2,15 @@ import wollok.game.*
 import juego2.*
 import general.*
 
+object cabeza inherits Personaje(position = game.at(1, 16), posicionInicial = game.at(1,16)) {
+    //Cuando come una manzana crece
+    override method interactuarManzana(manzana) {
+      super(manzana)
+      self.crecer()
+    }
+}
+
+
 //partida1 hecha a partir de la clase Partida
 const partida1 = new Partida(
     siguientePartida = partida2,  
@@ -30,86 +39,3 @@ const partida1 = new Partida(
         [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn]], // fila 17
         manzanasActuales = 0
 )
-
-object cabeza {
-
-    const cuerpos = []
-
-    var property posicionProximoCuerpo = position
-
-    var property posicionInicial = game.at(1,16)
-    var property position = game.at(1,16)
-
-    var property imagen = "cabeza-abajo.png"
-
-    method image() = imagen
-
-    method retornarCuerpos() = cuerpos
-
-    method imagenAbajo ()= "cabeza-abajo.png"
-    method imagenArriba ()= "cabeza-arriba.png"
-    method imagenDerecha ()= "cabeza-derecha.png"
-    method imagenIzquierda ()= "cabeza-izquierda.png"
-
-
-    //Destruye todos los cuerpos de la serpiente
-    method destruirCuerpos(){
-        cuerpos.forEach({ cuerpo => cuerpo.finalizar() })
-        cuerpos.clear()
-    }
-
-    method moverCuerpos(posicionAnteriorCabeza)
-    {
-
-        //Guardo la posicion donde se guardará el proximo cuerpo en caso de añadir uno
-        if(cuerpos !=[])
-        {
-        self.posicionProximoCuerpo(cuerpos.last().position()) 
-
-        var viejaPosicion = posicionAnteriorCabeza
-
-        var nuevaViejaPosicion
-
-        //Desplazo todos los cuerpos de la lista de cuerpos
-        cuerpos.forEach({ cuerpo =>
-
-            //Guardo la posicion del cuerpo actual
-            nuevaViejaPosicion = cuerpo.position()
-
-            //Reemplazo la posicion del cuerpo actual, con la del cuerpo o cabeza anterior
-            cuerpo.position(viejaPosicion)
-
-            //Guardo la vieja posicion de este cuerpo para saber donde mover al proximo en la lista
-            viejaPosicion = nuevaViejaPosicion    
-        })}
-    }
-    //Interactua con la manzana el personaje (hay que modificarlo como a las paredes)
-    method interactuarManzana(manzana){
-        
-        configuracion.partidaActual().posicionesManzanas().add(manzana.position())
-
-        manzana.position(game.at(24, 24))
-        manzana.finalizar()
-
-        self.crecer()
-        
-        partida1.sumarManzana()
-
-    }
-
-    //Metodo que se utiliza cada vez que la serpiente come una manzana, por lo tanto crece en un cuerpo
-    method crecer(){
-
-        //Lo crea, lo inicia, y lo añade
-        const nuevoCuerpo = new Cuerpo(position = self.posicionProximoCuerpo())
-
-        nuevoCuerpo.iniciar()
-
-        cuerpos.add(nuevoCuerpo)
-
-    }
-
-    method interactuarCuerpo(){
-        partida1.reiniciar()
-    } 
-}

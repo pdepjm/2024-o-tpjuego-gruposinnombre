@@ -3,6 +3,8 @@ import juego1.*
 import screamer.*
 import general.*
 
+const santi = new Personaje(posicionInicial=game.at(1,1))
+
 const partida2 = new Partida( 
   siguientePartida = partida3, 
   imagenPared = "pared-tierra.png",
@@ -31,79 +33,3 @@ const partida2 = new Partida(
     [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn]],
     manzanasActuales = 0
 )
-
-object santi {
-  const cuerpos = []
-
-  var property posicionProximoCuerpo = position
-
-  var property posicionInicial = game.at(1,1)
-  var property position = game.at(1,1)
-
-  var property imagen = "cabeza-abajo.png"
-
-  method image() = imagen
-
-  method imagenAbajo ()= "cabeza-abajo.png"
-  method imagenArriba ()= "cabeza-arriba.png"
-  method imagenDerecha ()= "cabeza-derecha.png"
-  method imagenIzquierda ()= "cabeza-izquierda.png"
-
-  method interactuarPared(){
-    //no pongo nada porque quiero que se quede en su posicion actual
-  }
-
-  method interactuarManzana(manzana){
-      
-      configuracion.partidaActual().posicionesManzanas().add(manzana.position())
-
-      manzana.position(game.at(24, 24))
-      manzana.finalizar()
-      partida2.sumarManzana()
-  }
-
-  method destruirCuerpos(){
-    cuerpos.forEach({cuerpo => cuerpo.finalizar()})
-    cuerpos.clear()
-  }
-
-    method crecer(){
-        //Lo crea, lo inicia, y lo añade
-        const nuevoCuerpo = new Cuerpo(position = posicionProximoCuerpo)
-
-        nuevoCuerpo.iniciar()
-
-        cuerpos.add(nuevoCuerpo)
-
-        //game.whenCollideDo(nuevoCuerpo, {santi => })
-
-    }
-
-  method moverCuerpos(posicionAnteriorCabeza)
-    {
-
-        //Guardo la posicion donde se guardará el proximo cuerpo en caso de añadir uno
-        if(cuerpos !=[])
-        {
-        self.posicionProximoCuerpo(cuerpos.last().position()) 
-
-        var viejaPosicion = posicionAnteriorCabeza
-
-        var nuevaViejaPosicion
-
-        //Desplazo todos los cuerpos de la lista de cuerpos
-        cuerpos.forEach({ cuerpo =>
-
-            //Guardo la posicion del cuerpo actual
-            nuevaViejaPosicion = cuerpo.position()
-
-            //Reemplazo la posicion del cuerpo actual, con la del cuerpo o cabeza anterior
-            cuerpo.position(viejaPosicion)
-
-            //Guardo la vieja posicion de este cuerpo para saber donde mover al proximo en la lista
-            viejaPosicion = nuevaViejaPosicion    
-        })}
-    }
-
-    method retornarCuerpos() = cuerpos
-}
