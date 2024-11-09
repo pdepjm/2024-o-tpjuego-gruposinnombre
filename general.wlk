@@ -5,7 +5,7 @@ import screamer.*
 
 /*-----------------------------------------------OBJETO PARTIDA, EL MÁS IMPORTANTE DE TODOS-----------------------------------------*/
 object configuracion {
-  var property partidaActual = partida2
+  var property partidaActual = partida3
   var property imagenPared = partidaActual.imagenPared()
   var property imagenManzana = partidaActual.imagenManzana()
 

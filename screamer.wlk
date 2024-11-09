@@ -2,7 +2,6 @@ import wollok.game.*
 import juego2.*
 import general.*
 
-
 const partida3 = new Partida(
   siguientePartida = fin,
   imagenPared = "pared-tierra.png",
@@ -11,9 +10,7 @@ const partida3 = new Partida(
   objetivoManzanas = 1,
   manzanasEnMapa = [],
   paredes = [],
-
-    //Matriz del mapa completo de 20x20 delimitado por paredes que no hacen nada
-    //ESTE MAPA YA ESTA BIEN
+  //ESTE MAPA YA ESTA BIEN
   matrizParedes =[
     [ n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pr, pr, pr,  n,  n,  n,  n,  n],  // fila 17
     [ n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pr, mn, pr,  n,  n,  n,  n,  n],  // fila 16
@@ -35,7 +32,46 @@ const partida3 = new Partida(
     [pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr]],
       manzanasActuales = 0)
 
-object lauti {
+object lauti inherits Personaje(posicionInicial = game.at(1,1)) {
+
+  override method moverCuerpos(posicionAnteriorCabeza){}
+
+  override method interactuarManzana(manzanaScreamer) {
+    //Poner Screamer
+    screamer.iniciar()
+    self.resetPosition()
+  }
+
+  method retornarCuerpos() = cuerpos
+  
+  method resetPosition() {
+    position = posicionInicial
+  }
+  
+  method interactuarPared() {
+    self.resetPosition()
+  }
+  
+  method cambiarImagen(x){
+    imagen = x
+    self.image()
+  }
+}
+
+object screamer {
+  var property position = game.at(9,9)
+  method image() = "imagen.png"
+  
+  method iniciar() {
+    game.addVisual(self)
+    game.allVisuals().forEach({visual=> game.removeVisual(visual)})
+    partida3.finalizarParedes()
+  }
+
+} 
+
+/*
+object lauti2 {
   
   var property posicionInicial = game.at(1,1)
   var property position = game.at(1,1)
@@ -68,25 +104,10 @@ object lauti {
     self.image()
   }
 
-//Esto es necesario para el movimiento
-  const cuerpos = []
+  //Esto es necesario para el movimiento
+  const cuerpos = [] //esta en la clase personaje
   method retornarCuerpos() = cuerpos
-  var property posicionProximoCuerpo = position
-  method moverCuerpos(posicionAnteriorCabeza)
-    {
-    }
+  var property posicionProximoCuerpo = position //esta en la clase personaje
+  method moverCuerpos(posicionAnteriorCabeza){}
 }
-
-object screamer {
-  var property position = game.at(9,9)
-  method image() = "imagen.png"
-  
-  method iniciar() {
-    game.addVisual(self)
-    game.allVisuals().forEach({visual=> game.removeVisual(visual)})
-    partida3.finalizarParedes()
-  }
-
-} 
-
-
+*/

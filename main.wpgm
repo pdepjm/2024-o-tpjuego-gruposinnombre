@@ -17,7 +17,7 @@ program miniJuego{
 	//Seteamos el tamaño de la celda
 	game.cellSize(40)
 
-	partida1.iniciar()
+	partida3.iniciar()
 
 //ALTERNATIVA COMPARANDO COM LA MATRIZ
 	keyboard.w().onPressDo({
