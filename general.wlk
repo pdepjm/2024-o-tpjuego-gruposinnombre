@@ -5,13 +5,13 @@ import screamer.*
 
 /*-----------------------------------------------OBJETO PARTIDA, EL MÁS IMPORTANTE DE TODOS-----------------------------------------*/
 object configuracion {
-  var property partidaActual = partida3
+  var property partidaActual = partida1
   var property imagenPared = partidaActual.imagenPared()
   var property imagenManzana = partidaActual.imagenManzana()
 
   method personaje() = partidaActual.personaje()
-  method paredes() = partidaActual.paredes()
-  method matrizParedes() = partidaActual.matrizParedes()
+  method visuales() = partidaActual.visuales()
+  method matrizVisuales() = partidaActual.matrizVisuales()
 }
 /*---------------------------------------------Clase de las partidas--------------------------------------------------------------------------*/
 
@@ -30,18 +30,18 @@ class Partida {
   var property posicionesManzanas = []  //Guardo las posiciones para decodificarlas en el reinicio
 
   //todo sobre paredes
-  var property matrizParedes = []
-  var property paredes = []
+  var property matrizVisuales = []
+  var property visuales = []   
 
   //Inicia la partida
   method iniciar() {
-    configuracion.partidaActual(self) //Asigno la partida actual
-    
-	  game.addVisual(fondoDePantalla) //Agrego el fondo del mapa
+    manzanasActuales = 0
+
+    game.addVisual(fondoDePantalla) //Agrego el fondo del mapa
     
     game.addVisual(self.personaje()) //Añado el personaje
 
-    decodificadorParedes.decodificarParedes() //decodifica el mapa
+    decodificador.decodificarVisuales() //decodifica el mapa
   }
 
   //Reinicia la partida instantaneamente terminar
@@ -53,10 +53,7 @@ class Partida {
 
     //Termina la partida
   method pasarDeNivel() {
-    manzanasActuales = 0
-    game.clear()
-    
-    personaje.destruirCuerpos() //Elimina al personaje y sus cuerpos
+    game.allVisuals().forEach({visual=> game.removeVisual(visual)})
 
     configuracion.partidaActual(siguientePartida)
     siguientePartida.iniciar()
@@ -100,7 +97,9 @@ class Personaje {
 
   //Destruye todos los cuerpos de la serpiente
   method destruirCuerpos(){
-      cuerpos.forEach({ cuerpo => cuerpo.finalizar() })
+      cuerpos.forEach({ cuerpo => 
+        cuerpo.finalizar()
+      })
       cuerpos.clear()
   }
 
@@ -136,9 +135,9 @@ class Personaje {
   method interactuarManzana(manzana){
     game.sound("sonidoComer.mp3").play()
     configuracion.partidaActual().posicionesManzanas().add(manzana.position()) // se guarda la posicion en caso de reinicio
-    configuracion.partidaActual().sumarManzana()
     manzana.position(game.at(24, 24))
     manzana.finalizar()
+    configuracion.partidaActual().sumarManzana()
   }
 
   //Le agrega un bloque mas al cuerpo
@@ -149,6 +148,18 @@ class Personaje {
 
     cuerpos.add(nuevoCuerpo)
   }
+
+  /*
+    method crecer(){
+    // const posicionSiguiente = self.proximaPosicion()
+    const nuevoCuerpo = new Cuerpo(position = posicionSiguiente)
+
+    nuevoCuerpo.iniciar()
+    cuerpos.add(nuevoCuerpo)
+   }
+
+   method proximaPosicion() = if(cuerpos.size() > 0) cuerpos.last().position() else position
+  */
 
   //Si choca consigo mismo reinicia
   method interactuarCuerpo(){
@@ -169,14 +180,18 @@ class Movimiento {
 
       self.personaje().position(self.nuevaPosicion())
     } 
-} 
-//OBJETOS
-//Estos podrian ser metodos de la clase personaje, asi SANTI PUEDE HACER OVERRIDE
+}
+/*
+  zona.intentarSerRecorridaPor(entidad) Entidad -> puede ser un grupo o individuo 
+  method intentarSerRecorridaPor(entidad) {
+  
 
+  }
+  personaje.moverseA(arriba) -> vos tenes que como queda el persona
+*/
 object izquierda inherits Movimiento {
   override method nuevaPosicion() = super().left(1)
 }
-
 object derecha inherits Movimiento {
   override method nuevaPosicion() = super().right(1)
   }
@@ -184,7 +199,6 @@ object derecha inherits Movimiento {
 object arriba inherits Movimiento {
   override method nuevaPosicion() = super().up(1)
 }
-
 object abajo inherits Movimiento {
   override method nuevaPosicion() = super().down(1)
 }
@@ -203,6 +217,10 @@ class Cosas {
   method finalizar() {
     game.removeVisual(self)
   }
+
+  method interactuarManzana(manzana) {}
+  method interactuarCuerpo() {}
+
 }
 /*---------------------------------------------Objetos relacionados con las manzanas-------------------------------------*/
 
@@ -219,63 +237,32 @@ class Manzana inherits Cosas {
 /*----------------------------------------------TODO SOBRE PAREDES-----------------------------------------------------------------------*/
 
 /*--------------------------------------CLASES---------------------------------------------*/
-class Pared inherits Cosas {
+class ParedQueNoHaceNada inherits Cosas {
   method image() = configuracion.imagenPared()
-  
+}
+
+class ParedQueReinicia inherits Cosas {
+  method image() = configuracion.imagenPared()
+
   override method iniciar() {
     super()
-    game.whenCollideDo(self, { personaje => personaje.interactuarPared() })    
-  }
-}
-
-class ParedQueNoHaceNada inherits Pared {
-  method interactuarPersona() {
-    
-  }
-}
-
-class ParedQueReinicia inherits Pared {
-  method interactuarPersona() {
-    configuracion.partidaActual().reiniciar()
+    game.whenCollideDo(self,{ personaje => personaje.reiniciarPersonaje() })
   }
 }
 /*---------------------------OBJETOS CON LOS QUE HAGO EL MAPA------------------------------*/
 object fondoDePantalla {
 		var property position = game.at(0, 0)
 		method image() = "fondo-pasto.png"
-    method interactuarPared() {
-      
-    }
+    method reiniciarPersonaje() {}
 	}
 
-object decodificadorParedes {
+object decodificador {
   var i = 17
   var j = 0
   
-  method decodificarParedes() {
-    configuracion.matrizParedes().forEach
-    (
-    { 
-      fila =>
-        fila.forEach(
-          { pared => 
-            
-            if (pared == pn || pared == pr)
-            {
-              const nuevaPared = pared.decodificar(i, j)
-              configuracion.partidaActual().paredes().add(nuevaPared)
-
-            } 
-            else
-            {
-              if(pared == mn)
-              {
-                const nuevaManzana = pared.decodificar(i,j)
-                configuracion.partidaActual().manzanasEnMapa().add(nuevaManzana)
-              }
-            }
-
-
+  method decodificarVisuales() {
+    configuracion.matrizVisuales().forEach({ fila =>
+        fila.forEach({ visual => visual.decodificar(i, j)
             //Cambio de columna
             j += 1
           }
@@ -288,6 +275,9 @@ object decodificadorParedes {
         j = 0
       }
     )
+    //devuelvo la i y la j a sus valores iniciales
+    i = 17
+    j = 0
   }
 } 
 
@@ -299,6 +289,7 @@ object pn {
     
     nuevaPared.iniciar()
     
+    configuracion.partidaActual().visuales().add(nuevaPared)
     return nuevaPared
   }
 } 
@@ -309,6 +300,8 @@ object pr {
     const nuevaPared = new ParedQueReinicia(x = columna, y = fila)
     
     nuevaPared.iniciar()
+
+    configuracion.partidaActual().visuales().add(nuevaPared)
     
     return nuevaPared
   }
@@ -320,6 +313,8 @@ object mn {
     const nuevaManzana = new Manzana(x = columna, y = fila)
     
     nuevaManzana.iniciar()
+
+    configuracion.partidaActual().visuales().add(nuevaManzana)
     
     return nuevaManzana
   }
@@ -327,9 +322,7 @@ object mn {
 
 //Representa un espacio en blanco
 object n {
-  method decodificar() {
-    
-  }
+  method decodificar(fila, columna) {}
 }
 /*------------------------------------------Clase de los cuerpos---------------------------------*/
 
@@ -349,12 +342,6 @@ class Cuerpo {
     game.removeVisual(self)
   }
 
-  method interactuarCuerpo(){}
   method interactuarManzana(manzana){}
-}
-
-/*------------------------------------------Objeto fin del juego---------------------------------*/
-
-object fin {
-  
+  method interactuarCuerpo(){}
 }

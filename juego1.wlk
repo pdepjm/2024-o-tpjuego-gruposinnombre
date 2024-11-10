@@ -2,12 +2,13 @@ import wollok.game.*
 import juego2.*
 import general.*
 
-object cabeza inherits Personaje(position = game.at(1, 16), posicionInicial = game.at(1,16)) {
+object cabeza inherits Personaje(posicionInicial = game.at(1,16)) {
     //Cuando come una manzana crece
     override method interactuarManzana(manzana) {
       super(manzana)
       self.crecer()
     }
+    //override reiniciarPersonaje(){}
 }
 
 //partida1 hecha a partir de la clase Partida
@@ -16,8 +17,8 @@ const partida1 = new Partida(
     imagenPared = "pared-tierra.png", 
     personaje = cabeza,
     imagenManzana = "manzana.png",
-    objetivoManzanas = 10, 
-    matrizParedes = [
+    objetivoManzanas = 2, 
+    matrizVisuales = [
         [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn],  // fila 0
         [pn,  n,  n, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn, mn,  n, pn],  // fila 1
         [pn,  n, mn, pn,  n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pn,  n,  n, pn],  // fila 2

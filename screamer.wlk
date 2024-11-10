@@ -3,15 +3,14 @@ import juego2.*
 import general.*
 
 object partida3 inherits Partida(
-  siguientePartida = fin,
+  siguientePartida = screamer,
   imagenPared = "pared-tierra.png",
   personaje = lauti,
-  imagenManzana = "imagenManzana",
+  imagenManzana = "manzana.png",
   objetivoManzanas = 1,
   manzanasEnMapa = [],
-  paredes = [],
   //ESTE MAPA YA ESTA BIEN
-  matrizParedes =[
+  matrizVisuales =[
     [ n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pr, pr, pr,  n,  n,  n,  n,  n],  // fila 17
     [ n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pr, mn, pr,  n,  n,  n,  n,  n],  // fila 16
     [ n,  n,  n,  n,  n,  n,  n,  n,  n,  n, pr,  n, pr,  n,  n,  n,  n,  n],  // fila 15
@@ -32,59 +31,26 @@ object partida3 inherits Partida(
     [pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr, pr]],
     manzanasActuales = 0){
 
-      override method iniciar() {
-          super()
-          reloj.iniciar()
-          game.onTick(1000, "reloj", { reloj.restar() })
-      }
-
-      method finalizarParedes() {
-        self.paredes().forEach({pared => pared.finalizar()})
-        self.paredes().clear()
-      }
+    override method iniciar() {
+        super()
+        reloj.iniciar()
+        game.onTick(500, "reloj", { reloj.restar() })
     }
+}
 
 object lauti inherits Personaje(posicionInicial = game.at(1,1)) {
 
   override method moverCuerpos(posicionAnteriorCabeza){}
 
-  override method interactuarManzana(manzanaScreamer) {
-    //Poner Screamer
-    screamer.iniciar()
-    self.resetPosition()
-  }
-
-  method retornarCuerpos() = cuerpos
-  
-  method resetPosition() {
-    position = posicionInicial
+  override method reiniciarPersonaje() {
+    self.position(posicionInicial)
+    imagen = self.imagenAbajo()
     reloj.segundos(20)
-  }
-  
-  method interactuarPared() {
-    self.resetPosition()
-  }
-  
-  method cambiarImagen(x){
-    imagen = x
-    self.image()
   }
 }
 
-object screamer {
-  var property position = game.at(9,9)
-  method image() = "imagen.png"
-  
-  method iniciar() {
-    game.addVisual(self)
-    game.allVisuals().forEach({visual=> game.removeVisual(visual)})
-    partida3.finalizarParedes()
-  }
-
-} 
-
 object reloj inherits Cosas(x=3, y=14) {
-  var property segundos = 20
+  var property segundos = 200
 
   method image() = "reloj.png"
 
@@ -92,7 +58,7 @@ object reloj inherits Cosas(x=3, y=14) {
     segundos-=1
     
     if(segundos==0){
-      lauti.resetPosition()
+      lauti.reiniciarPersonaje()
       segundos = 20
     }
     
@@ -100,48 +66,13 @@ object reloj inherits Cosas(x=3, y=14) {
   }
 }
 
-/*
-sonidoFondo.
- 	
-
-
-object lauti2 {
-  
-  var property posicionInicial = game.at(1,1)
-  var property position = game.at(1,1)
-  var property imagen = "cabeza-abajo.png"
-  method image() = imagen
-  
+object screamer {
+  var property position = game.at(0,0)
+  method image() = "fondo-flores.png"
+  method reiniciarPersonaje() {}
   method iniciar() {
-    game.addVisualCharacter(self)
+    game.allVisuals().forEach({visual=> game.removeVisual(visual)})
+    game.addVisual(self)
+    //sonidoFondo.stop()
   }
-  
-  method interactuarPared() {
-    self.resetPosition()
-  }
-  
-  method resetPosition() {
-    position = game.at(1, 1)
-  }
-  
-  method interactuarManzana(manzanaScreamer) {
-    self.ponerScreamer()
-  }
-  
-  method ponerScreamer() {
-    screamer.iniciar()
-    self.resetPosition()
-  }
-  
-  method cambiarImagen(x){
-    imagen = x
-    self.image()
-  }
-
-  //Esto es necesario para el movimiento
-  const cuerpos = [] //esta en la clase personaje
-  method retornarCuerpos() = cuerpos
-  var property posicionProximoCuerpo = position //esta en la clase personaje
-  method moverCuerpos(posicionAnteriorCabeza){}
-}
-*/
+} 

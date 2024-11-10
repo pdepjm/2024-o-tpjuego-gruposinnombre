@@ -9,10 +9,10 @@ const partida2 = new Partida(
   siguientePartida = partida3, 
   imagenPared = "pared-tierra.png",
   personaje = santi,
-  imagenManzana = "imagenManzana",
-  objetivoManzanas = 3, 
+  imagenManzana = "manzana.png",
+  objetivoManzanas = 1, 
   //ESTE MAPA YA ESTA BIEN HECHO
-  matrizParedes =[
+  matrizVisuales =[
     [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn],  // fila 17
     [pn, pn, mn,  n, pn, pn, pn, pn, pn, mn,  n,  n,  n,  n,  n, pn, mn, pn],  // fila 16
     [pn,  n,  n,  n,  n,  n,  n, pn, pn,  n,  n,  n, pn, pn,  n,  n,  n, pn],  // fila 15
