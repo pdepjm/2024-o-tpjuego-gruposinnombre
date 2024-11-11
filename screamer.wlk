@@ -44,7 +44,7 @@ object lauti inherits Personaje(posicionInicial = game.at(1,1)) {
 
   override method reiniciarPersonaje() {
     self.position(posicionInicial)
-    imagen = self.imagenAbajo()
+    self.imagenAbajo()
     reloj.segundos(20)
   }
 }
@@ -73,6 +73,5 @@ object screamer {
   method iniciar() {
     game.allVisuals().forEach({visual=> game.removeVisual(visual)})
     game.addVisual(self)
-    //sonidoFondo.stop()
   }
 } 

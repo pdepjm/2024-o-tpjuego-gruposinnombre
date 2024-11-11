@@ -90,10 +90,16 @@ class Personaje {
   var property imagen = "cabeza-abajo.png"
 
   method image() = imagen
-  method imagenAbajo() = "cabeza-abajo.png"
-  method imagenArriba() = "cabeza-arriba.png"
-  method imagenDerecha() = "cabeza-derecha.png"
-  method imagenIzquierda() = "cabeza-izquierda.png"
+
+  method imagenAbajo(){ self.imagen("cabeza-abajo.png") }
+  method imagenArriba(){ self.imagen("cabeza-arriba.png") }
+  method imagenDerecha(){ self.imagen("cabeza-derecha.png") }
+  method imagenIzquierda(){ self.imagen("cabeza-izquierda.png") }
+
+  method moverseA(direccion) {
+		self.posicionProximoCuerpo(self.position())
+    direccion.moverse()
+  }
 
   //Destruye todos los cuerpos de la serpiente
   method destruirCuerpos(){
@@ -107,7 +113,7 @@ class Personaje {
   method reiniciarPersonaje() {
     self.destruirCuerpos()
     self.position(posicionInicial)
-    imagen = self.imagenAbajo()
+    self.imagenAbajo()
   }
 
   //Permite que los juegos sigan al personaje
@@ -191,16 +197,32 @@ class Movimiento {
 */
 object izquierda inherits Movimiento {
   override method nuevaPosicion() = super().left(1)
+  override method moverse() {
+    super()
+    self.personaje().imagenIzquierda()
+  }
 }
 object derecha inherits Movimiento {
   override method nuevaPosicion() = super().right(1)
+  override method moverse() {
+    super()
+    self.personaje().imagenDerecha()
+  }
   }
 
 object arriba inherits Movimiento {
   override method nuevaPosicion() = super().up(1)
+    override method moverse() {
+    super()
+    self.personaje().imagenArriba()
+  }
 }
 object abajo inherits Movimiento {
   override method nuevaPosicion() = super().down(1)
+    override method moverse() {
+    super()
+    self.personaje().imagenAbajo()
+  }
 }
 
 /*---------------------------------------------Clase general de las manzanas y paredes-------------------------------------*/
@@ -292,6 +314,9 @@ object pn {
     configuracion.partidaActual().visuales().add(nuevaPared)
     return nuevaPared
   }
+
+  method puedeSerAtravesado() = false 
+
 } 
 
 //Representa una pared que reinicia la partida
@@ -305,6 +330,9 @@ object pr {
     
     return nuevaPared
   }
+
+  method puedeSerAtravesado() = true 
+
 } 
 
 //Representa una manzana
@@ -318,11 +346,15 @@ object mn {
     
     return nuevaManzana
   }
+
+  method puedeSerAtravesado() = true 
+
 } 
 
 //Representa un espacio en blanco
 object n {
   method decodificar(fila, columna) {}
+  method puedeSerAtravesado() = true 
 }
 /*------------------------------------------Clase de los cuerpos---------------------------------*/
 

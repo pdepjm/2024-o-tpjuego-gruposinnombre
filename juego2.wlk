@@ -10,7 +10,7 @@ const partida2 = new Partida(
   imagenPared = "pared-tierra.png",
   personaje = santi,
   imagenManzana = "manzana.png",
-  objetivoManzanas = 1, 
+  objetivoManzanas = 3, 
   //ESTE MAPA YA ESTA BIEN HECHO
   matrizVisuales =[
     [pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn, pn],  // fila 17

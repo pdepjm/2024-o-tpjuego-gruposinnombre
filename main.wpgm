@@ -30,35 +30,18 @@ program miniJuego{
 		const nuevaPosicionX = configuracion.personaje().position().x()	
 		const objetoMatriz = configuracion.partidaActual().matrizVisuales().get(17-nuevaPosicionY).get(nuevaPosicionX)
 
-		if(objetoMatriz != pn) { // Tenemos una comparacion de objeto y objeto, no?
-			configuracion.personaje().posicionProximoCuerpo(configuracion.personaje().position())
-			arriba.moverse()
-			configuracion.personaje().imagen(configuracion.personaje().imagenArriba())
+		if(objetoMatriz.puedeSerAtravesado()) {
+			configuracion.personaje().moverseA(arriba)
 		}
 	})
-
-	// Todo: Tratar de aplicarselos :D
-	// keyboard.w.onPressDo({configuracion.personaje().moverseA(arriba)})
-	// method moverA(unDireccion) {
-	//	const nuevaPosicion = direccion.mover(position)
-	//  if(nivel.esValidaLaPosicion(nuevaPosicion))
-	//   position = nuevaPosicion
-	// }
-	// Alternativas: Polimorficas
-	// 1: Tus paredes, tenga una colision que permita que el pj vuelva para atras
-	//	game.onCollido(self, {elemento => elemento.interactarCon(self)}) 
-	// 2: Saber donde tenes un pared, la cual no debes de pisar 
-	// method puedoPasar(x, y) = x > topeX 
 
 	keyboard.a().onPressDo({
 		const nuevaPosicionY = configuracion.personaje().position().y()
 		const nuevaPosicionX = configuracion.personaje().position().x() - 1
 		const objetoMatriz = configuracion.partidaActual().matrizVisuales().get(17-nuevaPosicionY).get(nuevaPosicionX)
 		
-		if(objetoMatriz != pn){
-			configuracion.personaje().posicionProximoCuerpo(configuracion.personaje().position())
-			izquierda.moverse()
-			configuracion.personaje().imagen(configuracion.personaje().imagenIzquierda())
+		if(objetoMatriz.puedeSerAtravesado()){
+			configuracion.personaje().moverseA(izquierda)
 		}
 	})
 
@@ -67,10 +50,8 @@ program miniJuego{
 		const nuevaPosicionX = configuracion.personaje().position().x()	
 		const objetoMatriz = configuracion.partidaActual().matrizVisuales().get(17-nuevaPosicionY).get(nuevaPosicionX)
 
-		if(objetoMatriz != pn){
-			configuracion.personaje().posicionProximoCuerpo(configuracion.personaje().position())
-			abajo.moverse()
-			configuracion.personaje().imagen(configuracion.personaje().imagenAbajo())
+		if(objetoMatriz.puedeSerAtravesado()){
+			configuracion.personaje().moverseA(abajo)
 		}	
 	})
 
@@ -79,10 +60,8 @@ program miniJuego{
 		const nuevaPosicionX = configuracion.personaje().position().x() + 1	
 		const objetoMatriz = configuracion.partidaActual().matrizVisuales().get(17-nuevaPosicionY).get(nuevaPosicionX)
 
-		if(objetoMatriz != pn){
-			configuracion.personaje().posicionProximoCuerpo(configuracion.personaje().position())
-			derecha.moverse()
-			configuracion.personaje().imagen(configuracion.personaje().imagenDerecha())
+		if(objetoMatriz.puedeSerAtravesado()){
+			configuracion.personaje().moverseA(derecha)
 		}
 	})
 
