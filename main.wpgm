@@ -17,12 +17,13 @@ program miniJuego{
 	//Seteamos el tamaño de la celda
 	game.cellSize(40)
 
+	//cargamos la partida
 	partida1.iniciar()
 
 	//reproducir musica
   	const sonidoFondo = game.sound("sonidoFondo.mp3")
+	sonidoFondo.play()
 	sonidoFondo.shouldLoop(true)
-	game.schedule(0, { sonidoFondo.play()} )
 
 //ALTERNATIVA COMPARANDO COM LA MATRIZ
 	keyboard.w().onPressDo({
