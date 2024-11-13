@@ -54,7 +54,8 @@ class Partida {
     //Termina la partida
   method pasarDeNivel() {
     game.allVisuals().forEach({visual=> game.removeVisual(visual)})
-
+    configuracion.partidaActual().personaje().destruirCuerpos()
+    configuracion.partidaActual().personaje().posicionProximoCuerpo(game.at(24,24))
     configuracion.partidaActual(siguientePartida)
     siguientePartida.iniciar()
   }

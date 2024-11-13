@@ -50,7 +50,7 @@ object lauti inherits Personaje(posicionInicial = game.at(1,1)) {
 }
 
 object reloj inherits Cosas(x=3, y=14) {
-  var property segundos = 200
+  var property segundos = 20
 
   method image() = "reloj.png"
 
@@ -68,7 +68,7 @@ object reloj inherits Cosas(x=3, y=14) {
 
 object screamer {
   var property position = game.at(0,0)
-  method image() = "fondo-flores.png"
+  method image() = "alf.png"
   method reiniciarPersonaje() {}
   method iniciar() {
     game.allVisuals().forEach({visual=> game.removeVisual(visual)})
