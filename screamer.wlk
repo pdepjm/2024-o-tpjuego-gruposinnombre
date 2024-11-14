@@ -73,6 +73,6 @@ object screamer {
     game.addVisual(self)
   }
   var property position = game.at(0,0)
-  method image() = "alf.png"
+  method image() = "alf1.png"
   method reiniciarPersonaje() {}
 } 
