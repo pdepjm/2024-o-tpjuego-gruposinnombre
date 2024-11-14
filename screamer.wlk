@@ -67,12 +67,12 @@ object reloj inherits Cosas(x=3, y=14) {
 }
 
 object screamer {
-  var property position = game.at(0,0)
-  method image() = "alf.png"
-  method reiniciarPersonaje() {}
   method iniciar() {
     game.sound("scream.mp3").play()
     game.allVisuals().forEach({visual=> game.removeVisual(visual)})
     game.addVisual(self)
   }
+  var property position = game.at(0,0)
+  method image() = "alf.png"
+  method reiniciarPersonaje() {}
 } 
