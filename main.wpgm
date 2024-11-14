@@ -1,16 +1,70 @@
 import wollok.game.*
+import juego1.*
+import juego2.*
+import screamer.*
+import general.*
 
-import pepita.*
+program miniJuego{
 
-program PepitaGame {
-	game.title("Pepita")
-	game.height(10)
-	game.width(10)
-	game.cellSize(100)
+	game.title("Minijuegos")
 
-	game.addVisual(pepita)
+	//Seteamos la altura
+	game.height(18)
 
-	keyboard.w().onPressDo({ pepita.fly(1) })
+	//Seteamos el ancho
+	game.width(18)
+
+	//Seteamos el tamaño de la celda
+	game.cellSize(40)
+
+	//cargamos la partida
+	partida1.iniciar()
+
+	//reproducir musica
+  	const sonidoFondo = game.sound("sonidoFondo.mp3")
+	sonidoFondo.play()
+	sonidoFondo.shouldLoop(true)
+
+//ALTERNATIVA COMPARANDO COM LA MATRIZ
+	keyboard.w().onPressDo({
+		const nuevaPosicionY = configuracion.personaje().position().y() + 1
+		const nuevaPosicionX = configuracion.personaje().position().x()	
+		const objetoMatriz = configuracion.partidaActual().matrizVisuales().get(17-nuevaPosicionY).get(nuevaPosicionX)
+
+		if(objetoMatriz.puedeSerAtravesado()) {
+			configuracion.personaje().moverseA(arriba)
+		}
+	})
+
+	keyboard.a().onPressDo({
+		const nuevaPosicionY = configuracion.personaje().position().y()
+		const nuevaPosicionX = configuracion.personaje().position().x() - 1
+		const objetoMatriz = configuracion.partidaActual().matrizVisuales().get(17-nuevaPosicionY).get(nuevaPosicionX)
+		
+		if(objetoMatriz.puedeSerAtravesado()){
+			configuracion.personaje().moverseA(izquierda)
+		}
+	})
+
+	keyboard.s().onPressDo({
+		const nuevaPosicionY = configuracion.personaje().position().y() - 1
+		const nuevaPosicionX = configuracion.personaje().position().x()	
+		const objetoMatriz = configuracion.partidaActual().matrizVisuales().get(17-nuevaPosicionY).get(nuevaPosicionX)
+
+		if(objetoMatriz.puedeSerAtravesado()){
+			configuracion.personaje().moverseA(abajo)
+		}	
+	})
+
+	keyboard.d().onPressDo({
+		const nuevaPosicionY = configuracion.personaje().position().y() 
+		const nuevaPosicionX = configuracion.personaje().position().x() + 1	
+		const objetoMatriz = configuracion.partidaActual().matrizVisuales().get(17-nuevaPosicionY).get(nuevaPosicionX)
+
+		if(objetoMatriz.puedeSerAtravesado()){
+			configuracion.personaje().moverseA(derecha)
+		}
+	})
 
 	game.start()
 }

@@ -1,9 +1,54 @@
-import pepita.*
+import general.*
+import juego1.*
+import juego2.*
+import screamer.*
 
-describe "group of tests for pepita" {
+describe "Tests Juego" {
 
-  test "pepita has initial energy" {
-    assert.equals(100, pepita.energy())
+  test "Al reiniciar el juego 1 la posicion del personaje se reinicia" {
+  partida1.iniciar()
+  partida1.sumarManzana()
+  partida1.reiniciar()
+  assert.equals(game.at(1, 16), cabeza.position())
+}
+
+  test "Al reiniciar el juego 2 la cantidad de manzanas se reinicia" {
+  partida2.iniciar()
+  partida2.sumarManzana()
+  partida2.reiniciar()
+  assert.equals(0, partida1.manzanasActuales())
+  }
+  test "En el juego 1, el contador de manzanas suma correctamente"{
+    partida1.iniciar()
+    partida1.sumarManzana()
+    // derecha.moverse()
+    // abajo.moverse()
+    assert.equals(1, partida1.manzanasActuales())
   }
 
+  test "En el juego 1, al interactuar con una manzana, las manzanas actuales aumentan"{
+    partida1.iniciar()
+    const manzana = new Manzana(x = 2, y = 17)
+    cabeza.interactuarManzana(manzana)
+    assert.equals(1, partida1.manzanasActuales())
+  }
+
+  test "En el juego 1, al moverse, cambia la posicion del personaje"{
+    partida1.iniciar()
+    abajo.moverse()
+    assert.equals(game.at(1,15), cabeza.position())
+  }
+
+  test "En el juego 1, al colisionar con su cuerpo, el personaje vuelve a la posicion inicial"{
+    partida1.iniciar()
+    cabeza.position(game.at(8,8))
+    cabeza.interactuarCuerpo()
+    assert.equals(game.at(1,16), cabeza.position())
+  }
+
+test "El personaje se mueve hacia la derecha y cambia su imagen" {
+  partida2.iniciar()
+  derecha.moverse()
+  assert.equals("cabeza-derecha.png", cabeza.image())
+}
 }
