@@ -3,7 +3,12 @@ import juego1.*
 import screamer.*
 import general.*
 
-const santi = new Personaje(posicionInicial=game.at(1,1))
+object santi inherits Personaje(posicionInicial=game.at(1,1)){
+  override method moverseA(direccion) {
+    super(direccion)
+    self.crecer()
+  }
+}
 
 const partida2 = new Partida( 
   siguientePartida = partida3, 

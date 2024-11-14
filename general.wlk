@@ -180,13 +180,10 @@ class Movimiento {
   method nuevaPosicion() = self.position()
 
    //USAR override para la funcion moverse al definir a santi
-    method moverse() {
-      if (self.personaje() == santi) santi.crecer()
-
-      self.personaje().moverCuerpos(self.position())
-
-      self.personaje().position(self.nuevaPosicion())
-    } 
+  method moverse() {
+    self.personaje().moverCuerpos(self.position())
+    self.personaje().position(self.nuevaPosicion())
+  } 
 }
 /*
   zona.intentarSerRecorridaPor(entidad) Entidad -> puede ser un grupo o individuo 
